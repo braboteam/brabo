@@ -8,7 +8,7 @@ public class IndexController {
 
 	@RequestMapping("/index")
 	public String a() {
-		System.out.println("ÄÁÆ®·Ñ·¯ÀÛµ¿");
+		System.out.println("ì»¨íŠ¸ë¡¤ëŸ¬ ì‘ë™");
 		return "index";
 	}
 }
