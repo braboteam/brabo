@@ -1,3 +1,8 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+
+<%@ taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles"%>
+
 <!-- Navbar on small screens -->
 <div id="navDemo"
 	class="w3-bar-block w3-theme-d2 w3-hide w3-hide-large w3-hide-medium">
@@ -234,13 +239,13 @@
 			<h3>Address</h3>
 			<p>Swing by for a cup of coffee, or whatever.</p>
 			<p>
-				<i class="fa fa-map-marker w3-text-teal w3-xlarge"></i>  Chicago, US
+				<i class="fa fa-map-marker w3-text-teal w3-xlarge"></i>Â Â Chicago, US
 			</p>
 			<p>
-				<i class="fa fa-phone w3-text-teal w3-xlarge"></i>  +00 1515151515
+				<i class="fa fa-phone w3-text-teal w3-xlarge"></i>Â Â +00 1515151515
 			</p>
 			<p>
-				<i class="fa fa-envelope-o w3-text-teal w3-xlarge"></i>  test@test.com
+				<i class="fa fa-envelope-o w3-text-teal w3-xlarge"></i>Â Â test@test.com
 			</p>
 		</div>
 		<div class="w3-col m7">
