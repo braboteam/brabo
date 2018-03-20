@@ -13,8 +13,8 @@
 
 	<!-- jsp 이외의 경로를 접근할 수 있게 해준다. -->
 	<mvc:annotation-driven />
-	<mvc:default-servlet-handler/>
-	
+	<mvc:default-servlet-handler />
+
 
 	<context:component-scan base-package="controller"></context:component-scan>
 
@@ -28,24 +28,26 @@
 			</array>
 		</property>
 	</bean>
-	
+
 	<!-- controller 에서 return 할때, prefix와 suffix를 미리 설정해준다. -->
-	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-		<property name="prefix" value="/WEB-INF/view/"/>
+	<bean
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="prefix" value="/WEB-INF/view/" />
 		<property name="suffix" value=".jsp" />
 		<property name="order" value="2"></property>
 	</bean>
-	
-	
+
+
 	<!-- datasource 및 sqlSessionTempalte 등록 -->
-	<bean class="org.springframework.jdbc.datasource.DriverManagerDataSource" id="ds">
+	<bean class="org.springframework.jdbc.datasource.DriverManagerDataSource"
+		id="ds">
 		<property name="driverClassName" value="oracle.jdbc.driver.OracleDriver" />
 		<property name="url" value="jdbc:oracle:thin:@13.124.70.102:1521:xe" />
 		<property name="username" value="brabo" />
 		<property name="password" value="oracle" />
 	</bean>
 	<bean class="org.mybatis.spring.SqlSessionFactoryBean" id="fac">
-		<property name="dataSource" ref="ds"/>
+		<property name="dataSource" ref="ds" />
 		<property name="mapperLocations">
 			<list>
 				<value>/WEB-INF/mappers/*_mapper.xml</value>
@@ -53,10 +55,10 @@
 		</property>
 	</bean>
 	<bean class="org.mybatis.spring.SqlSessionTemplate" id="sqlTemplate">
-		<constructor-arg name="sqlSessionFactory" ref="fac"/>
+		<constructor-arg name="sqlSessionFactory" ref="fac" />
 	</bean>
-	
-	
-	
-	
+
+
+
+
 </beans>

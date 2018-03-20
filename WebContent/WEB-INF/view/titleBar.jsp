@@ -1,3 +1,7 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+
+<%@ taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles"%>
 <div class="w3-top">
 	<div class="w3-bar w3-theme-d2 w3-left-align">
 		<a
@@ -25,5 +29,5 @@
 		</div>
 		<a href="#"
 			class="w3-bar-item w3-button w3-hide-small w3-right w3-hover-teal"
-			title="Search"><i class="fa fa-search"></i></a>
+			title="Search"><i class="fa fa-search">내정보</i></a>
 	</div>
