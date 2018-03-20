@@ -8,7 +8,6 @@ public class IndexController {
 
 	@RequestMapping("/index")
 	public String a() {
-		System.out.println("컨트롤러 작동");
 		return "index";
 	}
 }
