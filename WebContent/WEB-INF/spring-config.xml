@@ -18,7 +18,9 @@
 
 	<context:component-scan base-package="controller"></context:component-scan>
 
-	<bean class="org.springframework.web.servlet.view.tiles3.TilesViewResolver"></bean>
+	<bean class="org.springframework.web.servlet.view.tiles3.TilesViewResolver">
+		<property name="order" value="1"/>
+	</bean>
 	<bean class="org.springframework.web.servlet.view.tiles3.TilesConfigurer">
 		<property name="definitions">
 			<array>
