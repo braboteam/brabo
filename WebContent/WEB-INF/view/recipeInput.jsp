@@ -93,8 +93,13 @@
 		  	<button class="w2-circle w2-black" type="button" id="detailP">+</button>
 		  	<button class="w2-button w2-circle w2-black" type="button" id="detailM"> - </button>
   		</div>
+  		
+  	<div align="center">
+  		<div style="width:300px">
+  		<button class="w3-button w3-white w3-border w3-round-large" type="submit" style="width:300px">레시피등록</button>
+  		</div>
+  	</div>	
 </form>
-
 
 <script>
 	var i= 1;
@@ -114,6 +119,7 @@
 	$("#detailP").click(function(){
 		i ++;
 		var out = "<div id=\"detail\"><div style=\"float:left;\">Step#"+i+"</div> ";
+			out += "<input type=\"hidden\" name=\"step\" value=\""+i+"\" />";
 			out += "<textarea class=\"w3-textarea w3-border w3-round-large\" name=\"recipe\" rows=\"10\" cols=\"50\" style=\"resize:none;\"></textarea>";
 			out += "<input type=\"file\" name=\"dphoto\" id=\"photo\" multiple hidden=\"\"/>  <button class=\"w3-button w3-white w3-border w3-round-large pbt\" type=\"button\">사진추가</button></div>";
 			out += "<span id=\"preview\"></span>";		
@@ -123,8 +129,8 @@
 			$("#photo").click();
 		});
 		
-		
 	});
+		
 	
 	// 요리순서 기입칸 삭제
 	$("#detailM").click(function(){
