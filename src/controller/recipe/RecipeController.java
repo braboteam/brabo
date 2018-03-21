@@ -17,9 +17,15 @@ public class RecipeController {
 	}
 	
 	@RequestMapping(path="/input",method=RequestMethod.GET)
-	public String registerGetHandle() {
+	public String inputGetHandle() {
 		
 		return"recipeInput";
+	}
+	
+	@RequestMapping(path="/input",method=RequestMethod.POST)
+	public String inputPostHandle() {
+		
+		return "";
 	}
 	
 	
