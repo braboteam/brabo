@@ -7,6 +7,4 @@
 		<put-attribute name="body" expression="${body}"></put-attribute>
 		<put-attribute name="bottom" value="/WEB-INF/view/bottom.jsp"></put-attribute>
 	</definition>
-	<!-- <definition name="freeboard" extends="index"> <put-attribute name="body" 
-		value="/WEB-INF/view/freeBoard.jsp"></put-attribute> </definition> -->
 </tiles-definitions>

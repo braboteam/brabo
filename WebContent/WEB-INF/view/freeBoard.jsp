@@ -47,22 +47,22 @@ body, html {
 		<div class="hero-text">
 			<h1 style="font-size: 50px">Cook Talk</h1>
 			<p>I'm a chef</p>
-			<button
-				onclick="location.href='${pageContext.request.contextPath}index'">Writing</button>
+			<button type="button"
+				onclick="location.href='${pageContext.request.contextPath}boardwriting'">Writing</button>
 		</div>
 	</div>
 	<br />
 	<!-- 게시글 -->
 	<div align="center">
-		<table border="0" style="width: 80%; background-color: white;">
+		<table border="0" style="width: 60%; background-color: white;">
 			<tr>
-				<td rowspan="3" valign="top" align="center" style="width: 10%;"><br />
+				<td rowspan="3" valign="top" align="center" style="width: 15%;"><br />
 					<img src="/Desert.jpg"
 					style="border-radius: 100%; width: 120px; height: 120px;"></td>
 				<td style="width: 45%;">
 					<h3>아이디</h3>
 				</td>
-				<td align="right" style="width: 45%;"><font size="50px;">
+				<td align="right" style="width: 45%;"><font size="5px;">
 						<!-- 하트 --> <a href="#"> <span
 							class="glyphicon glyphicon-heart-empty"></span>
 					</a>0 <!-- 댓글 --> <a href="#"> <span
@@ -113,7 +113,7 @@ body, html {
 	</div>
 	<br />
 	<div align="center">
-		<table border="0" style="width: 80%; background-color: white;">
+		<table border="1" style="width: 50%; background-color: white;">
 			<tr>
 				<td rowspan="3" valign="top" align="center" style="width: 10%;"><br />
 					<img src="/Desert.jpg"
