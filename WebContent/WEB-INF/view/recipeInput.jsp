@@ -16,7 +16,7 @@
 
 
 <form class="w3-container  w3-light-white"
-	action="${pageContext.request.contextPath }/recipe/input" method="post">
+	action="${pageContext.request.contextPath }/recipe/input" method="post" enctype="multipart/form-data">
   <h4>Recipe</h4>
   <p>나만의 레시피를 공유하세요.</p>
 
@@ -31,9 +31,9 @@
 	  종류
 	  <select class="w2-select w2-border" name="option">
 	    <option value="" disabled selected>종류선택</option>
-	    <option value="1">Option 1</option>
-	    <option value="2">Option 2</option>
-	    <option value="3">Option 3</option>
+	    <option value="1">한식</option>
+	    <option value="2">중식</option>
+	    <option value="3">일식</option>
 	  </select>   
    
 	  인원
@@ -78,22 +78,47 @@
 			예) 10분간 익혀주세요 ▷ 10분간 약한불로 익혀주세요.
 		</small>
   	</p>
-  	<textarea class="w3-textarea w3-border w3-round-large" name="last" rows="10" cols="50" style="resize:none;" 
-  		placeholder="밀가루를 반죽합니다."></textarea>
+  	<div>
+	  	<div style="float:left;">Step#<span id="step">1</span></div> 
+	  	<textarea class="w3-textarea w3-border w3-round-large" name="last" rows="10" cols="50" style="resize:none;" 
+	  		placeholder="밀가루를 반죽합니다."></textarea>
+	  	<input type="file" name="photo" id="photo" multiple  hidden=""/>	
+	  	<button type="button" id="pbt">사진추가</button>
+	  	<button class="w2-button w2-circle w2-black" type="button" id="detailP">+</button>
+	  	<button class="w2-button w2-circle w2-black" type="button" id="detailM">-</button>
+	  	<div id="details"></div>
+  	</div>
   	
 </form>
 
 
 <script>
+	// 재료기입 추가 
 	$("#plus").click(function(){
-		var out = "<div id=\"item\"><input class=\"w2-input w3-border w3-round-large\" name=\"last\" type=\"text\" placeholder=\"밀가루\">";
-			out +=" <input class=\"w2-input w3-border w3-round-large\" name=\"last\" type=\"text\" placeholder=\"300g\"></div>"
+		var out = "<div id=\"item\"><input class=\"w2-input w3-border w3-round-large\" name=\"last\" type=\"text\" >";
+			out +=" <input class=\"w2-input w3-border w3-round-large\" name=\"last\" type=\"text\" ></div>"
 		$("#items").append(out);
 	});
 	
+	// 재료기입 삭제
 	$("#minus").click(function(){
 		$("#item").remove();
 	});
+	
+	// 요리순서 기입칸 추가
+	$("#detailP").click(function(){
+		var step = 2;
+		var out = "<div id=\"detail\"><div style=\"float:left;\">Step#"+step+"</div> ";
+			out += "<textarea class=\"w3-textarea w3-border w3-round-large\" name=\"last\" rows=\"10\" cols=\"50\" style=\"resize:none;\"></textarea>";
+			out += "<input type=\"file\" name=\"photo\" id=\"photo\" multiple  hidden=\"\" /><button type=\"button\" id=\"pbt\">사진추가</button></div>";
+		$("#details").append(out);
+	});
+	
+	// 요리순서 기입칸 삭제
+	$("#detailM").click(function(){
+		$("#detail").remove();
+	})
+	
 	
 	
 	
