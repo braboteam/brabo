@@ -47,7 +47,8 @@ body, html {
 		<div class="hero-text">
 			<h1 style="font-size: 50px">Cook Talk</h1>
 			<p>I'm a chef</p>
-			<button>Writing</button>
+			<button
+				onclick="location.href='${pageContext.request.contextPath}index'">Writing</button>
 		</div>
 	</div>
 	<br />
