@@ -67,8 +67,8 @@
   	placeholder="밀가루">
   	 <input class="w2-input w3-border w3-round-large" name="last" type="text"
   	placeholder="300g">
-  	<button class="w2-button w2-circle w2-black" type="button" id="plus">+</button>
-  	<button class="w2-button w2-circle w2-black" type="button" id="minus">-</button>
+  	<button class="w3-circle w3-gray" type="button" id="plus">+</button>
+  	<button class="w3-circle w3-black" type="button" id="minus"><span style="font-size:15px">x</span></button>
   	<div id="items"></div>
   	
   	<p>
@@ -83,9 +83,9 @@
 	  	<textarea class="w3-textarea w3-border w3-round-large" name="last" rows="10" cols="50" style="resize:none;" 
 	  		placeholder="밀가루를 반죽합니다."></textarea>
 	  	<input type="file" name="photo" id="photo" multiple  hidden=""/>	
-	  	<button type="button" id="pbt">사진추가</button>
-	  	<button class="w2-button w2-circle w2-black" type="button" id="detailP">+</button>
-	  	<button class="w2-button w2-circle w2-black" type="button" id="detailM">-</button>
+	  	<button class="w3-button w3-white w3-border w3-round-large" id="pbt">사진추가</button>
+	  	<button class="w2-circle w2-black" type="button" id="detailP">+</button>
+	  	<button class="w2-button w2-circle w2-black" type="button" id="detailM"> - </button>
 	  	<div id="details"></div>
   	</div>
   	
@@ -110,7 +110,7 @@
 		var step = 2;
 		var out = "<div id=\"detail\"><div style=\"float:left;\">Step#"+step+"</div> ";
 			out += "<textarea class=\"w3-textarea w3-border w3-round-large\" name=\"last\" rows=\"10\" cols=\"50\" style=\"resize:none;\"></textarea>";
-			out += "<input type=\"file\" name=\"photo\" id=\"photo\" multiple  hidden=\"\" /><button type=\"button\" id=\"pbt\">사진추가</button></div>";
+			out += "<input type=\"file\" name=\"photo\" id=\"photo\" multiple hidden=\"\" />  <button class=\"w3-button w3-white w3-border w3-round-large\" id=\"pbt\">사진추가</button></div>";
 		$("#details").append(out);
 	});
 	
@@ -119,6 +119,10 @@
 		$("#detail").remove();
 	})
 	
+	// 사진추가
+	$("#pbt").click(function(){
+		$("#photo").
+	})
 	
 	
 	
