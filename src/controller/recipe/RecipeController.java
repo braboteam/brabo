@@ -26,16 +26,21 @@ public class RecipeController {
 		return "";
 	}
 	
+	// 레시피 등록폼 접근
 	@RequestMapping(path="/input",method=RequestMethod.GET)
 	public String inputGetHandle() {
 		
 		return"recipeInput";
 	}
 	
+	// 레시피 등록
 	@RequestMapping(path="/input",method=RequestMethod.POST)
-	public String inputPostHandle(@RequestParam Map<String,Object> param,MultipartFile iphoto,MultipartFile[] photo,HttpSession session) {
+	public String inputPostHandle(@RequestParam Map<String,Object> param, @RequestParam(name="iphoto") MultipartFile iphoto,
+			@RequestParam(name="dphoto") MultipartFile[] dphoto,HttpSession session) {
+		
+		System.out.println(param.toString());
 		String id = (String)session.getAttribute("logon");
-		System.out.println(param);
+
 		// recipe_info 에 집어넣기 - info 맵에 필요한 정보 담아서 service에 전달.
 		Map info = new HashMap<>();
 			info.put("id", id);
@@ -43,7 +48,7 @@ public class RecipeController {
 			info.put("info", param.get("info"));
 			info.put("cate", param.get("cate"));
 		
-		boolean rst = recipeService.inputRecipe(param,photo);
+		boolean rst = recipeService.inputRecipe(param,dphoto);
 		
 		return "list";
 	}

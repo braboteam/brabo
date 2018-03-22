@@ -2,7 +2,6 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
-<!DOCTYPE html>
 <html>
 <title>W3.CSS</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -10,6 +9,9 @@
 <style>
 	.info {
 		color:gray;
+	}
+	.photos {
+		display:none;
 	}
 </style>
 <body>
@@ -22,7 +24,7 @@
   <p>나만의 레시피를 공유하세요.</p>
  
   <div>
-   	<input type="file" name="iphoto" id="iphoto"   hidden=""/>	
+   	<input type="file" name="iphoto" id="iphoto"  class="photos"/>	
 	 <span id="ipreview"></span>
 	 <button class="w3-button w3-white w3-border w3-round-large" id="ipbt" type="button">사진추가</button>
  </div>
@@ -95,7 +97,7 @@
 	  	<input type="hidden" name="step" value="1" /> 
 	  	<textarea class="w3-textarea w3-border w3-round-large" name="recipe" rows="10" cols="50" style="resize:none;" 
 	  		placeholder="밀가루를 반죽합니다."></textarea>
-	  	<input type="file" name="dphoto" id="photo" multiple  hidden=""/>	
+	  	<input type="file" name="dphoto" id="photo" multiple  class="photos"/>	
 	  	<span id="preview"></span>
 	  	<button class="w3-button w3-white w3-border w3-round-large pbt" type="button">사진추가</button>
 	  	</div>
@@ -132,7 +134,7 @@
 		var out = "<div id=\"detail\"><div style=\"float:left;\">Step#"+i+"</div> ";
 			out += "<input type=\"hidden\" name=\"step\" value=\""+i+"\" />";
 			out += "<textarea class=\"w3-textarea w3-border w3-round-large\" name=\"recipe\" rows=\"10\" cols=\"50\" style=\"resize:none;\"></textarea>";
-			out += "<input type=\"file\" name=\"dphoto\" id=\"photo\" multiple hidden=\"\"/>  <button class=\"w3-button w3-white w3-border w3-round-large pbt\" type=\"button\">사진추가</button></div>";
+			out += "<input type=\"file\" name=\"dphoto\" id=\"photo\" multiple class=\"photos\"/>  <button class=\"w3-button w3-white w3-border w3-round-large pbt\" type=\"button\">사진추가</button></div>";
 			out += "<span id=\"preview\"></span>";		
 		$("#details").append(out);
 		
