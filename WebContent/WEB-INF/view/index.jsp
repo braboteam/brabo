@@ -15,6 +15,17 @@
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <body id="myPage">
 
+	<c:if test="${success != null}">
+		<script>
+			window.alert("${success}");
+		</script>
+	</c:if>
+
+	<c:if test="${err != null}">
+		<script>
+			window.alert("${err}");
+		</script>
+	</c:if>
 	<!-- Sidebar on click -->
 	<!-- <nav
 		class="w3-sidebar w3-bar-block w3-white w3-card w3-animate-left w3-xxlarge"
