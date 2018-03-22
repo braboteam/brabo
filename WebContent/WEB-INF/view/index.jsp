@@ -16,7 +16,7 @@
 <body id="myPage">
 
 	<!-- Sidebar on click -->
-	<nav
+	<!-- <nav
 		class="w3-sidebar w3-bar-block w3-white w3-card w3-animate-left w3-xxlarge"
 		style="display: none; z-index: 2" id="mySidebar">
 		<a href="javascript:void(0)" onclick="w3_close()"
@@ -27,13 +27,16 @@
 			class="w3-bar-item w3-button">Link 3</a> <a href="#"
 			class="w3-bar-item w3-button">Link 4</a> <a href="#"
 			class="w3-bar-item w3-button">Link 5</a>
-	</nav>
+	</nav> -->
 
 	<!-- 타이틀바 -->
 	<tiles:insertAttribute name="title"></tiles:insertAttribute>
 
 	<!-- 바디 -->
 	<tiles:insertAttribute name="body"></tiles:insertAttribute>
+
+	<!-- 바닥 -->
+	<tiles:insertAttribute name="bottom"></tiles:insertAttribute>
 
 	<!-- 스크립트 -->
 	<script>

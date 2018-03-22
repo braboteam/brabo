@@ -3,7 +3,7 @@
 
 <%@ taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<div class="w3-top">
+<div class="">
 	<div class="w3-bar w3-theme-d2 w3-left-align">
 		<a
 			class="w3-bar-item w3-button w3-hide-medium w3-hide-large w3-right w3-hover-white w3-theme-d2"
