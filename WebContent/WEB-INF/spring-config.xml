@@ -17,9 +17,10 @@
 
 
 	<context:component-scan base-package="controller"></context:component-scan>
+	<context:component-scan base-package="service"></context:component-scan>
 
 	<bean class="org.springframework.web.servlet.view.tiles3.TilesViewResolver">
-		<property name="order" value="1"></property>
+		<property name="order" value="1"/>
 	</bean>
 	<bean class="org.springframework.web.servlet.view.tiles3.TilesConfigurer">
 		<property name="definitions">
@@ -57,8 +58,32 @@
 	<bean class="org.mybatis.spring.SqlSessionTemplate" id="sqlTemplate">
 		<constructor-arg name="sqlSessionFactory" ref="fac" />
 	</bean>
-
-
+	
+	<!-- txManager 등록 -->
+	<bean id="txManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<constructor-arg name="dataSource" ref="ds"/>
+	</bean>
+	
+	<tx:advice id="tx" transaction-manager="txManager">
+		<tx:attributes>
+			<tx:method name="*"/>
+		</tx:attributes>
+	</tx:advice>
+	<aop:config>
+		<aop:advisor advice-ref="tx" pointcut="within(service.*)"/>
+	</aop:config>
+	
+	<!-- multipartFile 처리용 -->
+	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<property name="uploadTempDir" value="/temp" />
+	</bean>
+	
+	
+	<!-- gson 등록 -->
+	<bean id="gsonBuilder" class="com.google.gson.GsonBuilder">
+		<property name="dateFormat" value="yyyy/MM/dd HH:mm"/>
+	</bean>
+	<bean id="gson" factory-bean="gsonBuilder" factory-method="create"/>
 
 
 </beans>
