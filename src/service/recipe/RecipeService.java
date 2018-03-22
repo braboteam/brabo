@@ -21,7 +21,7 @@ public class RecipeService {
 
 	
 	public boolean inputInfo(Map info, MultipartFile iphoto) throws IllegalStateException, IOException {
-		String path = ctx.getRealPath("/save/"+info.get("id"));
+		String path = ctx.getRealPath("/iphoto/"+info.get("id"));
 		File file = new File(path);
 		if(!file.exists())
 			file.mkdirs();

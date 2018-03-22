@@ -3,7 +3,7 @@
 <mapper namespace="recipe_info">
 	<insert id="insertInfo" parameterType="hashmap">
 		insert into recipe_info 
-		values(recipe_info_seq.nextval,#{id},#{title},#{info},#{cate},#{portion},#{time},#{itmes},#{iphoto},0)
+		values(recipe_info_seq.nextval,#{id},#{title},#{info},#{cate},#{portion},#{time},#{items},#{iphoto},0)
 	</insert>
 	
 </mapper>

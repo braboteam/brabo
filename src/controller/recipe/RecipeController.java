@@ -53,18 +53,24 @@ public class RecipeController {
 			info.put("cate", param.get("cate").get(0));
 			info.put("portion", param.get("portion").get(0));
 			info.put("time", param.get("time").get(0));
+		
+		// list에서 뽑아서, #으로 구분자 넣어서 items 칼럼에 스트링으로 집어넣기.
 		List items = param.get("item");
 		String input = "";
 			for(int i=0; i< param.get("item").size()-1; i++) {
-				if(i == param.get("item").size()-2)
-					input += param.get("item").get(i) +"#" +param.get("item").get(i+1)+"#";
-				else
-					input += param.get("item").get(i) +"#" +param.get("item").get(i+1);
+				
+				input += param.get("item").get(i) +"#" +param.get("item").get(i+1)+"#";
 			}
 			info.put("items", input);
 			
+		// recipe_detail에 집어넣기 - 아래서 rst 가 true 인 경우.. detail 맵 만들어서 전달.	
+		Map detail = new HashMap<>();
+			
 		try {
 			boolean rst = recipeService.inputInfo(info,iphoto);
+			if(rst) {
+				
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}	
