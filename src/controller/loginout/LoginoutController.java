@@ -19,8 +19,9 @@ public class LoginoutController {
 	LoginoutService loginoutservice;
 
 	@RequestMapping(path = "/login", method = RequestMethod.GET)
-	public String loginGetHandle() {
-		return "login";
+	public String loginGetHandle(Model model) {
+		model.addAttribute("body", "/WEB-INF/view/login.jsp");
+		return "index";
 	}
 
 	@RequestMapping(path = "/login", method = RequestMethod.POST)

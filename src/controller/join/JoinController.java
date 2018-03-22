@@ -31,8 +31,8 @@ public class JoinController {
 		
 		boolean rst = joinservice.addNewJoin(param, profile);
 		if (rst) {
+			model.addAttribute("body", "/WEB-INF/view/indexBody.jsp");
 			model.addAttribute("join", "회원가입에 성공하셨습니다. 로그인 하시기 바랍니다.");
-			model.addAttribute("body", "/WEB-INF/view/addjoin.jsp");
 			return "index";
 		}
 		return "index";

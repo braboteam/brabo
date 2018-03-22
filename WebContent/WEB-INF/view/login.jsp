@@ -19,5 +19,5 @@
 		<p>
 			비밀번호(*)<br> <input class="w2-input w3-border w3-round" type="text" style="width: 300px;" name="pass" /><br />
 		</p>
-		<button type="submit">처리요청</button>
+		<button type="submit">로그인</button>
 	</form>
