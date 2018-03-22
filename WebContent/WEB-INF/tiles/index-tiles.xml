@@ -4,6 +4,7 @@
 <tiles-definitions>
 	<definition name="index" template="/WEB-INF/view/index.jsp">
 		<put-attribute name="title" value="/WEB-INF/view/titleBar.jsp"></put-attribute>
-		<put-attribute name="body" value="/WEB-INF/view/indexBody.jsp"></put-attribute>
+		<put-attribute name="body" expression="${body}"></put-attribute>
+		<put-attribute name="bottom" value="/WEB-INF/view/bottom.jsp"></put-attribute>
 	</definition>
 </tiles-definitions>
