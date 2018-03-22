@@ -35,7 +35,7 @@ public class RecipeController {
 	
 	// 레시피 등록
 	@RequestMapping(path="/input",method=RequestMethod.POST)
-	public String inputPostHandle(@RequestParam Map<String,Object> param, @RequestParam(name="iphoto") MultipartFile iphoto,
+	public String inputPostHandle(@RequestParam Map<String,Object> param,@RequestParam(name="iphoto") MultipartFile iphoto,
 			@RequestParam(name="dphoto") MultipartFile[] dphoto,HttpSession session) {
 		
 		System.out.println(param.toString());
