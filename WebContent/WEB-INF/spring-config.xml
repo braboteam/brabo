@@ -79,7 +79,6 @@
 		<property name="uploadTempDir" value="/temp" />
 	</bean>
 
-
 	<!-- gson 등록 -->
 	<bean id="gsonBuilder" class="com.google.gson.GsonBuilder">
 		<property name="dateFormat" value="yyyy/MM/dd HH:mm" />
