@@ -20,13 +20,24 @@
 	action="${pageContext.request.contextPath }/recipe/input" method="post" enctype="multipart/form-data">
   <h4>Recipe</h4>
   <p>나만의 레시피를 공유하세요.</p>
+ 
+  <div>
+   	<input type="file" name="iphoto" id="iphoto"   hidden=""/>	
+	 <span id="ipreview"></span>
+	 <button class="w3-button w3-white w3-border w3-round-large" id="ipbt" type="button">사진추가</button>
+ </div>
 
   <p><label><b>제목</b></label></p>
   <div>
   	<input class="w3-input w3-border w3-round-large" name="title" type="text"
-  	placeholder="페퍼로니 피자 만들기">
+  	placeholder="페퍼로니 피자 만들기"/>
    </div>  
    
+   <p><label><b>요리 소개</b></label></p>
+  <div>
+  	<textarea class="w3-textarea w3-border w3-round-large" name="info" rows="5" cols="50" style="resize:none;"
+  	placeholder="이 레시피의 탄생 배경을 적어주세요!"></textarea>
+   </div>  
   <p><b>요리 정보</b></p>
   <div>
 	  종류
@@ -138,12 +149,12 @@
 		i--;
 	});
 	
-	// 사진추가
+	// 요리 사진추가
 	$(".pbt").click(function(){
 		$("#photo").click();
 	});
 	
-	// 미리보기
+	// 요리 사진 미리보기
 	$("#photo").change(function(){
 		var files = this.files;
 		$("#preview").html("");
@@ -156,6 +167,24 @@
 		}
 	});
 		
+	
+	// 대표 사진 추가
+	$("#ipbt").click(function(){
+		$("#iphoto").click();
+	});
+	
+	// 대표 사진 미리보기 
+	$("#iphoto").change(function(){
+		var files = this.files;
+		$("#ipreview").html("");
+		var reader = new FileReader();
+		reader.readAsDataURL(files[0]);
+		reader.onload = function(){
+			$("#ipreview").append("<img src=\""+this.result+ "\" style=\"width:70px; height:70px; margin:5px;\"/>");
+		}
+	});
+		
+	
 	
 	
 	

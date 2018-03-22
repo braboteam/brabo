@@ -58,8 +58,26 @@
 	<bean class="org.mybatis.spring.SqlSessionTemplate" id="sqlTemplate">
 		<constructor-arg name="sqlSessionFactory" ref="fac" />
 	</bean>
-
-
+	
+	<!-- txManager 등록 -->
+	<bean id="txManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<constructor-arg name="dataSource" ref="ds"/>
+	</bean>
+	
+	<tx:advice id="tx" transaction-manager="txManager">
+		<tx:attributes>
+			<tx:method name="*"/>
+		</tx:attributes>
+	</tx:advice>
+	<aop:config>
+		<aop:advisor advice-ref="tx" pointcut="within(service.*)"/>
+	</aop:config>
+	
+	<!-- gson 등록 -->
+	<bean id="gsonBuilder" class="com.google.gson.GsonBuilder">
+		<property name="dateFormat" value="yyyy/MM/dd HH:mm"/>
+	</bean>
+	<bean id="gson" factory-bean="gsonBuilder" factory-method="create"/>
 
 
 </beans>
