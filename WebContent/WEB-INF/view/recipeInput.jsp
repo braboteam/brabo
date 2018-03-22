@@ -97,9 +97,9 @@
 	  	<input type="hidden" name="step" value="1" /> 
 	  	<textarea class="w3-textarea w3-border w3-round-large" name="recipe" rows="10" cols="50" style="resize:none;" 
 	  		placeholder="밀가루를 반죽합니다."></textarea>
-	  	<input type="file" name="dphoto" id="photo" multiple  class="photos"/>	
-	  	<span id="preview"></span>
-	  	<button class="w3-button w3-white w3-border w3-round-large pbt" type="button">사진추가</button>
+	  	<input type="file" name="dphoto" id="photo1" multiple  class="photos"/>	
+	  	<span id="preview1"></span>
+	  	<button class="w3-button w3-white w3-border w3-round-large" id="pbt1" type="button">사진추가</button>
 	  	</div>
 	  	<div id="details"></div>
 	  	<div>
@@ -131,15 +131,15 @@
 	// 요리순서 기입칸 추가
 	$("#detailP").click(function(){
 		i ++;
-		var out = "<div id=\"detail\"><div style=\"float:left;\">Step#"+i+"</div> ";
+		var out = "<div id=\"detail"+i+"\"><div style=\"float:left;\">Step#"+i+"</div> ";
 			out += "<input type=\"hidden\" name=\"step\" value=\""+i+"\" />";
 			out += "<textarea class=\"w3-textarea w3-border w3-round-large\" name=\"recipe\" rows=\"10\" cols=\"50\" style=\"resize:none;\"></textarea>";
-			out += "<input type=\"file\" name=\"dphoto\" id=\"photo\" multiple class=\"photos\"/>  <button class=\"w3-button w3-white w3-border w3-round-large pbt\" type=\"button\">사진추가</button></div>";
-			out += "<span id=\"preview\"></span>";		
+			out += "<input type=\"file\" name=\"dphoto\" id=\"photo"+i+"\" multiple class=\"photos\"/>  <button class=\"w3-button w3-white w3-border w3-round-large\" id=\"pbt"+i+"\" type=\"button\">사진추가</button></div>";
+			out += "<span id=\"preview"+i+"\"></span>";		
 		$("#details").append(out);
 		
-		$(".pbt").click(function(){
-			$("#photo").click();
+		$("#pbt"+i).click(function(){
+			$("#photo"+i).click();
 		});
 		
 	});
@@ -147,24 +147,24 @@
 	
 	// 요리순서 기입칸 삭제
 	$("#detailM").click(function(){
-		$("#detail").remove();
+		$("#detail"+i).remove();
 		i--;
 	});
 	
 	// 요리 사진추가
-	$(".pbt").click(function(){
-		$("#photo").click();
+	$("#pbt"+i).click(function(){
+		$("#photo"+i).click();
 	});
 	
 	// 요리 사진 미리보기
-	$("#photo").change(function(){
+	$("#photo"+i).change(function(){
 		var files = this.files;
-		$("#preview").html("");
+		$("#preview"+i).html("");
 		for(var i =0; i<files.length; i++) {
 			var reader = new FileReader();
 			reader.readAsDataURL(files[i]);
 			reader.onload = function(){
-				$("#preview").append("<img src=\""+this.result+ "\" style=\"width:70px; height:70px; margin:5px;\"/>");
+				$("#preview"+i).append("<img src=\""+this.result+ "\" style=\"width:70px; height:70px; margin:5px;\"/>");
 			}
 		}
 	});

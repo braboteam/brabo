@@ -6,4 +6,8 @@
 		values(recipe_info_seq.nextval,#{id},#{title},#{info},#{cate},#{portion},#{time},#{items},#{iphoto},0)
 	</insert>
 	
+	<select id="selectInfoNo" resultType="java.lang.Integer">
+		select no from recipe_info where iphoto=#{iphoto}
+	</select>
+	
 </mapper>
