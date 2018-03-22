@@ -47,6 +47,9 @@ public class RecipeController {
 			info.put("title", param.get("title"));
 			info.put("info", param.get("info"));
 			info.put("cate", param.get("cate"));
+			info.put("portion", param.get("portion"));
+			info.put("time", param.get("time"));
+			
 		
 		boolean rst = recipeService.inputRecipe(param,dphoto);
 		
