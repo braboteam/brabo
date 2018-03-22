@@ -10,7 +10,14 @@
 	</insert>
 
 	<select id="selectAll" resultType="hashmap">
-		select * from board
+		select * from board order by
+		board_date desc
 	</select>
 
+	<select id="selectPhoto" resultType="hashmap">
+		select board.*,
+		board_photo.BOARD_IMAGE detail_image from board left join board_photo
+		on board.board_id = board_photo.board_id where board.board_id =
+		#{board_id}
+	</select>
 </mapper>

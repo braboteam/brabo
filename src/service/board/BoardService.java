@@ -20,6 +20,7 @@ public class BoardService {
 
 	// 게시글 데이터베이스 등록
 	public boolean insertBoard(Map m, String path, MultipartFile[] image) throws IllegalStateException, IOException {
+		int r = 0;
 		Map map = new HashMap<String, Object>(); // board삽입 Map
 		Map map2 = new HashMap<>(); // board_photo삽입 Map
 		String pk = UUID.randomUUID().toString().split("-")[4];
@@ -31,6 +32,7 @@ public class BoardService {
 		// 파일없을 때
 		if (image[0].isEmpty()) {
 			map.put("board_image", null);
+			r = template.insert("board.insertOne", map);
 		} else { // 파일 있을 때
 			File parent = new File(path);
 			if (!parent.exists())
@@ -38,21 +40,25 @@ public class BoardService {
 			for (MultipartFile file : image) {
 				String fileName = UUID.randomUUID().toString().split("-")[4];
 				file.transferTo(new File(path, fileName));
-				if (map.get("board_image") == null)
+				if (map.get("board_image") == null) {
 					map.put("board_image", fileName);
+					r = template.insert("board.insertOne", map);
+				}
 				// board_photo테이블 DB삽입
-				String pk2 = UUID.randomUUID().toString().split("-")[4];
-				map2.put("board_photo_id", pk2);
 				map2.put("board_image", fileName);
 				template.insert("board_photo.insertOne", map2);
 			}
 		}
 		// board테이블 DB삽입
-		return template.insert("board.insertOne", map) == 1;
+		return r == 1;
 	}
 
 	public List<Map> selectBoard() {
 		return template.selectList("board.selectAll");
+	}
+
+	public List<Map> selectDetail(String pk) {
+		return template.selectList("board.selectPhoto", pk);
 	}
 
 }
