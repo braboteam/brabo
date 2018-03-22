@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="member">
+	<insert id="addNewjoin" parameterType="hashmap">
+		insert into member values(#{id}, #{nick}, #{pass}, #{email}, #{profile}, sysdate, #{right})
+	</insert>
+	<insert id="logIn" parameterType="hashmap">
+		select * from member where id=#{id}'and pass=#{pass}
+	</insert>
+</mapper>

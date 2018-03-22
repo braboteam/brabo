@@ -17,6 +17,7 @@
 
 
 	<context:component-scan base-package="controller"></context:component-scan>
+	<context:component-scan base-package="service"></context:component-scan>
 
 	<bean class="org.springframework.web.servlet.view.tiles3.TilesViewResolver">
 		<property name="order" value="1"></property>
@@ -50,12 +51,17 @@
 		<property name="dataSource" ref="ds" />
 		<property name="mapperLocations">
 			<list>
-				<value>/WEB-INF/mappers/*_mapper.xml</value>
+				<value>/WEB-INF/mappers/member-mapper.xml</value>
 			</list>
 		</property>
 	</bean>
 	<bean class="org.mybatis.spring.SqlSessionTemplate" id="sqlTemplate">
 		<constructor-arg name="sqlSessionFactory" ref="fac" />
+	</bean>
+
+	<bean id="multipartResolver"
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<property name="uploadTempDir" value="/temp"></property>
 	</bean>
 
 
