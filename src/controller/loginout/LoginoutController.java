@@ -30,12 +30,21 @@ public class LoginoutController {
 		if (rst != null) {
 			session.setAttribute("logon", rst.get("ID"));
 			model.addAttribute("body", "/WEB-INF/view/indexBody.jsp");
-			model.addAttribute("success", "·Î±×ÀÎ¿¡ ¼º°øÇÏ¿´½À´Ï´Ù.");
+			model.addAttribute("success", "ï¿½Î±ï¿½ï¿½Î¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï¿ï¿½ï¿½ï¿½ï¿½Ï´ï¿½.");
 			return "index";
 		} else {
-			model.addAttribute("err", "·Î±×ÀÎ¿¡ ½ÇÆĞÇÏ¼Ì½À´Ï´Ù.");
+			model.addAttribute("err", "ï¿½Î±ï¿½ï¿½Î¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï¼Ì½ï¿½ï¿½Ï´ï¿½.");
 			model.addAttribute("body", "/WEB-INF/view/login.jsp");
 			return "index";
 		}
+	}
+
+	@RequestMapping(path = "/logout", method = RequestMethod.GET)
+	public String logoutPostHandle(HttpSession session, Model model) {
+
+		session.removeAttribute("logon");
+		model.addAttribute("body", "/WEB-INF/view/indexBody.jsp");
+		model.addAttribute("logout", "ë¡œê·¸ì•„ì›ƒ ë˜ì…¨ìŠµë‹ˆë‹¤.");
+		return "index";
 	}
 }

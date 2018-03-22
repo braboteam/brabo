@@ -26,6 +26,12 @@
 			window.alert("${err}");
 		</script>
 	</c:if>
+
+	<c:if test="${logout != null}">
+		<script>
+			window.alert("${logout}");
+		</script>
+	</c:if>
 	<!-- Sidebar on click -->
 	<!-- <nav
 		class="w3-sidebar w3-bar-block w3-white w3-card w3-animate-left w3-xxlarge"
