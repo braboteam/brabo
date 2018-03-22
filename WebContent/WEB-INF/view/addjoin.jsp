@@ -8,10 +8,10 @@
 <title>회원정보 등록</title>
 </head>
 <body>
-	<h3>회원정보 등록</h3>
-	<small>모든 정보는 필수 정보이며, 부적절한 데이터 설정 시 처리되지 않습니다.</small>
 	<form class="w3-container  w3-light-white" action="<%=request.getContextPath()%>join" autocomplete="off"
 		method="post" enctype="multipart/form-data">
+		<h3>회원정보 등록</h3>
+	<small>모든 정보는 필수 정보이며, 부적절한 데이터 설정 시 처리되지 않습니다.</small>
 		<p>
 			ID(*)<br> <input class="w2-input w3-border w3-round" type="text"
 				style="width: 300px;" name="id" /><br />

@@ -29,13 +29,23 @@ public class LoginoutController {
 		Map rst = loginoutservice.loginByIdAndPass(param);
 		if (rst != null) {
 			session.setAttribute("logon", rst.get("ID"));
+			session.removeAttribute("logon");
 			model.addAttribute("body", "/WEB-INF/view/indexBody.jsp");
-			model.addAttribute("success", "·Î±×ÀÎ¿¡ ¼º°øÇÏ¿´½À´Ï´Ù.");
+			model.addAttribute("success", "ë¡œê·¸ì¸ì— ì„±ê³µí•˜ì…¨ìŠµë‹ˆë‹¤.");
 			return "index";
 		} else {
-			model.addAttribute("err", "·Î±×ÀÎ¿¡ ½ÇÆĞÇÏ¼Ì½À´Ï´Ù.");
+			model.addAttribute("err", "ë¡œê·¸ì¸ì— ì‹¤íŒ¨í•˜ì…¨ìŠµë‹ˆë‹¤.");
 			model.addAttribute("body", "/WEB-INF/view/login.jsp");
 			return "index";
 		}
+	}
+
+	@RequestMapping(path = "/logout", method = RequestMethod.GET)
+	public String logoutPostHandle(HttpSession session, Model model) {
+
+		session.removeAttribute("logon");
+		model.addAttribute("body", "/WEB-INF/view/indexBody.jsp");
+		model.addAttribute("logout", "ë¡œê·¸ì•„ì›ƒ ë˜ì…¨ìŠµë‹ˆë‹¤.");
+		return "index";
 	}
 }
