@@ -17,8 +17,8 @@
 			class="w3-bar-item w3-button w3-hide-small w3-hover-white">Work</a> <a
 			href="#pricing"
 			class="w3-bar-item w3-button w3-hide-small w3-hover-white">Price</a>
-		<a href="#contact"
-			class="w3-bar-item w3-button w3-hide-small w3-hover-white">Contact</a>
+		<a href="${pageContext.request.contextPath }/freeboard"
+			class="w3-bar-item w3-button w3-hide-small w3-hover-white">FreeBoard</a>
 		<!-- <div class="w3-dropdown-hover w3-hide-small">
 			<button class="w3-button" title="Notifications">
 				Dropdown <i class="fa fa-caret-down"></i>
@@ -45,10 +45,10 @@
 
 			</c:when>
 			<c:otherwise>
-				<a href="#"
+				<a href="${pageContext.request.contextPath }/join"
 					class="w3-bar-item w3-button w3-hide-small w3-right w3-hover-teal"
 					title="Search"> Joining </a>
-				<a href="#"
+				<a href="${pageContext.request.contextPath }/login"
 					class="w3-bar-item w3-button w3-hide-small w3-right w3-hover-teal"
 					title="Search"> Login </a>
 

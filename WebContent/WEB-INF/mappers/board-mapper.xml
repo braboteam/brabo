@@ -4,7 +4,13 @@
 	<insert id="insertOne" parameterType="hashmap">
 		insert into board
 		values(#{board_id}, #{id},
-		#{comments}, sysdate, #{board_image,
+		#{comments}, sysdate,
+		#{board_image,
 		jdbcType=VARCHAR})
 	</insert>
+
+	<select id="selectAll" resultType="hashmap">
+		select * from board
+	</select>
+
 </mapper>
