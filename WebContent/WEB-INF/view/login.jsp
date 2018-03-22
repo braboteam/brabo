@@ -8,10 +8,10 @@
 <title>로그인</title>
 </head>
 <body>
-	<h3>로그인</h3>
-	<small>ID와 패스워드를 정확히 입력해 주세요</small>
 	<form class="w3-container  w3-light-white" action="<%=request.getContextPath()%>login" autocomplete="off"
 		method="post">
+		<h3>로그인</h3>
+	    <small>ID와 패스워드를 정확히 입력해 주세요</small>
 		<p>
 			ID(*)<br> <input class="w2-input w3-border w3-round" type="text"
 				style="width: 300px;" name="id" /><br />

@@ -20,8 +20,9 @@ public class JoinController {
 	JoinService joinservice;
 
 	@RequestMapping(method = RequestMethod.GET)
-	public String joinGetHandle() {
-		return "addjoin";
+	public String joinGetHandle(Model model) {
+		model.addAttribute("body", "/WEB-INF/view/addjoin.jsp");
+		return "index";
 	}
 
 	@RequestMapping(method = RequestMethod.POST)
@@ -30,9 +31,10 @@ public class JoinController {
 		
 		boolean rst = joinservice.addNewJoin(param, profile);
 		if (rst) {
-			model.addAttribute("body", "addjoin");
-			return "redirect:/index";
+			model.addAttribute("join", "회원가입에 성공하셨습니다. 로그인 하시기 바랍니다.");
+			model.addAttribute("body", "/WEB-INF/view/addjoin.jsp");
+			return "index";
 		}
-		return "addjoin";
+		return "index";
 	}
 }
