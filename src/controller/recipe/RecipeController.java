@@ -33,6 +33,7 @@ public class RecipeController {
 	// 레시피 등록폼 접근
 	@RequestMapping(path="/input",method=RequestMethod.GET)
 	public String inputGetHandle(Model model) {
+		System.out.println("recipe 등록폼 접근");
 		
 		model.addAttribute("body","/WEB-INF/view/recipeInput.jsp");
 		return"index";

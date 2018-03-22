@@ -45,9 +45,11 @@
 	  종류
 	  <select class="w2-select w2-border" name="cate">
 	    <option value="" disabled selected>종류선택</option>
-	    <option value="1">한식</option>
-	    <option value="2">중식</option>
-	    <option value="3">일식</option>
+	    <option value="한식">한식</option>
+	    <option value="중식">중식</option>
+	    <option value="일식">일식</option>
+	    <option value="양식">양식</option>
+	    <option value="퓨전음식">퓨전음식</option>
 	  </select>   
    
 	  인원
@@ -63,14 +65,14 @@
 	  시간 
 	  <select class="w1-select w1-border" name="time">
 	    <option value="" disabled selected>시간선택</option>
-	    <option value="1">5분이내</option>
-	    <option value="2">10분이내 </option>
-	    <option value="3">15분이내</option>
-	    <option value="4">30분이내 </option>
-	    <option value="5">60분이내</option>
-	    <option value="6">90분이내</option>
-	    <option value="7">2시간이내</option>
-	    <option value="8">2시간이상</option>
+	    <option value="5분이내">5분이내</option>
+	    <option value="10분이내">10분이내 </option>
+	    <option value="15분이내">15분이내</option>
+	    <option value="30분이내">30분이내 </option>
+	    <option value="60분이내">60분이내</option>
+	    <option value="90분이내">90분이내</option>
+	    <option value="2시간이내">2시간이내</option>
+	    <option value="2시간이상">2시간이상</option>
 	  </select>
   </div>
    <p>
@@ -116,6 +118,7 @@
 
 <script>
 	var i= 1;
+	var j = 0;
 	// 재료기입 추가 
 	$("#plus").click(function(){
 		var out = "<div id=\"item\"><input class=\"w2-input w3-border w3-round-large\" name=\"item\" type=\"text\" >";
@@ -131,17 +134,32 @@
 	// 요리순서 기입칸 추가
 	$("#detailP").click(function(){
 		i ++;
-		var out = "<div id=\"detail"+i+"\"><div style=\"float:left;\">Step#"+i+"</div> ";
+		var out = "<div id=\"detail"+i+"\" class=\"recipe\"><div style=\"float:left;\">Step#"+i+"</div> ";
 			out += "<input type=\"hidden\" name=\"step\" value=\""+i+"\" />";
 			out += "<textarea class=\"w3-textarea w3-border w3-round-large\" name=\"recipe\" rows=\"10\" cols=\"50\" style=\"resize:none;\"></textarea>";
-			out += "<input type=\"file\" name=\"dphoto\" id=\"photo"+i+"\" multiple class=\"photos\"/>  <button class=\"w3-button w3-white w3-border w3-round-large\" id=\"pbt"+i+"\" type=\"button\">사진추가</button></div>";
-			out += "<span id=\"preview"+i+"\"></span>";		
+			out += "<input type=\"file\" name=\"dphoto\" id=\"photo"+i+"\" multiple class=\"photos\"/> <span id=\"preview"+i+"\"></span>";
+			out += "<button class=\"w3-button w3-white w3-border w3-round-large\" id=\"pbt"+i+"\" type=\"button\">사진추가</button></div>";		
+			
 		$("#details").append(out);
 		
+		// 추가된 폼에 대한 사진추가 & 미리보기 스크립트
 		$("#pbt"+i).click(function(){
-			$("#photo"+i).click();
+			window.alert(i);
+			j = i;
+			window.alert(j);
+			$("#photo"+j).click();
 		});
-		
+		$("#photo"+i).change(function(){
+			var files = this.files;
+			$("#preview"+i).html("");
+			for(var idx =0; idx<files.length; idx++) {
+				var reader = new FileReader();
+				reader.readAsDataURL(files[idx]);
+				reader.onload = function(){
+					$("#preview"+i).append("<img src=\""+this.result+ "\" style=\"width:70px; height:70px; margin:5px;\"/>");
+				}
+			}
+		});
 	});
 		
 	
@@ -152,19 +170,19 @@
 	});
 	
 	// 요리 사진추가
-	$("#pbt"+i).click(function(){
-		$("#photo"+i).click();
+	$("#pbt1").click(function(){
+		$("#photo1").click();
 	});
 	
 	// 요리 사진 미리보기
-	$("#photo"+i).change(function(){
+	$("#photo1").change(function(){
 		var files = this.files;
-		$("#preview"+i).html("");
+		$("#preview1").html("");
 		for(var i =0; i<files.length; i++) {
 			var reader = new FileReader();
 			reader.readAsDataURL(files[i]);
 			reader.onload = function(){
-				$("#preview"+i).append("<img src=\""+this.result+ "\" style=\"width:70px; height:70px; margin:5px;\"/>");
+				$("#preview1").append("<img src=\""+this.result+ "\" style=\"width:70px; height:70px; margin:5px;\"/>");
 			}
 		}
 	});
