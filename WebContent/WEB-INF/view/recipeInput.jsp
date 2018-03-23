@@ -99,7 +99,7 @@
 	  	<input type="hidden" name="step" value="1" /> 
 	  	<textarea class="w3-textarea w3-border w3-round-large" name="recipe" rows="10" cols="50" style="resize:none;" 
 	  		placeholder="밀가루를 반죽합니다."></textarea>
-	  	<input type="file" name="dphoto" id="photo1" multiple  class="photos"/>	
+	  	<input type="file" name="dphoto" id="photo1"  class="photos"/>	
 	  	<span id="preview1"></span>
 	  	<button class="w3-button w3-white w3-border w3-round-large" id="pbt1" type="button">사진추가</button>
 	  	</div>
@@ -137,7 +137,7 @@
 		var out = "<div id=\"detail"+i+"\" class=\"recipe\"><div style=\"float:left;\">Step#"+i+"</div> ";
 			out += "<input type=\"hidden\" name=\"step\" value=\""+i+"\" />";
 			out += "<textarea class=\"w3-textarea w3-border w3-round-large\" name=\"recipe\" rows=\"10\" cols=\"50\" style=\"resize:none;\"></textarea>";
-			out += "<input type=\"file\" name=\"dphoto\" id=\"photo"+i+"\" multiple class=\"photos\"/> <span id=\"preview"+i+"\"></span>";
+			out += "<input type=\"file\" name=\"dphoto\" id=\"photo"+i+"\" class=\"photos\"/> <span id=\"preview"+i+"\"></span>";
 			out += "<button class=\"w3-button w3-white w3-border w3-round-large\" id=\"pbt"+i+"\" type=\"button\">사진추가</button></div>";		
 			
 		$("#details").append(out);
@@ -145,9 +145,7 @@
 		// 추가된 폼에 대한 사진추가 & 미리보기 스크립트
 		$("#pbt"+i).click(function(){
 			window.alert(i);
-			j = i;
-			window.alert(j);
-			$("#photo"+j).click();
+			$("#photo"+i).click();
 		});
 		$("#photo"+i).change(function(){
 			var files = this.files;

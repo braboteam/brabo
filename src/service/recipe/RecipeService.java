@@ -21,61 +21,62 @@ public class RecipeService {
 	@Autowired
 	ServletContext ctx;
 
-	
+	// recipe_info 테이블에 데이터 집어넣기
 	public boolean inputInfo(Map info, MultipartFile iphoto) throws IllegalStateException, IOException {
-		String path = ctx.getRealPath("/iphoto/"+info.get("id"));
+		String path = ctx.getRealPath("/iphoto/" + info.get("id"));
 		File file = new File(path);
-		if(!file.exists())
+		if (!file.exists())
 			file.mkdirs();
-		
+
 		int chk = 0;
-		if(!iphoto.isEmpty()) {
-			String rename = UUID.randomUUID().toString().substring(0, 12)+".jpg";
-			File photo = new File(path,rename);
-			info.put("iphoto", rename);
+		if (!iphoto.isEmpty()) {
+			String rename = (String) info.get("rename");
+			File photo = new File(path, rename);
+
 			chk = template.insert("recipe_info.insertInfo", info);
 			iphoto.transferTo(photo);
-			int ino = getInfoNo(rename);
 		}
-		
+
 		return chk == 1;
 	}
 
+	// recipe_info 테이블의 pk 값 가져오기
+	public int getInfoNo(String iphoto) {
 
-	public int getInfoNo(String rename) {
-		// recipe_info 테이블의 pk 값 가져오기
-		
-		return template.selectOne("recipe_info.selectInfoNo",rename);
+		return template.selectOne("recipe_info.selectInfoNo", iphoto);
 	}
 
+	// recipe_detail 테이블에 데이터 집어넣기
+	public boolean inputDetail(String id, Map detail, MultipartFile[] dphoto) throws IllegalStateException, IOException {
 
-	public void inputDetail(String id, Map detail, MultipartFile[] dphoto) {
-		
-		String path = ctx.getRealPath("/dphoto/"+id);
+		String path = ctx.getRealPath("/dphoto/" + id);
 		File file = new File(path);
-		if(!file.exists())
+		if (!file.exists())
 			file.mkdirs();
-		
+
 		int chk = 0;
-		
-		
-		
-		
-		if(!dphoto[0].isEmpty()) {
-			for(int i=0; i< dphoto.length; i++) {
-				String rename = UUID.randomUUID().toString().substring(0, 12)+".jpg";
-				File photo = new File(path,rename);
-				Map<String,Object> map = new HashMap<>();
-					List steps = (List)detail.get("step");
-					map.put("step", steps.get(i));
-				
-			}
+		List steps = (List) detail.get("step");
+		List recipies = (List) detail.get("recipe");
+
+		for (int i = 0; i < steps.size(); i++) {
+			Map<String, Object> map = new HashMap<>();
+			String rename = UUID.randomUUID().toString().substring(0, 12) + ".jpg";
+			File photo = new File(path, rename);
+			map.put("ino", detail.get("ino"));
+			map.put("step", steps.get(i));
+			map.put("recipe", recipies.get(i));
+			map.put("dphoto", rename);
+			chk += template.insert("recipe_detail.insertDetail", map);
+			dphoto[i].transferTo(photo);
 		}
+		
+		return chk == steps.size();
 	}
 		
 		
-	
-	
-	
 
+	
+	
+	
+	
 }

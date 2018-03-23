@@ -3,6 +3,7 @@ package controller.recipe;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import javax.servlet.http.HttpSession;
 
@@ -64,24 +65,30 @@ public class RecipeController {
 				input += param.get("item").get(i) +"#" +param.get("item").get(i+1)+"#";
 			}
 			info.put("items", input);
+		// file rename.. recipe_info 테이블 pk 가져오기 위해 여기서 만든다....	
+		String rename = UUID.randomUUID().toString().substring(0, 12)+".jpg";
+			info.put("iphoto", rename);
 			
-		// recipe_detail에 집어넣기 - 아래서 rst 가 true 인 경우.. detail 맵 만들어서 전달.	
-		Map detail = new HashMap<>();
-			detail.put("step", param.get("step"));
-			detail.put("recipe", param.get("recipe"));
+			try {
+				boolean rst = recipeService.inputInfo(info,iphoto);
+				
+				if(rst) {
+					// recipe_detail에 집어넣기 - 아래서 rst 가 true 인 경우.. detail 맵 만들어서 전달.	
+					Map detail = new HashMap<>();
+					detail.put("ino", recipeService.getInfoNo(rename));
+					detail.put("step", param.get("step"));
+					detail.put("recipe", param.get("recipe"));
+					
+					recipeService.inputDetail(id,detail,dphoto);
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}	
 			
-		try {
-			boolean rst = recipeService.inputInfo(info,iphoto);
-			if(rst) {
-				recipeService.inputDetail(id,detail,dphoto);
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}	
-		
-		
-		return "list";
+			
+			return "list";
 	}
+			
 	
 	
 }
