@@ -60,9 +60,18 @@ body, html {
 			</td>
 			<!-- 하트댓글표시 -->
 			<td align="right" style="width: 45%;"><font size="5px;">
-					<!-- 하트 --> <a href="#"> <span
-						class="glyphicon glyphicon-heart-empty"></span>
-				</a>0 <!-- 댓글 --> <a href="#"> <span
+					<!-- 하트 --> <c:choose>
+						<c:when test="${board[0].LIKE == null }">
+							<a href="javascript:like('${board[0].BOARD_ID }','t');"> <span
+								class="glyphicon glyphicon-heart-empty"></span>
+							</a>
+						</c:when>
+						<c:otherwise>
+							<!-- 색있는 하트 -->
+							<a href="javascript:like('${board[0].BOARD_ID }','f');"> <span
+								class="glyphicon glyphicon-heart"></span></a>
+						</c:otherwise>
+					</c:choose>${board[0].COUNT } <!-- 댓글 --> <a href="#"> <span
 						class="glyphicon glyphicon-user"></span>
 				</a>0
 			</font></td>
@@ -98,3 +107,15 @@ body, html {
 	</div>
 </div>
 <br />
+
+<script>
+	function like(pk) {
+		console.log("like()" + pk);
+		/* $.get("02ajax.jsp", {
+			"word" : "ajax",
+			"front" : [ "java", "jsp", "css", "jquery" ]
+		}, function(rst) {
+			window.alert("rst = " + rst);
+		}); */
+	}
+</script>

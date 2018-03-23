@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="board_like">
+	<insert id="insertOne" parameterType="hashmap">
+		insert into board_like
+		values(board_like_sequence.nextval, #{board_id}, #{id})
+	</insert>
+
+	<delete id="deleteOne">
+		delete from board_like where id=#{id} and
+		board_id=#{board_id}
+	</delete>
+
+	<select id="selectCount" resultType="hashmap">
+		select board.board_id,
+		count(board_like.id) as COUNT
+		from board left join
+		board_like on
+		board.board_id = board_like.board_id
+		where
+		board.board_id = #{board_id}
+		group by board.board_id
+	</select>
+</mapper>

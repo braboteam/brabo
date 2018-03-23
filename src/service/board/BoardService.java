@@ -53,12 +53,63 @@ public class BoardService {
 		return r == 1;
 	}
 
-	public List<Map> selectBoard() {
-		return template.selectList("board.selectAll");
+	// 게시판 테이블 가져오기
+	public List<Map> selectBoard(String id) {
+		List<Map> list = null;
+		list = template.selectList("board.selectAll");
+
+		// 각 게시물에 좋아요 갯수를 COUNT라는 컬럼명으로 넣기
+		List<Map> list2 = template.selectList("board.selectLikeCount");
+		for (Map m : list) {
+			for (Map m2 : list2) {
+				if (m.get("BOARD_ID").equals(m2.get("BOARD_ID"))) {
+					m.put("COUNT", m2.get("COUNT"));
+				}
+			}
+			// 각 게시물이 현재 로그인사용자가 좋아요한 상태인 글인지 체크
+			if (id != null) {
+				Map map = new HashMap<>();
+				map.put("id", id);
+				map.put("board_id", (String) m.get("BOARD_ID"));
+				if (template.selectOne("board.selectLike", map) != null) {
+					m.put("LIKE", true);
+				}
+
+			}
+		}
+		return list;
 	}
 
-	public List<Map> selectDetail(String pk) {
-		return template.selectList("board.selectPhoto", pk);
+	// 게시판 테이블 사진 모두 가져오기
+	public List<Map> selectDetail(String pk, String id) {
+		List<Map> list = template.selectList("board.selectPhoto", pk);
+		Map map2 = new HashMap<>();
+		map2.put("id", id);
+		map2.put("board_id", pk);
+		for (Map map : list) {
+			Map m = template.selectOne("board_like.selectCount", pk);
+			map.put("COUNT", m.get("COUNT"));
+			if (template.selectOne("board.selectLike", map2) != null) {
+				map.put("LIKE", true);
+			}
+		}
+		return list;
+	}
+
+	// 게시판글 좋아요
+	public boolean insertLike(String pk, String id) {
+		Map map = new HashMap<>();
+		map.put("board_id", pk);
+		map.put("id", id);
+		return template.insert("board_like.insertOne", map) == 1;
+	}
+
+	// 게시판글 좋아요 취소
+	public boolean deleteLike(String pk, String id) {
+		Map map = new HashMap<>();
+		map.put("board_id", pk);
+		map.put("id", id);
+		return template.delete("board_like.deleteOne", map) == 1;
 	}
 
 }
