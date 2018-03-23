@@ -10,6 +10,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</insert>
 	<select id="getByIdAndPassword" parameterType="hashmap"
 		resultType="hashmap">
-		select * from member where id=#{id} and pass=#{pass}
+		select * from member 
+			<where>
+				<if test="id != null">
+					id=#{id}
+				</if>
+				<if test="pass != null">
+					and pass=#{pass}
+				</if>	
+			</where>
 	</select>
+	
 </mapper>

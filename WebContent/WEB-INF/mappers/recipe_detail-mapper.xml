@@ -5,4 +5,7 @@
 		insert into recipe_detail values (recipe_detail_seq.nextval,#{ino},#{step},#{recipe},#{dphoto})
 	</insert>
 	
+	<select id="selectDetail" resultType="hashmap">
+		select * from recipe_detail where ino=#{ino}
+	</select>
 </mapper>

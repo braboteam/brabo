@@ -16,21 +16,15 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
-import service.recipe.RecipeService;
+import service.recipe.RecipeInputService;
 
 @Controller
 @RequestMapping("/recipe")
-public class RecipeController {
+public class RecipeInputController {
 	@Autowired
-	RecipeService recipeService;
+	RecipeInputService recipeService;
 	
-	
-	@RequestMapping(path="/list",method=RequestMethod.GET)
-	public String listGetHandle() {
-		
-		return "";
-	}
-	
+
 	// 레시피 등록폼 접근
 	@RequestMapping(path="/input",method=RequestMethod.GET)
 	public String inputGetHandle(Model model) {
@@ -93,9 +87,9 @@ public class RecipeController {
 			if(infoRst && detailRst) {
 				
 			}
-				
 			
-			return "list";
+			model.addAttribute("body", "/WEB-INF/view/recipeDetail.jsp");
+			return "index";
 	}
 			
 	

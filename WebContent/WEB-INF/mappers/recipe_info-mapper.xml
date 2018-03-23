@@ -10,4 +10,8 @@
 		select no from recipe_info where iphoto=#{iphoto}
 	</select>
 	
+	<select id="selectInfo" resultType="hashmap">
+		select * from recipe_info where no=#{no}
+	</select>
+	
 </mapper>

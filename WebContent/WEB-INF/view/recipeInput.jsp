@@ -165,13 +165,11 @@
 	<script>
 		var i = 1;
 		// 재료기입 추가 
-		$("#plus")
-				.click(
-						function() {
-							var out = "<div id=\"item\"><input class=\"w2-input w3-border w3-round-large\" name=\"item\" type=\"text\" >";
-							out += " <input class=\"w2-input w3-border w3-round-large\" name=\"item\" type=\"text\" ></div>"
-							$("#items").append(out);
-						});
+		$("#plus").click(function(){
+			var out = "<div id=\"item\"><input class=\"w2-input w3-border w3-round-large\" name=\"item\" type=\"text\" >";
+				out += " <input class=\"w2-input w3-border w3-round-large\" name=\"item\" type=\"text\" ></div>"
+			$("#items").append(out);
+		});
 
 		// 재료기입 삭제
 		$("#minus").click(function() {
@@ -179,40 +177,32 @@
 		});
 
 		// 요리순서 기입칸 추가
-		$("#detailP")
-				.click(
-						function() {
-							i++;
-							var out = "<div id=\"detail"+i+"\" class=\"recipe\"><div>Step#"
-									+ i + "</div> ";
-							out += "<textarea class=\"w3-textarea w3-border w3-round-large\" name=\"recipe\" rows=\"10\" cols=\"50\" style=\"resize:none;\"></textarea>";
-							out += "<input type=\"hidden\" name=\"step\" value=\""+i+"\" />";
-							out += "<input type=\"file\" name=\"dphoto\" id=\"photo"+i+"\" class=\"photos\"/> <span id=\"preview"+i+"\"></span>";
-							out += "<button class=\"w3-button w3-white w3-border w3-round-large\" id=\"pbt"+i+"\" type=\"button\">사진추가</button></div>";
+		$("#detailP").click(function() {
+			i++;
+			var out = "<div id=\"detail"+i+"\" class=\"recipe\"><div>Step#"+ i + "</div> ";
+				out += "<textarea class=\"w3-textarea w3-border w3-round-large\" name=\"recipe\" rows=\"10\" cols=\"50\" style=\"resize:none;\"></textarea>";
+				out += "<input type=\"hidden\" name=\"step\" value=\""+i+"\" />";
+				out += "<input type=\"file\" name=\"dphoto\" id=\"photo"+i+"\" class=\"photos\"/> <span id=\"preview"+i+"\"></span>";
+				out += "<button class=\"w3-button w3-white w3-border w3-round-large\" id=\"pbt"+i+"\" type=\"button\">사진추가</button></div>";
 
-							$("#details").append(out);
+			$("#details").append(out);
 
-							// 추가된 폼에 대한 사진추가 & 미리보기 스크립트
-							$("#pbt" + i).click(function() {
-								$("#photo" + i).click();
-							});
-							$("#photo" + i)
-									.change(
-											function() {
-												var files = this.files;
-												$("#preview" + i).html("");
-												for (var idx = 0; idx < files.length; idx++) {
-													var reader = new FileReader();
-													reader
-															.readAsDataURL(files[idx]);
-													reader.onload = function() {
-														$("#preview" + i)
-																.append(
-																		"<img src=\""+this.result+ "\" style=\"width:70px; height:70px; margin:5px;\"/>");
-													}
-												}
-											});
-						});
+		// 추가된 폼에 대한 사진추가 & 미리보기 스크립트
+			$("#pbt" + i).click(function() {
+				$("#photo" + i).click();
+			});
+			$("#photo" + i).change(function(){
+				var files = this.files;
+				$("#preview" + i).html("");
+				for (var idx = 0; idx < files.length; idx++) {
+					var reader = new FileReader();
+						reader.readAsDataURL(files[idx]);
+						reader.onload = function() {
+					$("#preview" + i).append("<img src=\""+this.result+ "\" style=\"width:70px; height:70px; margin:5px;\"/>");
+					}
+				}
+			});
+		});
 
 		// 요리순서 기입칸 삭제
 		$("#detailM").click(function() {
@@ -226,21 +216,17 @@
 		});
 
 		// 요리 사진 미리보기
-		$("#photo1")
-				.change(
-						function() {
-							var files = this.files;
-							$("#preview1").html("");
-							for (var i = 0; i < files.length; i++) {
-								var reader = new FileReader();
-								reader.readAsDataURL(files[i]);
-								reader.onload = function() {
-									$("#preview1")
-											.append(
-													"<img src=\""+this.result+ "\" style=\"width:70px; height:70px; margin:5px;\"/>");
-								}
-							}
-						});
+		$("#photo1").change(function(){ 
+			var files = this.files;
+			$("#preview1").html("");
+			for (var i = 0; i < files.length; i++) {
+				var reader = new FileReader();
+				reader.readAsDataURL(files[i]);
+				reader.onload = function() {
+				$("#preview1").append("<img src=\""+this.result+ "\" style=\"width:70px; height:70px; margin:5px;\"/>");
+				}
+			}
+		});
 
 		// 대표 사진 추가
 		$("#ipbt").click(function() {
@@ -248,19 +234,15 @@
 		});
 
 		// 대표 사진 미리보기 
-		$("#iphoto")
-				.change(
-						function() {
-							var files = this.files;
-							$("#ipreview").html("");
-							var reader = new FileReader();
-							reader.readAsDataURL(files[0]);
-							reader.onload = function() {
-								$("#ipreview")
-										.append(
-												"<img src=\""+this.result+ "\" style=\"width:70px; height:70px; margin:5px;\"/>");
-							}
-						});
+		$("#iphoto").change(function() {
+			var files = this.files;
+			$("#ipreview").html("");
+			var reader = new FileReader();
+			reader.readAsDataURL(files[0]);
+			reader.onload = function() {
+			$("#ipreview").append("<img src=\""+this.result+ "\" style=\"width:70px; height:70px; margin:5px;\"/>");
+			}
+		});
 	</script>
 
 </body>
