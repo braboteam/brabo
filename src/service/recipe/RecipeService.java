@@ -30,7 +30,7 @@ public class RecipeService {
 
 		int chk = 0;
 		if (!iphoto.isEmpty()) {
-			String rename = (String) info.get("rename");
+			String rename = (String) info.get("iphoto");
 			File photo = new File(path, rename);
 
 			chk = template.insert("recipe_info.insertInfo", info);

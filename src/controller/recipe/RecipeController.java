@@ -43,7 +43,7 @@ public class RecipeController {
 	// 레시피 등록
 	@RequestMapping(path="/input",method=RequestMethod.POST)
 	public String inputPostHandle(@RequestParam MultiValueMap<String, List> param, @RequestParam(name="iphoto") MultipartFile iphoto,
-			@RequestParam(name="dphoto") MultipartFile[] dphoto,HttpSession session) {
+			@RequestParam(name="dphoto") MultipartFile[] dphoto,HttpSession session, Model model) {
 		
 		System.out.println(param);
 		String id = (String)session.getAttribute("logon");
@@ -61,30 +61,39 @@ public class RecipeController {
 		List items = param.get("item");
 		String input = "";
 			for(int i=0; i< param.get("item").size()-1; i++) {
-				
-				input += param.get("item").get(i) +"#" +param.get("item").get(i+1)+"#";
+				if(i == 0 || i % 2 == 0) {
+					if(i == param.get("item").size()-2)
+						input += param.get("item").get(i) +"#" +param.get("item").get(i+1);
+					else 	
+						input += param.get("item").get(i) +"#" +param.get("item").get(i+1)+"#";
+				}	
 			}
 			info.put("items", input);
 		// file rename.. recipe_info 테이블 pk 가져오기 위해 여기서 만든다....	
 		String rename = UUID.randomUUID().toString().substring(0, 12)+".jpg";
 			info.put("iphoto", rename);
-			
+		
+		boolean infoRst = false;
+		boolean detailRst = false;
 			try {
-				boolean rst = recipeService.inputInfo(info,iphoto);
-				
-				if(rst) {
+				infoRst = recipeService.inputInfo(info,iphoto);
+				if(infoRst) {
 					// recipe_detail에 집어넣기 - 아래서 rst 가 true 인 경우.. detail 맵 만들어서 전달.	
 					Map detail = new HashMap<>();
 					detail.put("ino", recipeService.getInfoNo(rename));
 					detail.put("step", param.get("step"));
 					detail.put("recipe", param.get("recipe"));
 					
-					recipeService.inputDetail(id,detail,dphoto);
+					detailRst = recipeService.inputDetail(id,detail,dphoto);
 				}
 			} catch (Exception e) {
 				e.printStackTrace();
 			}	
 			
+			if(infoRst && detailRst) {
+				
+			}
+				
 			
 			return "list";
 	}
