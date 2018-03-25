@@ -6,6 +6,6 @@
 	</insert>
 	
 	<select id="selectDetail" resultType="hashmap">
-		select * from recipe_detail where ino=#{ino}
+		select * from recipe_detail where ino=#{ino} order by step asc
 	</select>
 </mapper>

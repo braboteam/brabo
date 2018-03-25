@@ -43,7 +43,7 @@ public class RecipeInputController {
 		String id = (String)session.getAttribute("logon");
 
 		// recipe_info 에 집어넣기 - info 맵에 필요한 정보 담아서 service에 전달.
-		Map info = new HashMap<>();
+		Map<String,Object> info = new HashMap<>();
 			info.put("id", id);
 			info.put("title", param.get("title").get(0));
 			info.put("info", param.get("info").get(0));
@@ -73,7 +73,7 @@ public class RecipeInputController {
 				infoRst = recipeService.inputInfo(info,iphoto);
 				if(infoRst) {
 					// recipe_detail에 집어넣기 - 아래서 rst 가 true 인 경우.. detail 맵 만들어서 전달.	
-					Map detail = new HashMap<>();
+					Map<String,Object> detail = new HashMap<>();
 					detail.put("ino", recipeService.getInfoNo(rename));
 					detail.put("step", param.get("step"));
 					detail.put("recipe", param.get("recipe"));

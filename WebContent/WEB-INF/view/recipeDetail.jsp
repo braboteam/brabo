@@ -112,6 +112,10 @@
 					<div style="text-align:left">댓글()</div><hr/>
 					
 					<form>
+						<c:forEach var="i" begin="1" end="5">
+							${i }<input type="radio" name="rate" class="rate" value="${i }"/>
+ 						</c:forEach>
+ 						<br/>
 						<textarea class="w3-textarea w3-border w3-round-large" name="reply"
 							rows="5" cols="50" style="resize: none;"  id="re"
 							placeholder="요리의 후기나 궁금하신 점을 댓글로 남겨주세요!"></textarea>
@@ -139,10 +143,13 @@
 		// 댓글 등록 ajax
 		$("#rbt").click(function(){
 			var reply = $("#re").val();
-			$.get("/replyInput",{
+			var ino = ${info.NO}
+			var rate = $(".rate:checked").val();
+			$.get("/${pageContext.request.contextPath}/recipe/replyInput",{
 				"reply":reply,
-				"ino":${info.NO}
-			},function(){
+				"ino":ino,
+				"rate":rate
+			},function(rst){
 				
 			});
 		});
