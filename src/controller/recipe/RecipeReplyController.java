@@ -16,7 +16,7 @@ import com.google.gson.Gson;
 import service.recipe.RecipeReplyService;
 
 @Controller
-@RequestMapping("recipe")
+@RequestMapping("/recipe")
 public class RecipeReplyController {
 	@Autowired
 	Gson gson;
@@ -24,7 +24,7 @@ public class RecipeReplyController {
 	RecipeReplyService rRelyService;
 	
 	
-	@RequestMapping(path="/replyInput")
+	@RequestMapping(path="/replyInput",produces="application/json;charset=utf-8")
 	@ResponseBody
 	public String recipeInputHandle(@RequestParam Map<String,String> param,HttpSession session) {
 		// 아이디(댓글 작성자), 댓글내용, recipe_info 기본키 필요.
@@ -32,12 +32,11 @@ public class RecipeReplyController {
 		boolean rst = rRelyService.inputReply(id,param);
 		Map<String,Boolean> map = new HashMap<>();
 		
-		if(rst) {
+		if(rst) 
 			map.put("rst", true);
-		} else {
+		 else 
 			map.put("rst", false);
-		}
-		
+
 		return gson.toJson(map);
 	}
 	

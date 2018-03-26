@@ -116,7 +116,7 @@
 							${i }<input type="radio" name="rate" class="rate" value="${i }"/>
  						</c:forEach>
  						<br/>
-						<textarea class="w3-textarea w3-border w3-round-large" name="reply"
+						<textarea class="w3-textarea w3-border w3-round-large" name="content"
 							rows="5" cols="50" style="resize: none;"  id="re"
 							placeholder="요리의 후기나 궁금하신 점을 댓글로 남겨주세요!"></textarea>
 
@@ -138,21 +138,27 @@
 			//} else {
 			//	window.alert("로그인 후에 사용해주세요.");
 		//	}
-		})
+		});
 		
 		// 댓글 등록 ajax
 		$("#rbt").click(function(){
 			var reply = $("#re").val();
 			var ino = ${info.NO}
 			var rate = $(".rate:checked").val();
-			$.get("/${pageContext.request.contextPath}/recipe/replyInput",{
-				"reply":reply,
+			$.get("${pageContext.request.contextPath}/recipe/replyInput",{
+				"content":reply,
 				"ino":ino,
 				"rate":rate
-			},function(rst){
-				
+			},function(obj){
+				if(obj.rst == true) {
+					window.alert("성공");
+				} else {
+					window.alert("실패");
+				}
 			});
 		});
+		
+		
 		
 	</script>
 </body>

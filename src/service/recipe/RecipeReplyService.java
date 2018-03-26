@@ -11,6 +11,7 @@ public class RecipeReplyService {
 	@Autowired
 	SqlSessionTemplate template;
 	
+	// 댓글 등록
 	public boolean inputReply(String id, Map<String, String> param) {
 		param.put("writer", id);
 		
