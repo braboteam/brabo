@@ -3,9 +3,14 @@
 <mapper namespace="recipe_reply">
 	
 	<insert id="insertReply" parameterType="hashmap">
-		insert into recipe_reply values (recipe_reply_seq.nextval,#{ino},#{writer},#{content},#{rate})
+		insert into recipe_reply values (recipe_reply_seq.nextval,#{ino},#{writer},#{content},#{rate},sysdate)
 	</insert>
 	
-	
+	<select id="selectAll" resultType="hashmap">
+		select * from recipe_reply left join member on recipe_reply.writer = member.id where ino=#{ino} order by recipe_reply.no asc
+	</select>
+	<select id="selectAVg" resultType="hashmap">
+		select avg(rate) as avg from recipe_reply where ino=#{ino}
+	</select>
 	
 </mapper>

@@ -11,7 +11,13 @@
 	</select>
 	
 	<select id="selectInfo" resultType="hashmap">
-		select * from recipe_info where no=#{no}
+		select * from recipe_info 
+		<where>
+			<if test="no != null">
+				no=#{no}
+			</if>
+		</where>
 	</select>
+	
 	
 </mapper>

@@ -1,6 +1,8 @@
 package controller.recipe;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
@@ -21,15 +23,16 @@ public class RecipeReplyController {
 	@Autowired
 	Gson gson;
 	@Autowired
-	RecipeReplyService rRelyService;
+	RecipeReplyService rReplyService;
 	
 	
 	@RequestMapping(path="/replyInput",produces="application/json;charset=utf-8")
 	@ResponseBody
 	public String recipeInputHandle(@RequestParam Map<String,String> param,HttpSession session) {
+		// recipe_reply 테이블에 댓글 등록  
 		// 아이디(댓글 작성자), 댓글내용, recipe_info 기본키 필요.
 		String id = (String)session.getAttribute("logon");
-		boolean rst = rRelyService.inputReply(id,param);
+		boolean rst = rReplyService.inputReply(id,param);
 		Map<String,Boolean> map = new HashMap<>();
 		
 		if(rst) 
@@ -39,5 +42,24 @@ public class RecipeReplyController {
 
 		return gson.toJson(map);
 	}
+	
+	@RequestMapping(path="/replyGet",produces="application/json;charset=utf-8")
+	@ResponseBody
+	public String recipeGetHandle(@RequestParam String ino) {
+		// recipe_reply 테이블 등록 성공 후, ajax로 해당 페이지 전체댓글 가져오는 과정.
+		List<Map<String,Object>> list = new ArrayList<Map<String,Object>>();
+		
+		try {
+			list = rReplyService.getReply(ino);
+				list.add(rReplyService.getAvg(ino));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return gson.toJson(list);
+	}
+	
+	
+	
 	
 }

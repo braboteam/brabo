@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions"  prefix="fn"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
     
 
 
@@ -109,8 +110,13 @@
 			
 			<div class="w3-card card">
 				<div class="c">
-					<div style="text-align:left">댓글()</div><hr/>
-					
+					<div style="text-align:left">댓글 <span class="info">${fn:length(reply)-1 }</span> 평점 
+						<span class="info"><fmt:formatNumber pattern="0.00" value="${rate.AVG }" /></span></div><hr/>
+					<div id="replyShow">
+						<c:forEach var="i" items="${reply }">
+							<div><img src="${pageContext.request.contextPath }${i.PROFILE}"  style="width:20%">  ${i.NICK }  ${i.CONTENT }  ${i.RATE } ${i.REDATE }</div>
+						</c:forEach>
+					</div>
 					<form>
 						<c:forEach var="i" begin="1" end="5">
 							${i }<input type="radio" name="rate" class="rate" value="${i }"/>
@@ -152,11 +158,27 @@
 			},function(obj){
 				if(obj.rst == true) {
 					window.alert("성공");
+					replyGet();
+					
 				} else {
 					window.alert("실패");
 				}
 			});
 		});
+		
+		// 댓글 갱신 ajax
+		function replyGet() {
+			var ino = ${info.NO}
+			$.get("${pageContext.request.contextPath}/recipe/replyGet",{
+				"ino":ino
+			},function(obj){
+				var out = "";
+				for(var i=0; i<obj.length; i++) {
+					out += "<div>"+obj[i].WRITER + obj[i].CONTENT + obj[i].RATE + obj[i].AVG+"</div>";
+				}
+				$("#replyShow").html(out);
+			});
+		};
 		
 		
 		

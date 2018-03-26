@@ -15,8 +15,9 @@ public class RecipeDetailService {
 	
 	// recipe_info 테이블에서 no로 데이터 가져오기
 	public Map getInfo(String no) {
-		
-		return template.selectOne("recipe_info.selectInfo",no);
+		Map<String,String> map = new HashMap<>();
+			map.put("no", no);
+		return template.selectOne("recipe_info.selectInfo",map);
 	}
 	
 	// recipe_detail 테이블에서 ino로 데이터 가져오기
@@ -28,7 +29,7 @@ public class RecipeDetailService {
 
 	// member 테이블에서 해당 레시피 작성자 id로 데이터 가져오기
 	public Map getProfile(String id) {
-		Map map = new HashMap<>();
+		Map<String,String> map = new HashMap<>();
 			map.put("id", id);
 		return template.selectOne("member.getByIdAndPassword",map);
 	}
