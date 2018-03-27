@@ -95,7 +95,14 @@ body, html {
 									</c:otherwise>
 								</c:choose></span> <span id="count${i.BOARD_ID }">${i.COUNT }</span> <!-- 댓글 --> <a
 							href="#"> <span class="glyphicon glyphicon-user"></span>
-						</a> 0
+						</a> <c:choose>
+								<c:when test="${i.COMMENTS_COUNT == null}">
+								0
+								</c:when>
+								<c:otherwise>
+						 ${i.COMMENTS_COUNT }
+						</c:otherwise>
+							</c:choose>
 					</font></td>
 				</tr>
 				<tr>

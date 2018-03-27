@@ -3,6 +3,8 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <style>
 body, html {
@@ -43,7 +45,37 @@ body, html {
 	background-color: #555;
 	color: white;
 }
+
+input[type=text], select, textarea {
+	width: 100%; /* Full width */
+	padding: 12px; /* Some padding */
+	border: 1px solid #ccc; /* Gray border */
+	border-radius: 4px; /* Rounded borders */
+	box-sizing: border-box;
+	/* Make sure that padding and width stays in place */
+	margin-top: 6px; /* Add a top margin */
+	margin-bottom: 16px; /* Bottom margin */
+	resize: vertical
+		/* Allow the user to vertically resize the textarea (not horizontally) */
+}
+
+/* Style the submit button with a specific background color etc */
+input[type=submit] {
+	background-color: #4CAF50;
+	color: white;
+	padding: 12px 20px;
+	border: none;
+	border-radius: 4px;
+	cursor: pointer;
+}
 </style>
+<!-- 댓글삽입 실패 -->
+<c:if test="${insertFail != null }">
+	<script>
+		window.alert("${insertFail}");
+	</script>
+</c:if>
+
 <!-- 디테일게시 -->
 <div align="center">
 	<table border="0" style="width: 55%; background-color: white;">
@@ -60,19 +92,19 @@ body, html {
 			</td>
 			<!-- 하트댓글표시 -->
 			<td align="right" style="width: 45%;"><font size="5px;">
-					<!-- 하트 --> <c:choose>
-						<c:when test="${board[0].LIKE == null }">
-							<a href="javascript:like('${board[0].BOARD_ID }','t');"> <span
-								class="glyphicon glyphicon-heart-empty"></span>
-							</a>
-						</c:when>
-						<c:otherwise>
-							<!-- 색있는 하트 -->
-							<a href="javascript:like('${board[0].BOARD_ID }','f');"> <span
-								class="glyphicon glyphicon-heart"></span></a>
-						</c:otherwise>
-					</c:choose>${board[0].COUNT } <!-- 댓글 --> <a href="#"> <span
-						class="glyphicon glyphicon-user"></span>
+					<!-- 하트 --> <span id="heart"> <c:choose>
+							<c:when test="${board[0].LIKE == null }">
+								<a href="javascript:like('${board[0].BOARD_ID }','t');"> <span
+									class="glyphicon glyphicon-heart-empty"></span>
+								</a>
+							</c:when>
+							<c:otherwise>
+								<!-- 색있는 하트 -->
+								<a href="javascript:like('${board[0].BOARD_ID }','f');"> <span
+									class="glyphicon glyphicon-heart"></span></a>
+							</c:otherwise>
+						</c:choose></span> <span id="count">${board[0].COUNT }</span> <!-- 댓글 --> <a
+					href="#"> <span class="glyphicon glyphicon-user"></span>
 				</a>0
 			</font></td>
 		</tr>
@@ -93,7 +125,8 @@ body, html {
 				</c:if></td>
 		</tr>
 	</table>
-	<!-- 댓글 -->
+
+	<!-- 댓글 목록-->
 	<h3 align="left" style="width: 55%;">
 		댓글 <font color="pistachio">12</font>
 	</h3>
@@ -105,17 +138,68 @@ body, html {
 			<li>Adam</li>
 		</ul>
 	</div>
+	<br />
+	<!-- 댓글달기 -->
+	<form action="${pageContext.request.contextPath }/addcomments">
+		<div style="width: 55%; text-align: left;">
+			<label for="subject">댓글쓰기</label>
+			<textarea id="comments" name="comments" placeholder="댓글내용작성"
+				style="height: 150px"></textarea>
+			<input type="hidden" name="board_id" value="${board[0].BOARD_ID }">
+		</div>
+		<div style="text-align: right; width: 55%;">
+			<input type="submit" value="댓글달기">
+		</div>
+	</form>
+
 </div>
 <br />
 
 <script>
-	function like(pk) {
-		console.log("like()" + pk);
-		/* $.get("02ajax.jsp", {
-			"word" : "ajax",
-			"front" : [ "java", "jsp", "css", "jquery" ]
-		}, function(rst) {
-			window.alert("rst = " + rst);
-		}); */
+	function like(pk, b) {
+		if (b == 't') {
+			$
+					.get(
+							"${pageContext.request.contextPath}/like",
+							{
+								"board_id" : pk,
+							},
+							function(rst) {
+								if (rst == true) {
+									window.alert("좋아요완료");
+									$("#heart")
+											.html(
+													"<a href=\"javascript:like('"
+															+ pk
+															+ "','f');\"> <span class='glyphicon glyphicon-heart'></span></a>");
+									$("#count").html(
+											JSON.parse($("#count").html()) + 1);
+								} else {
+									console.log("[Error] 좋아요 실패")
+								}
+							});
+		} else {
+			$
+					.get(
+							"${pageContext.request.contextPath}/likecancel",
+							{
+								"board_id" : pk,
+							},
+							function(rst) {
+								if (rst == true) {
+									window.alert("좋아요실패완료");
+									$("#heart")
+											.html(
+													"<a href=\"javascript:like('"
+															+ pk
+															+ "','t');\"> <span class='glyphicon glyphicon-heart-empty'></span></a>");
+									$("#count").html(
+											JSON.parse($("#count").html()) - 1);
+									//location.href = "";
+								} else {
+									window.alert("[Error] 좋아요 취소실패")
+								}
+							});
+		}
 	}
 </script>
