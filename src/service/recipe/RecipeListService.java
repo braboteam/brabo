@@ -18,4 +18,16 @@ public class RecipeListService {
 		return rInfo;
 	}
 
+	public int getAllList() {
+		List<Map<String,String>> list = template.selectList("recipe_info.selectInfo");
+		int size = 0;
+		if(list != null) {
+			size = list.size();
+		}
+		
+		return size;
+	}
+	
+	
+
 }
