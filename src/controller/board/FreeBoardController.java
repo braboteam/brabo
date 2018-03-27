@@ -1,5 +1,7 @@
 package controller.board;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,10 +16,9 @@ public class FreeBoardController {
 	BoardService boardService;
 
 	@RequestMapping("/freeboard")
-	public String freeBoardHandle(Model model) {
-		System.out.println("자유게시판 컨트롤러");
+	public String freeBoardHandle(Model model, HttpSession session) {
 		model.addAttribute("body", "/WEB-INF/view/freeBoard.jsp");
-		model.addAttribute("board", boardService.selectBoard());
+		model.addAttribute("board", boardService.selectBoard((String) session.getAttribute("logon")));
 		return "index";
 	}
 }

@@ -41,11 +41,11 @@ public class BoardWritingController {
 		boolean r = boardService.insertBoard(map, path, image);
 		// 성공
 		if (r) {
-			System.out.println("성공");
+			model.addAttribute("msg", "게시글이 등록되었습니다.");
 		}
 		// 실패
 		else {
-			System.out.println("실패");
+			model.addAttribute("msg", "게시글 등록에 실패하였습니다.");
 		}
 		model.addAttribute("body", "/WEB-INF/view/freeBoard.jsp");
 		return "index";
