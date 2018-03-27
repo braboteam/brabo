@@ -13,7 +13,7 @@ public class IdCheckService {
 	@Autowired
 	SqlSessionTemplate template;
 
-	public boolean idcheck(Map data) {
-		return template.selectOne("member.getByIdAndPassword", data) != null;
+	public Map idcheck(Map data) {
+		return template.selectOne("member.checkId", data);
 	}
 }

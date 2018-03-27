@@ -30,17 +30,22 @@ public class IdCheckController {
 	public String loginGetHandle(Model model) {
 		model.addAttribute("body", "/WEB-INF/view/addjoin.jsp");
 		return "addjoin";
-	} 
-	
+	}
+
 	@RequestMapping(path = "/idcheck", method = RequestMethod.POST)
 	@ResponseBody
-	public String checkSignup(@RequestParam Map<String, String> param, Model model)throws IllegalStateException, IOException {
+	public String checkSignup(@RequestParam Map<String, String> param, Model model)
+			throws IllegalStateException, IOException {
 		Map rst = new HashMap<>();
 		rst.put("id", param.get("id"));
 		model.addAttribute("body", "/WEB-INF/view/addjoin.jsp");
-		boolean rowcount = idcheckservice.idcheck(rst);
+		Map rowcount = idcheckservice.idcheck(rst);
+		if(rowcount == null) {
+			return "null";
+		}else {
+			return rowcount.toString();			
+		}
 
-		return String.valueOf(rowcount);
 	}
 
 }
