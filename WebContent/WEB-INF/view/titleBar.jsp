@@ -37,8 +37,7 @@
 						<i class="fa fa-search"> 내정보</i> <i class="fa fa-caret-down"></i>
 					</button>
 					<div class="w3-dropdown-content w3-card-4 w3-bar-block">
-						<a href="${pageContext.request.contextPath }/logout"
-							class="w3-bar-item w3-button">Logout</a> <a href="#"
+						<a href="${pageContext.request.contextPath }/logout" class="w3-bar-item w3-button">logout</a> <a href="#"
 							class="w3-bar-item w3-button">Link</a> <a href="#"
 							class="w3-bar-item w3-button">Link</a>
 					</div>
