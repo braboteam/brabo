@@ -14,7 +14,6 @@
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <body id="myPage">
-
 	<c:if test="${success != null}">
 		<script>
 			window.alert("${success}");
@@ -24,6 +23,18 @@
 	<c:if test="${err != null}">
 		<script>
 			window.alert("${err}");
+		</script>
+	</c:if>
+
+	<c:if test="${logout != null}">
+		<script>
+			window.alert("${logout}");
+		</script>
+	</c:if>
+	
+	<c:if test="${join != null}">
+		<script>
+			window.alert("${join}");
 		</script>
 	</c:if>
 	<!-- Sidebar on click -->
