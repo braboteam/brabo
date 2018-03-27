@@ -18,19 +18,25 @@ public class RecipeListController {
 	RecipeListService rListService;
 	
 	@RequestMapping("/list")
-	public String listHandle(@RequestParam Map<String,String> param,Model model) {
+	public String listHandle(Model model,@RequestParam(defaultValue="1")int p) {
 		System.out.println("recipeListController 접근..");
 		List<Map<String,Object>> rInfo = rListService.getAllInfo();
 		
-		int startPage = (param.get("startPage") != null? Integer.valueOf(param.get("startPage")) : 1);
-		int visiblePage = (param.get("visiblePage") != null? Integer.valueOf(param.get("visiblePage")) : 10);
-		
+		// 전체 페이지 수 출력용...
 		int totalCnt = rListService.getAllList();
 		
-		model.addAttribute("startPage",startPage);
-		model.addAttribute("visiblePage", visiblePage);
-		model.addAttribute("totalPage",param.get("totalPage"));
-		model.addAttribute("list",rInfo);
+		// 3 자리에 9 곱해주면 한 화면에 3행 3열씩 출력된다.
+		// substring을 할 때, end에서 데이터가 없으면 터질 수 있으므로, 이 점 생각해서 세팅한다.
+		// 파라미터 p값을  view에서 어떤식으로 넘겨받아야 할지?? 하단 페이징처리된 버튼 클릭시 넘겨 받을 수 있게 링크 걸어두면 될듯? 
+		
+		int t = 9;
+		int begin = (p-1)*t;
+		int end = p*t;
+		if(end > rInfo.size()) 
+			end = rInfo.size();
+		
+		model.addAttribute("totalCnt",totalCnt/9 +totalCnt%9);
+		model.addAttribute("list",rInfo.subList(begin, end));
 		model.addAttribute("body", "/WEB-INF/view/recipeList.jsp");
 		
 		return "index";

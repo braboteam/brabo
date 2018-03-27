@@ -46,6 +46,7 @@
 .recipeTd {
 	width:300px;
 }
+
 </style>
 <body>
 	<script
@@ -110,7 +111,7 @@
 			
 			<div class="w3-card card">
 				<div class="c">
-					<div style="text-align:left">댓글 <span class="info">${fn:length(reply)-1 }</span> 평점 
+					<div style="text-align:left">댓글 <span class="info">${fn:length(reply)} </span> 평점 
 						<span class="info"><fmt:formatNumber pattern="0.00" value="${rate.AVG }" /></span></div><hr/>
 					<div id="replyShow">
 						<c:forEach var="i" items="${reply }">
@@ -138,13 +139,13 @@
 	
 	<script>
 		// 로그인 하지 않았을 경우 로그인으로 유도...
-		$("#re").click(function(){
+		//$("#re").click(function(){
 			//if(${sessionScope.logon} != null) {
 				
 			//} else {
-			//	window.alert("로그인 후에 사용해주세요.");
-		//	}
-		});
+				//window.alert("로그인 후에 사용해주세요.");
+			//}
+		//});
 		
 		// 댓글 등록 ajax
 		$("#rbt").click(function(){

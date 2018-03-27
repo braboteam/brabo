@@ -6,60 +6,7 @@
 <title>Insert title here</title>
 <script
 		src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script>
-	$("document").ready(function(){
-		
-		var totalPage = ${totalPage};	// 전체 페이지
-		var startPage = ${startPage};	// 현재 페이지 
-		var pagination = ""; 			// pagination 부분에 append 해줄 변수.. 
-		
-		var forStart = 0;
-		var forEnd = 0;
-		
-		if((startPage-5) < 1 ) {
-			forStart = 1;
-		} else {
-			forStart = startPage - 5;
-		}
-		
-		if(forStart == 1) {
-			if(totalPage > 9) {
-				forEnd = 10;
-			} else {
-				forEnd = totalPage;
-			}
-		} else {
-			if((startPage + 4) > totalPage) {
-				forEnd = totalPage;
-				if(forEnd > 9) {
-					forStart = forEnd - 9;
-				}
-			} else {
-				forEnd = startPage + 4;
-			}
-		}
-		
-		// 페이지 리스트 출력 
-		for(var i = forStart; i<=forEnd; i++) {
-			if(startPage == i) {
-				pagination += "<button name=\"page\" start="+i+" class=\"page\" disabled >"+i+"</button>";
-			} else {
-				pagination += "<button name=\"page\" start="+i+" class=\"page\" >"+i+"</button>";
-			}
-		}
-		$("#pagination").append(pagination);
-		
-		$(".page").click(function(){
-			var visiblePage = 10;
-			$("#startpage").val($(this).attr("start"));
-			$("#visiblePage").val(visiblePage);
-			
-			
-		});
-				
-	});
 
-</script>
 
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <style>
@@ -139,6 +86,18 @@ h1 {
 .link {
 	text-decoration: none;
 }
+.pagination a {
+    color: black;
+    float: left;
+    padding: 8px 16px;
+    text-decoration: none;
+    transition: background-color .3s;
+}
+.pagination a.active {
+    background-color: dodgerblue;
+    color: white;
+}
+.pagination a:hover:not(.active) {background-color: #ddd;}
 </style>
 </head>
 <body>
@@ -185,7 +144,12 @@ h1 {
 	
 				<!-- END GRID -->
 			</div>
-			<div id="pagination"></div>
+			<div id="pagination">
+				<c:forEach var="i" begin="1" end="${totalCnt }">
+					<a href="${pageContext.request.contextPath }/recipe/list?p=${i}">${i }</a>
+				</c:forEach>
+  				<a href="#">&raquo;</a>
+			</div>
 			<!-- END MAIN -->
 		</div>
 	</form>
