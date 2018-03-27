@@ -145,10 +145,15 @@ h1 {
 				<!-- END GRID -->
 			</div>
 			<div id="pagination">
+				<c:if test="${page != 1 }">
+					<a href="${pageContext.request.contextPath }/recipe/list?p=${page-1}">&laquo;</a>
+				</c:if>
 				<c:forEach var="i" begin="1" end="${totalCnt }">
 					<a href="${pageContext.request.contextPath }/recipe/list?p=${i}">${i }</a>
 				</c:forEach>
-  				<a href="#">&raquo;</a>
+				<c:if test="${page != totalCnt }">
+  					<a href="${pageContext.request.contextPath }/recipe/list?p=${page+1}">&raquo;</a>
+  				</c:if>	
 			</div>
 			<!-- END MAIN -->
 		</div>

@@ -24,6 +24,10 @@ public class RecipeListController {
 		
 		// 전체 페이지 수 출력용...
 		int totalCnt = rListService.getAllList();
+		if(totalCnt%9 == 0)
+			totalCnt = totalCnt/9;
+		else
+			totalCnt = totalCnt/9 + 1;
 		
 		// 3 자리에 9 곱해주면 한 화면에 3행 3열씩 출력된다.
 		// substring을 할 때, end에서 데이터가 없으면 터질 수 있으므로, 이 점 생각해서 세팅한다.
@@ -35,7 +39,8 @@ public class RecipeListController {
 		if(end > rInfo.size()) 
 			end = rInfo.size();
 		
-		model.addAttribute("totalCnt",totalCnt/9 +totalCnt%9);
+		model.addAttribute("page", p);
+		model.addAttribute("totalCnt",totalCnt);
 		model.addAttribute("list",rInfo.subList(begin, end));
 		model.addAttribute("body", "/WEB-INF/view/recipeList.jsp");
 		
