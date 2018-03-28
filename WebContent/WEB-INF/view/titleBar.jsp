@@ -11,9 +11,10 @@
 			class="fa fa-bars"></i></a> <a
 			href="${pageContext.request.contextPath }/index"
 			class="w3-bar-item w3-button w3-teal"><i
-			class="fa fa-home w3-margin-right"></i>Home</a> <a href="#team"
-			class="w3-bar-item w3-button w3-hide-small w3-hover-white">Team</a> <a
-			href="#work"
+			class="fa fa-home w3-margin-right"></i>Home</a> 
+			<a href="${pageContext.request.contextPath }/recipe/list"
+			class="w3-bar-item w3-button w3-hide-small w3-hover-white">recipe</a> 
+			<a href="#work"
 			class="w3-bar-item w3-button w3-hide-small w3-hover-white">Work</a> <a
 			href="#pricing"
 			class="w3-bar-item w3-button w3-hide-small w3-hover-white">Price</a>

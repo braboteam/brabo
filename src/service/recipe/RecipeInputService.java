@@ -39,7 +39,7 @@ public class RecipeInputService {
 
 		return chk == 1;
 	}
-
+	
 	// recipe_info 테이블의 pk 값 가져오기
 	public int getInfoNo(String iphoto) {
 
@@ -47,7 +47,7 @@ public class RecipeInputService {
 	}
 
 	// recipe_detail 테이블에 데이터 집어넣기
-	public boolean inputDetail(String id, Map detail, MultipartFile[] dphoto) throws IllegalStateException, IOException {
+	public boolean inputDetail(String id, Map detail, MultipartFile[] dphoto, MultipartFile[] fphoto) throws IllegalStateException, IOException {
 
 		String path = ctx.getRealPath("/dphoto/" + id);
 		File file = new File(path);
@@ -65,9 +65,11 @@ public class RecipeInputService {
 			map.put("ino", detail.get("ino"));
 			map.put("step", steps.get(i));
 			map.put("recipe", recipies.get(i));
-			map.put("dphoto", rename);
+			if(!dphoto[i].isEmpty()) {
+				map.put("dphoto", rename);
+				dphoto[i].transferTo(photo);
+			}
 			chk += template.insert("recipe_detail.insertDetail", map);
-			dphoto[i].transferTo(photo);
 		}
 		
 		return chk == steps.size();

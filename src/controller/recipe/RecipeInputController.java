@@ -37,7 +37,7 @@ public class RecipeInputController {
 	// 레시피 등록
 	@RequestMapping(path="/input",method=RequestMethod.POST)
 	public String inputPostHandle(@RequestParam MultiValueMap<String, List> param, @RequestParam(name="iphoto") MultipartFile iphoto,
-			@RequestParam(name="dphoto") MultipartFile[] dphoto,HttpSession session, Model model) {
+			@RequestParam(name="dphoto") MultipartFile[] dphoto,@RequestParam MultipartFile[] fphoto,HttpSession session, Model model) {
 		
 		System.out.println(param);
 		String id = (String)session.getAttribute("logon");
@@ -78,7 +78,7 @@ public class RecipeInputController {
 					detail.put("step", param.get("step"));
 					detail.put("recipe", param.get("recipe"));
 					
-					detailRst = recipeService.inputDetail(id,detail,dphoto);
+					detailRst = recipeService.inputDetail(id,detail,dphoto,fphoto);
 				}
 			} catch (Exception e) {
 				e.printStackTrace();

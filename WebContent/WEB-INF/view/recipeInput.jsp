@@ -15,26 +15,38 @@
 	display: none;
 }
 
+#titleTr {
+	height:160px;
+}
 .td1 {
-	width: 600px;
+	width: 500px;
+	vertical-align:bottom;
 }
 
 .td2 {
-	width: 300px;
+	width:100px;
+	vertical-align:bottom;
 }
-#ipt {
-	
+
+.photoBt {
+	height:50px;
 }
+
+.imgBt {
+	height:40px;
+}
+
+
 </style>
 <body>
 	<script
 		src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
-
+<div align="center">
 	<form class="w3-container  w3-light-white"
 		action="${pageContext.request.contextPath }/recipe/input"
 		method="post" enctype="multipart/form-data">
-		<table class="w3-table">
+		<table >
 			<tr>
 				<td><h4>Recipe</h4></td>
 			</tr>
@@ -43,7 +55,7 @@
 			</tr>
 
 
-			<tr>
+			<tr id="titleTr">
 				<td class="td1">
 					<p>
 						<label><b>제목</b></label>
@@ -55,10 +67,10 @@
 				</td>
 				<td class="td2">
 					<div>
-						<p id="ipreview">+</p>
 						<input type="file" name="iphoto" id="iphoto" class="photos" />
-						<button class="w3-button w3-white w3-border w3-round-large"
-							id="ipbt" type="button">사진추가</button>
+						<div id="ipreview">
+							<img src="/photoAdd.png" class="photoBt" id="ipbt">
+						</div>
 					</div>
 				</td>
 			</tr>
@@ -115,10 +127,8 @@
 					type="text" placeholder="밀가루"> <input
 					class="w2-input w3-border w3-round-large" name="item" type="text"
 					placeholder="300g">
-					<button class="w3-circle w3-gray" type="button" id="plus">+</button>
-					<button class="w3-circle w3-black" type="button" id="minus">
-						<span style="font-size: 15px">x</span>
-					</button>
+					<img src="/plus.png" class="imgBt" id="plus">
+					<img src="/minus.png" class="imgBt" id="minus">
 					<div id="items"></div>
 				</td>
 				<td></td>
@@ -134,43 +144,61 @@
 						Step#<span id="step">1</span>
 					</div> <textarea class="w3-textarea w3-border w3-round-large"
 						name="recipe" rows="10" cols="50" style="resize: none;"
-						placeholder="밀가루를 반죽합니다."></textarea> <input type="hidden"
-					name="step" value="1" /> <input type="file" name="dphoto"
-					id="photo1" class="photos" />
-					<button class="w3-button w3-white w3-border w3-round-large"
-						id="pbt1" type="button">사진추가</button>
-					<div id="details"></div>
+						placeholder="밀가루를 반죽합니다."></textarea> 
+					
 				</td>
 				<td class="td2">
-					<div id="preview1"></div>
-					<div id="previews"></div>
-				</td>
-			</tr>
-			<tr>
-				<td>
-					<div>
-						<button class="w2-circle w2-black" type="button" id="detailP">+</button>
-						<button class="w2-button w2-circle w2-black" type="button"
-							id="detailM">-</button>
+					<input type="hidden"
+					name="step" value="1" /> <input type="file" name="dphoto"
+					id="photo1" class="photos" />
+					<div id="preview1">
+						<img src="/photoAdd.png" class="photoBt" id="pbt1">
 					</div>
 				</td>
 			</tr>
+			
+			<tr>
+				<td>
+				</td>
+			</tr>
 		</table>
-
-		<div align="center">
+		<div id="details"></div>
+		<div>
+			<img src="/plus.png" id="detailP" class="imgBt"><img src="/minus.png" id="detailM" class="imgBt">
+		</div>
+		
+		<table>
+			<tr>
+				<td class="td1">
+					<div>
+						<b>완성된 사진</b><br/>
+						<small class="info">완성된 요리 사진을 첨부해주세요!</small>
+						<p id="finalView">
+						<input type="file" id="fphoto" name="fphoto" class="photos" multiple />
+						<img src="/photoAdd.png" class="photoBt" id="finalBt">
+						</p>
+					</div>	
+				</td>
+				<td class="td2">
+					
+				</td>
+			</tr>
+		</table>
+	
+		<p align="center">
 			<button class="w3-button w3-white w3-border w3-round-large"
 				type="submit" style="width: 300px">레시피등록</button>
-		</div>
+		</p>
 	</form>
-
+</div>	
 
 
 	<script>
 		var i = 1;
 		// 재료기입 추가 
 		$("#plus").click(function(){
-			var out = "<div id=\"item\"><input class=\"w2-input w3-border w3-round-large\" name=\"item\" type=\"text\" >";
-				out += " <input class=\"w2-input w3-border w3-round-large\" name=\"item\" type=\"text\" ></div>"
+			var out = "<p id=\"item\"><input class=\"w2-input w3-border w3-round-large\" name=\"item\" type=\"text\" >";
+				out += " <input class=\"w2-input w3-border w3-round-large\" name=\"item\" type=\"text\" ></p>"
 			$("#items").append(out);
 		});
 
@@ -182,28 +210,33 @@
 		// 요리순서 기입칸 추가
 		$("#detailP").click(function() {
 			i++;
-			var out = "<div id=\"detail"+i+"\" class=\"recipe\"><div>Step#"+ i + "</div> ";
+			var out = "<table id=\"detail"+i+"\"><tr><td class=\"td1\"><div>Step#"+ i + "</div>";
 				out += "<textarea class=\"w3-textarea w3-border w3-round-large\" name=\"recipe\" rows=\"10\" cols=\"50\" style=\"resize:none;\"></textarea>";
-				out += "<input type=\"hidden\" name=\"step\" value=\""+i+"\" />";
-				out += "<input type=\"file\" name=\"dphoto\" id=\"photo"+i+"\" class=\"photos\"/> <span id=\"preview"+i+"\"></span>";
-				out += "<button class=\"w3-button w3-white w3-border w3-round-large\" id=\"pbt"+i+"\" type=\"button\">사진추가</button></div>";
-
+				out += "<input type=\"hidden\" name=\"step\" value=\""+i+"\" /></td>";
+				out += "<td class=\"td2\"><input type=\"file\" name=\"dphoto\" id=\"photo"+i+"\" class=\"photos\"/>";
+				out += "<div id=\"preview"+i+"\" ><img src=\"/photoAdd.png\" class=\"photoBt\" id=\"pbt"+i+"\"></div></td></tr><table>";
+				
+				
 			$("#details").append(out);
 
-		// 추가된 폼에 대한 사진추가 & 미리보기 스크립트
+			// 추가된 폼에 대한 사진추가 & 미리보기 스크립트
 			$("#pbt" + i).click(function() {
-				$("#photo" + i).click();
+				//console.log($(this).attr('id'));
+				// console.log("#pbt" + i);
+				$(this).parent().prev().click();
 			});
 			$("#photo" + i).change(function(){
+				var target = $(this).next();
+				console.log($(this).attr('id'));
 				var files = this.files;
-				$("#preview" + i).html("");
-				for (var idx = 0; idx < files.length; idx++) {
-					var reader = new FileReader();
-						reader.readAsDataURL(files[idx]);
-						reader.onload = function() {
-					$("#preview" + i).append("<img src=\""+this.result+ "\" style=\"width:70px; height:70px; margin:5px;\"/>");
-					}
+				
+				$(target).html("");
+				var reader = new FileReader();
+				reader.readAsDataURL(files[0]);
+				reader.onload = function() {
+					$(target).html("<img src=\""+this.result+ "\" style=\"width:100px; height:100px;\"/>");
 				}
+				
 			});
 		});
 
@@ -226,7 +259,7 @@
 				var reader = new FileReader();
 				reader.readAsDataURL(files[i]);
 				reader.onload = function() {
-				$("#preview1").append("<img src=\""+this.result+ "\" style=\"width:70px; height:70px; margin:5px;\"/>");
+				$("#preview1").append("<img src=\""+this.result+ "\" style=\"width:100px; height:100px;\"/>");
 				}
 			}
 		});
@@ -246,6 +279,30 @@
 			$("#ipreview").append("<img src=\""+this.result+ "\" style=\"width:70px; height:70px; margin:5px;\"/>");
 			}
 		});
+		
+		// 완성된 사진 추가
+		$("#finalBt").click(function(){
+			$("#fphoto").click();
+		});
+		
+		// 완성된 사진 미리보기 
+		$("#fphoto").change(function(){
+			var files = this.files;
+			$("#finalView").html("");
+			for(var i =0; i< files.length; i++) {
+				var reader = new FileReader();
+				reader.readAsDataURL(files[i]);
+				reader.onload = function() {
+					$("#finalView").append("<img src=\""+this.result+ "\" style=\"width:70px; height:70px; margin:5px;\"/>");
+				}
+			}
+		});
+		
+		
+		
+		
+		
+		
 	</script>
 
 </body>
