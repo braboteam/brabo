@@ -47,7 +47,7 @@ public class RecipeInputService {
 	}
 
 	// recipe_detail 테이블에 데이터 집어넣기
-	public boolean inputDetail(String id, Map detail, MultipartFile[] dphoto, MultipartFile[] fphoto) throws IllegalStateException, IOException {
+	public boolean inputDetail(String id, Map detail, MultipartFile[] dphoto) throws IllegalStateException, IOException {
 
 		String path = ctx.getRealPath("/dphoto/" + id);
 		File file = new File(path);
@@ -73,6 +73,27 @@ public class RecipeInputService {
 		}
 		
 		return chk == steps.size();
+	}
+
+	public void inputFinal(String id, int ino, MultipartFile[] fphoto) throws IllegalStateException, IOException {
+		String path = ctx.getRealPath("/fphoto/" + id);
+		File file = new File(path);
+		if (!file.exists())
+			file.mkdirs();
+		
+		int chk = 0;
+		for(int i=0; i< fphoto.length; i++) {
+			if(!fphoto[i].isEmpty()) {
+				Map<String,Object> map = new HashMap<>();
+				String rename = UUID.randomUUID().toString().substring(0, 12) + ".jpg";
+				File photo = new File(path, rename);
+				map.put("ino", ino);
+				map.put("fphoto", rename);
+				chk += template.insert("recipe_final.insertFinal",map);
+				fphoto[i].transferTo(photo);
+			}
+		}
+		
 	}
 		
 		

@@ -2,10 +2,13 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="recipe_detail">
 	<insert id="insertDetail" parameterType="hashmap">
-		insert into recipe_detail values (recipe_detail_seq.nextval,#{ino},#{step},#{recipe},#{dphoto},#{fphoto})
+		insert into recipe_detail values (recipe_detail_seq.nextval,#{ino},#{step},#{recipe},#{dphoto})
 	</insert>
+	
 	
 	<select id="selectDetail" resultType="hashmap">
 		select * from recipe_detail where ino=#{ino} order by step asc
 	</select>
+	
+	
 </mapper>

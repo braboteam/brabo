@@ -78,7 +78,9 @@ public class RecipeInputController {
 					detail.put("step", param.get("step"));
 					detail.put("recipe", param.get("recipe"));
 					
-					detailRst = recipeService.inputDetail(id,detail,dphoto,fphoto);
+					detailRst = recipeService.inputDetail(id,detail,dphoto);
+					if(detailRst)
+						recipeService.inputFinal(id,recipeService.getInfoNo(rename),fphoto);
 				}
 			} catch (Exception e) {
 				e.printStackTrace();
