@@ -17,7 +17,7 @@
 body {
 	background-color: #f1f1f1;
 	padding: 20px;
-	font-family: Arial;
+	font-family: Aerial;
 }
 
 /* Center website */

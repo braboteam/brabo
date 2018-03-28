@@ -22,18 +22,20 @@ public class RecipeListController {
 		System.out.println("recipeListController 접근..");
 		List<Map<String,Object>> rInfo = rListService.getAllInfo();
 		
+		// 한 페이지당 출력될 행수
+		int row = 9;
+		
 		// 전체 페이지 수 출력용...
 		int totalCnt = rListService.getAllList();
-		if(totalCnt%9 == 0)
-			totalCnt = totalCnt/9;
+		if(totalCnt % row == 0)
+			totalCnt = totalCnt/row;
 		else
-			totalCnt = totalCnt/9 + 1;
+			totalCnt = totalCnt/row + 1;
 		
-		// 3 자리에 9 곱해주면 한 화면에 3행 3열씩 출력된다.
 		// substring을 할 때, end에서 데이터가 없으면 터질 수 있으므로, 이 점 생각해서 세팅한다.
 		// 파라미터 p값을  view에서 어떤식으로 넘겨받아야 할지?? 하단 페이징처리된 버튼 클릭시 넘겨 받을 수 있게 링크 걸어두면 될듯? 
 		
-		int t = 9;
+		int t = row;
 		int begin = (p-1)*t;
 		int end = p*t;
 		if(end > rInfo.size()) 

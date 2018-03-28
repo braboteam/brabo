@@ -20,6 +20,9 @@
 }
 
 .td2 {
+	width: 300px;
+}
+#ipt {
 	
 }
 </style>
@@ -52,8 +55,8 @@
 				</td>
 				<td class="td2">
 					<div>
+						<p id="ipreview">+</p>
 						<input type="file" name="iphoto" id="iphoto" class="photos" />
-						<div id="ipreview"></div>
 						<button class="w3-button w3-white w3-border w3-round-large"
 							id="ipbt" type="button">사진추가</button>
 					</div>

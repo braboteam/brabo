@@ -19,5 +19,9 @@
 		</where>
 	</select>
 	
+	<select id="selectInfoForList" resultType="hashmap">
+		select * from recipe_info order by no desc
+	</select>
+	
 	
 </mapper>

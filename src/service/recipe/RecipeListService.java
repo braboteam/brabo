@@ -13,7 +13,7 @@ public class RecipeListService {
 	SqlSessionTemplate template;
 	
 	public List<Map<String, Object>> getAllInfo() {
-		List<Map<String,Object>> rInfo = template.selectList("recipe_info.selectInfo");
+		List<Map<String,Object>> rInfo = template.selectList("recipe_info.selectInfoForList");
 		
 		return rInfo;
 	}

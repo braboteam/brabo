@@ -10,10 +10,15 @@
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 
 <style>
+body {
+	background-color:#f1f1f1;
+}
+
 .c {
 	margin-top:30px;
 }
 .card {
+	background-color:white;
 	width: 800px;
 }
 .iphoto {
