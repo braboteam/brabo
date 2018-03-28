@@ -1,11 +1,14 @@
 package controller.board;
 
+import java.io.IOException;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -20,7 +23,7 @@ public class FreeBoardLikeController {
 
 	@RequestMapping(path = "/like", produces = "application/json; charset=UTF-8")
 	@ResponseBody
-	public String likeHandle(@RequestParam Map map, HttpSession session) {
+	public String likeHandle(@RequestParam Map map, HttpSession session, Model model) {
 		boolean b = boardService.insertLike((String) map.get("board_id"), (String) session.getAttribute("logon"));
 		if (b) {
 			return "true";
