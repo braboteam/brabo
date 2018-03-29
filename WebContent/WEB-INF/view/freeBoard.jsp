@@ -73,16 +73,30 @@ body, html {
 				<tr>
 					<!-- 프로필사진 -->
 					<td rowspan="3" valign="top" align="center" style="width: 18%;"><br />
-						<a
-						href="${pageContext.request.contextPath }/followinfo?id=${i.ID}"><img
-							src="${i.PROFILE }"
-							style="border-radius: 100%; width: 120px; height: 120px;"></a></td>
+						<c:choose>
+							<c:when test="${logon != i.ID }">
+								<a
+									href="${pageContext.request.contextPath }/followinfo?id=${i.ID}">
+							</c:when>
+							<c:otherwise>
+								<a href="내정보로 이동시키기">
+							</c:otherwise>
+						</c:choose> <img src="${i.PROFILE }"
+						style="border-radius: 100%; width: 120px; height: 120px;"></a></td>
 					<!-- 아이디 -->
-					<td style="width: 45%;">
+					<td style="width: 45%;"><c:choose>
+							<c:when test="${logon != i.ID }">
+								<a
+									href="${pageContext.request.contextPath }/followinfo?id=${i.ID}"
+									style="text-decoration: none;">
+							</c:when>
+							<c:otherwise>
+								<a href="내정보로 이동시키기" style="text-decoration: none;">
+							</c:otherwise>
+						</c:choose>
 						<h3>
-							<font color="orangered">${i.ID } ( ${i.NICK } )</font>
-						</h3>${i.BOARD_DATE }
-					</td>
+							<font color="orangered"> ${i.NICK } ( ${i.ID } )</font>
+						</h3> </a>${i.BOARD_DATE }</td>
 					<!-- 하트댓글표시 -->
 					<td align="right" style="width: 45%;"><font size="5px;">
 							<!-- 하트 --> <span id="heart${i.BOARD_ID }"> <c:choose>
@@ -166,7 +180,7 @@ body, html {
 								},
 								function(rst) {
 									if (rst == true) {
-										window.alert("좋아요완료");
+										window.alert("좋아요 하였습니다.");
 										$("#heart" + pk)
 												.html(
 														"<a href=\"javascript:like('"
@@ -189,7 +203,7 @@ body, html {
 								},
 								function(rst) {
 									if (rst == true) {
-										window.alert("좋아요실패완료");
+										window.alert("좋아요를 취소하였습니다.");
 										$("#heart" + pk)
 												.html(
 														"<a href=\"javascript:like('"

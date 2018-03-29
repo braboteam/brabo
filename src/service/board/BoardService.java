@@ -86,6 +86,40 @@ public class BoardService {
 		return list;
 	}
 
+	// 특정 사용자의 게시판 테이블 가져오기
+	public List<Map> selectBoard2(String id, String friend) {
+		Map u = new HashMap<>();
+		u.put("friend", friend);
+		List<Map> list = template.selectList("board.selectAll", u);
+
+		List<Map> list2 = template.selectList("board.selectLikeCount");
+		List<Map> list3 = template.selectList("board_comments.selectCount");
+		for (Map m : list) {
+			// 각 게시물에 좋아요 갯수를 COUNT라는 컬럼명으로 넣기
+			for (Map m2 : list2) {
+				if (m.get("BOARD_ID").equals(m2.get("BOARD_ID"))) {
+					m.put("COUNT", m2.get("COUNT"));
+				}
+			}
+			// 각 게시물이 현재 로그인사용자가 좋아요한 상태인 글인지 체크
+			if (id != null) {
+				Map map = new HashMap<>();
+				map.put("id", id);
+				map.put("board_id", (String) m.get("BOARD_ID"));
+				if (template.selectOne("board.selectLike", map) != null) {
+					m.put("LIKE", true);
+				}
+			}
+			// 각 게시물의댓글 갯수등록
+			for (Map m3 : list3) {
+				if (m.get("BOARD_ID").equals(m3.get("BOARD_ID"))) {
+					m.put("COMMENTS_COUNT", m3.get("COUNT"));
+				}
+			}
+		}
+		return list;
+	}
+
 	// 게시판 테이블 사진 모두 가져오기
 	public List<Map> selectDetail(String pk, String id) {
 		List<Map> list = template.selectList("board.selectPhoto", pk);

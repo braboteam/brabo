@@ -94,7 +94,8 @@ input[type=submit] {
 			<!-- 아이디 -->
 			<td style="width: 45%;">
 				<h3>
-					<font color="orangered">${board[0].ID } ( ${board[0].NICK} )</font>
+					<font color="orangered"> ${board[0].NICK} ( ${board[0].ID }
+						)</font>
 				</h3>${board[0].BOARD_DATE }
 			</td>
 			<!-- 하트댓글표시 -->
@@ -222,7 +223,7 @@ input[type=submit] {
 							},
 							function(rst) {
 								if (rst == true) {
-									window.alert("좋아요완료");
+									window.alert("좋아요 하였습니다.");
 									$("#heart")
 											.html(
 													"<a href=\"javascript:like('"
@@ -243,7 +244,7 @@ input[type=submit] {
 							},
 							function(rst) {
 								if (rst == true) {
-									window.alert("좋아요실패완료");
+									window.alert("좋아요를 취소하였습니다.");
 									$("#heart")
 											.html(
 													"<a href=\"javascript:like('"

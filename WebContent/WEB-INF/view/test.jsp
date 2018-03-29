@@ -5,10 +5,16 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
 </head>
 <body>
-	<form action="post">
-		a : <input name="a" /> a : <input name="a" />
-	</form>
+	<div id="div"></div>
+	<script>
+		function a() {
+			var a = true;
+			$("#div").html("<c:if test='"+a+"==true'>a</c:if>");
+		}
+	</script>
 </body>
 </html>
