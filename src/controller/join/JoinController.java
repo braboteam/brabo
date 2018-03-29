@@ -26,18 +26,17 @@ public class JoinController {
 	}
 
 	@RequestMapping(method = RequestMethod.POST)
-	public String joinPostHandle(Model model, @RequestParam Map<String, String> param, @RequestParam MultipartFile profile){
-		
-		try{ 
-			boolean rst = joinservice.addNewJoin(param, profile);
+	public String joinPostHandle(Model model, @RequestParam Map<String, String> param, 
+			@RequestParam MultipartFile profile)throws IllegalStateException, IOException {
+		    boolean rst = joinservice.addNewJoin(param, profile);
 			if (rst) {
 			model.addAttribute("body", "/WEB-INF/view/indexBody.jsp");
 			model.addAttribute("join", "회원가입에 성공하셨습니다. 로그인 하시기 바랍니다.");
 			return "index";
-		}throw new Exception();
-		}catch(Exception e) {
-		model.addAttribute("err", "계정생성에서 문제가 있었습니다!");
-		return "addjoin";
-		}
+			}else{
+				model.addAttribute("body", "/WEB-INF/view/addjoin.jsp");
+				model.addAttribute("err", "회원가입에 실패하셨습니다. 다시 작성하시기 바랍니다.");
+				return "addjoin";
+			}
 	}
 }
