@@ -33,6 +33,12 @@ public class RecipeDetailService {
 			map.put("id", id);
 		return template.selectOne("member.getByIdAndPassword",map);
 	}
+
+	public List<Map> getFinal(String ino) {
+		List<Map> list = template.selectList("recipe_final.selectFinal",ino);
+		
+		return list;
+	}
 	
 	
 	

@@ -34,6 +34,9 @@ public class RecipeDetailController {
 		String items = (String)info.get("ITEMS");
 		String[] itemAr = items.split("#");
 			info.put("ITEMS", itemAr);
+		
+		// 요리 완성된 사진들 담아주기
+		List<Map> fphoto = rDetailService.getFinal(no);	
 			
 		// 댓글 출력 위한 작업.
 		List<Map<String,Object>> reply = rReplyService.getReply(no);	
@@ -41,6 +44,7 @@ public class RecipeDetailController {
 		model.addAttribute("profile", profile);
 		model.addAttribute("info", info);
 		model.addAttribute("detail", detail);
+		model.addAttribute("final", fphoto);
 		model.addAttribute("reply",reply);
 		model.addAttribute("rate",rReplyService.getAvg(no));
 		model.addAttribute("body", "/WEB-INF/view/recipeDetail.jsp");

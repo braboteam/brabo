@@ -121,6 +121,11 @@ body {
 				</div>
 			</div>
 			
+				<c:forEach var="i" items="${final }">
+					<img src="${pageContext.request.contextPath }/fphoto/${info.ID}/${i.FPHOTO}">
+				</c:forEach>
+			
+			
 			<div class="w3-card card">
 				<div class="c">
 					<div style="text-align:left">댓글 <span class="info">${fn:length(reply)} </span> 평점 

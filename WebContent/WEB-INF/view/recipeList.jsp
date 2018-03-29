@@ -17,7 +17,6 @@
 body {
 	background-color: #f1f1f1;
 	padding: 20px;
-	font-family: Aerial;
 }
 
 /* Center website */
@@ -101,9 +100,10 @@ h1 {
 </style>
 </head>
 <body>
-
+	
+<div class="w3-container"   >
 	<!-- MAIN (Center website) -->
-	<form action="${pageContext.request.contextPath }/recipe/list" method="get"> 
+	<form  action="${pageContext.request.contextPath }/recipe/list" method="get"> 
 		<input type="hidden" id="startPage" name="startPage"  value=""/>
 		<input type="hidden" id="visiblePage" name="visiblePage" value="" />
 		<div class="main">
@@ -158,7 +158,7 @@ h1 {
 			<!-- END MAIN -->
 		</div>
 	</form>
-	
+</div>	
 	<script>
 		filterSelection("all")
 		function filterSelection(c) {
