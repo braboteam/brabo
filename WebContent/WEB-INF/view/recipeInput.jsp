@@ -173,8 +173,8 @@
 					<div>
 						<b>완성된 사진</b><br/>
 						<small class="info">완성된 요리 사진을 첨부해주세요!</small>
-						<p id="finalView">
 						<input type="file" id="fphoto" name="fphoto" class="photos" multiple />
+						<p id="finalView">
 						<img src="/photoAdd.png" class="photoBt" id="finalBt">
 						</p>
 					</div>	

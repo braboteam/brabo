@@ -1,5 +1,6 @@
 package service.recipe;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -30,6 +31,12 @@ public class RecipeReplyService {
 	public Map<String,Object> getAvg(String ino) {
 		
 		return template.selectOne("recipe_reply.selectAVg",ino);
+	}
+
+	public Map<String, Object> getProfile(String id) {
+		Map<String,String> map = new HashMap<>();
+			map.put("id", id);
+		return template.selectOne("member.getByIdAndPassword",id);
 	}
 	
 	

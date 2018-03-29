@@ -24,7 +24,7 @@ public class RecipeReplyController {
 	Gson gson;
 	@Autowired
 	RecipeReplyService rReplyService;
-	
+
 	
 	@RequestMapping(path="/replyInput",produces="application/json;charset=utf-8")
 	@ResponseBody
@@ -45,13 +45,15 @@ public class RecipeReplyController {
 	
 	@RequestMapping(path="/replyGet",produces="application/json;charset=utf-8")
 	@ResponseBody
-	public String recipeGetHandle(@RequestParam String ino) {
+	public String recipeGetHandle(@RequestParam String ino,HttpSession session) {
 		// recipe_reply 테이블 등록 성공 후, ajax로 해당 페이지 전체댓글 가져오는 과정.
 		List<Map<String,Object>> list = new ArrayList<Map<String,Object>>();
+		String id = (String)session.getAttribute("logon");
 		
 		try {
 			list = rReplyService.getReply(ino);
 				list.add(rReplyService.getAvg(ino));
+				list.add(rReplyService.getProfile(id));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

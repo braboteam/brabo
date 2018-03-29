@@ -38,7 +38,7 @@ public class RecipeInputController {
 	@RequestMapping(path="/input",method=RequestMethod.POST)
 	public String inputPostHandle(@RequestParam MultiValueMap<String, List> param, @RequestParam(name="iphoto") MultipartFile iphoto,
 			@RequestParam(name="dphoto") MultipartFile[] dphoto,@RequestParam MultipartFile[] fphoto,HttpSession session, Model model) {
-		
+				
 		System.out.println(param);
 		String id = (String)session.getAttribute("logon");
 
@@ -80,6 +80,7 @@ public class RecipeInputController {
 					detail.put("recipe", param.get("recipe"));
 					
 					detailRst = recipeService.inputDetail(id,detail,dphoto);
+					System.out.println("detail insert 결과 : " + detailRst);
 					if(detailRst)
 						finalRst = recipeService.inputFinal(id,recipeService.getInfoNo(rename),fphoto);
 				}
@@ -87,11 +88,6 @@ public class RecipeInputController {
 				e.printStackTrace();
 			}	
 			
-			if(infoRst && detailRst) {
-				
-			}
-			
-			System.out.println(finalRst);
 			
 			model.addAttribute("body", "/WEB-INF/view/recipeList.jsp");
 			return "index";

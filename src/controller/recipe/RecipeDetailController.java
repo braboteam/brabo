@@ -44,7 +44,7 @@ public class RecipeDetailController {
 		model.addAttribute("profile", profile);
 		model.addAttribute("info", info);
 		model.addAttribute("detail", detail);
-		model.addAttribute("final", fphoto);
+		model.addAttribute("fphoto", fphoto);
 		model.addAttribute("reply",reply);
 		model.addAttribute("rate",rReplyService.getAvg(no));
 		model.addAttribute("body", "/WEB-INF/view/recipeDetail.jsp");

@@ -29,6 +29,11 @@ body {
 	width:100px;
 	border-radius: 3%;
 }
+
+.fphoto {
+	height:200px;
+	border-radius: 3%;
+}
 .info {
 	color:gray;
 }
@@ -57,6 +62,118 @@ body {
 	width:300px;
 }
 
+.reTable {
+	width: 400px;
+}
+
+.reTd2{
+	width:300px;
+}
+
+.avatar {
+	width:90%;
+	border-radius:3%
+}
+
+
+/*슬라이드 쇼 스타일 설정 */
+* {box-sizing: border-box}
+body {font-family: Verdana, sans-serif; margin:0}
+.mySlides {display: none}
+img {vertical-align: middle;}
+
+/* Slideshow container */
+.slideshow-container {
+  max-width: 1000px;
+  position: relative;
+  margin: auto;
+}
+
+/* Next & previous buttons */
+.prev, .next {
+  cursor: pointer;
+  position: absolute;
+  top: 50%;
+  width: auto;
+  padding: 16px;
+  margin-top: -22px;
+  color: white;
+  font-weight: bold;
+  font-size: 18px;
+  transition: 0.6s ease;
+  border-radius: 0 3px 3px 0;
+}
+
+/* Position the "next button" to the right */
+.next {
+  right: 0;
+  border-radius: 3px 0 0 3px;
+}
+
+/* On hover, add a black background color with a little bit see-through */
+.prev:hover, .next:hover {
+  background-color: rgba(0,0,0,0.8);
+}
+
+/* Caption text */
+.text {
+  color: #f2f2f2;
+  font-size: 15px;
+  padding: 8px 12px;
+  position: absolute;
+  bottom: 8px;
+  width: 100%;
+  text-align: center;
+}
+
+/* Number text (1/3 etc) */
+.numbertext {
+  color: #f2f2f2;
+  font-size: 12px;
+  padding: 8px 12px;
+  position: absolute;
+  top: 0;
+}
+
+/* The dots/bullets/indicators */
+.dot {
+  cursor: pointer;
+  height: 15px;
+  width: 15px;
+  margin: 0 2px;
+  background-color: #bbb;
+  border-radius: 50%;
+  display: inline-block;
+  transition: background-color 0.6s ease;
+}
+
+.active, .dot:hover {
+  background-color: #717171;
+}
+
+/* Fading animation */
+.fade {
+  -webkit-animation-name: fade;
+  -webkit-animation-duration: 1.5s;
+  animation-name: fade;
+  animation-duration: 1.5s;
+}
+
+@-webkit-keyframes fade {
+  from {opacity: .4} 
+  to {opacity: 1}
+}
+
+@keyframes fade {
+  from {opacity: .4} 
+  to {opacity: 1}
+}
+
+/* On smaller screens, decrease text size */
+@media only screen and (max-width: 300px) {
+  .prev, .next,.text {font-size: 11px}
+
+
 </style>
 <body>
 	<script
@@ -68,7 +185,7 @@ body {
 				<div class="c">
 					<div>
 						<h3>${info.TITLE }</h3>
-						<small>by ${profile.NICK }</small>
+					<a href="${pageContext.request.contextPath }/followinfo?id=?${info.ID}"><small>by ${profile.NICK }</small></a>
 					</div>
 					<div>
 						<img src="${pageContext.request.contextPath }/iphoto/${profile.ID}/${info.IPHOTO}" class="iphoto dphoto"> 
@@ -110,9 +227,9 @@ body {
 						<c:forEach var="i" items="${detail }">
 							<tr>
 								<td class="numberTd">${i.STEP }.</td>  <td class="recipeTd">${i.RECIPE }</td> 
-									<c:if test="${i.DPHOTO } != default">
-										<td><img src="${pageContext.request.contextPath }/dphoto/${info.ID}/${i.DPHOTO}" class="dphoto"></td>
-									</c:if>
+									
+									<td><img src="${pageContext.request.contextPath }/dphoto/${info.ID}/${i.DPHOTO}" class="dphoto"></td>
+								
 							</tr>
 						</c:forEach>
 					</table>
@@ -121,31 +238,71 @@ body {
 				</div>
 			</div>
 			
-				<c:forEach var="i" items="${final }">
-					<img src="${pageContext.request.contextPath }/fphoto/${info.ID}/${i.FPHOTO}">
-				</c:forEach>
-			
+			<c:if test="${fn:length(fphoto) >0 }">
+				<div class="w3-card card" >
+					<div class="c">
+					<p>완성된 사진 </p>
+					
+					<div class="slideshow-container">
+						<c:forEach var="i" begin="0" end="${fn:length(fphoto) -1}">
+							<div class="mySlides fade">
+							  <img src="${pageContext.request.contextPath }/fphoto/${info.ID}/${fphoto[i].FPHOTO}" class="fphoto">
+							</div>
+						</c:forEach>	  
+						<br/>
+						
+						<div style="text-align:center">
+							<c:forEach var="i" begin="0" end="${fn:length(fphoto) }">	
+						  		<span class="dot" onclick="currentSlide(${i})"></span> 
+							</c:forEach>
+						 </div>
+					</div>
+				
+					</div>
+				</div>	
+			</c:if>
+				
 			
 			<div class="w3-card card">
 				<div class="c">
 					<div style="text-align:left">댓글 <span class="info">${fn:length(reply)} </span> 평점 
-						<span class="info"><fmt:formatNumber pattern="0.00" value="${rate.AVG }" /></span></div><hr/>
-					<div id="replyShow">
-						<c:forEach var="i" items="${reply }">
-							<div><img src="${pageContext.request.contextPath }${i.PROFILE}"  style="width:20%">  ${i.NICK }  ${i.CONTENT }  ${i.RATE } ${i.REDATE }</div>
-						</c:forEach>
+						<span class="info"><fmt:formatNumber pattern="0.00" value="${rate.AVG }" /></span>
+					</div><hr/>
+				<div id="replyShow">	
+				<table class="reTable">
+					<c:forEach var="i" items="${reply }">
+						<tr>
+							<td><img src="${pageContext.request.contextPath }${i.PROFILE}" class="avatar"></td>
+							<td class="reTd2">
+								<table>
+									<tr><td><small>수정  삭제</small></td></tr>
+									<tr><td>${i.CONTENT } </td></tr>
+								</table>
+							</td>
+						</tr>
+					</c:forEach>
+				</table>
+				</div>
+			
 					</div>
 					<form>
 						<c:forEach var="i" begin="1" end="5">
 							${i }<input type="radio" name="rate" class="rate" value="${i }"/>
  						</c:forEach>
  						<br/>
-						<textarea class="w3-textarea w3-border w3-round-large" name="content"
-							rows="5" cols="50" style="resize: none;"  id="re"
-							placeholder="요리의 후기나 궁금하신 점을 댓글로 남겨주세요!"></textarea>
-
-						<button class="w3-button w3-white w3-border w3-round-large" id="rbt"
-							type="button" style="width: 100px; height:100px">등록</button>
+ 						<table>
+ 							<tr>
+	 							<td>
+									<textarea class="w3-textarea w3-border w3-round-large" name="content"
+										rows="5" cols="50" style="resize: none;"  id="re"
+										placeholder="요리의 후기나 궁금하신 점을 댓글로 남겨주세요!"></textarea>
+								</td>
+								<td>
+									<button class="w3-button w3-white w3-border w3-round-large" id="rbt"
+										type="button" style="width: 117px; height:117px">등록</button> 
+								</td>
+							</tr>
+						</table>
 					</form>
 				
 				</div>
@@ -156,13 +313,7 @@ body {
 	
 	<script>
 		// 로그인 하지 않았을 경우 로그인으로 유도...
-		//$("#re").click(function(){
-			//if(${sessionScope.logon} != null) {
-				
-			//} else {
-				//window.alert("로그인 후에 사용해주세요.");
-			//}
-		//});
+		
 		
 		// 댓글 등록 ajax
 		$("#rbt").click(function(){
@@ -192,13 +343,44 @@ body {
 			},function(obj){
 				var out = "";
 				for(var i=0; i<obj.length; i++) {
-					out += "<div>"+obj[i].WRITER + obj[i].CONTENT + obj[i].RATE + obj[i].AVG+"</div>";
+					out += "<table class=\"reTable\"><tr><td><img src=\"${pageContext.request.contextPath }"+obj[i].PROFILE+"\" class=\"avatar\"></td>";
+					out += "<td class=\"reTd2\"><table><tr><td><small>수정  삭제</small></td></tr><tr><td>"+obj[i].CONTENT+"</td></tr>";
+					out += "</table></td></tr></table>";
 				}
 				$("#replyShow").html(out);
 			});
 		};
 		
+		// 슬라이드 쇼 스크립트 설정  
+		var slideIndex = 1;
+		showSlides(slideIndex);
 		
+		function plusSlides(n) {
+		  showSlides(slideIndex += n);
+		}
+		
+		function currentSlide(n) {
+		  showSlides(slideIndex = n);
+		}
+		
+		function showSlides(n) {
+		  var i;
+		  var slides = document.getElementsByClassName("mySlides");
+		  var dots = document.getElementsByClassName("dot");
+		  if (n > slides.length) {slideIndex = 1}    
+		  if (n < 1) {slideIndex = slides.length}
+		  for (i = 0; i < slides.length; i++) {
+		      slides[i].style.display = "none";  
+		  }
+		  for (i = 0; i < dots.length; i++) {
+		      dots[i].className = dots[i].className.replace(" active", "");
+		  }
+		  slides[slideIndex-1].style.display = "block";  
+		  dots[slideIndex-1].className += " active";
+		}
 		
 	</script>
 </body>
+
+
+
