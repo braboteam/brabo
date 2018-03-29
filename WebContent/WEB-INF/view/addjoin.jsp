@@ -42,44 +42,51 @@
 		method="post" enctype="multipart/form-data">
 		<h3>회원정보 등록</h3>
 		<small>모든 정보는 필수 정보이며, 부적절한 데이터 설정 시 처리되지 않습니다.</small>
-		<p>
-			ID(*)&nbsp;&nbsp;<span id="checkMsg"></span><br /> <input
-				class="w2-input w3-border w3-round" type="text" style="width: 30%;"
-				pattern="[a-zA-Z]+" name="id" id="id" /><br />
-		</p>
-		<p>
-			닉네임(*)<br> <input placeholder="한글로 입력해 주세요"
-				class="w2-input w3-border w3-round" type="text" style="width: 30%;"
-				pattern="[ㄱ-ㅎ가-힣]+" name="nick" /><br />
-		</p>
-		<p>
-			비밀번호<br> <input class="w2-input w3-border w3-round"
-				type="password" style="width: 30%;" name="pass" /><br />
-		</p>
-		<p>
-			E-mail<br> <input class="w2-input w3-border w3-round"
-				type="text" style="width: 30%;"
-				pattern="^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-Za-z0-9\-]+"
-				name="email" /><br />
-		</p>
-		<p>
-			프로필&nbsp;<small>(등록 하고자 하는 사진을 선택바랍니다.)</small><br> <input
-				class="w2-input w3-border w3-round" type="file" style="width: 30%;"
-				name="profile" />
-		</p>
-		<button class="button button4" type="submit">처리요청</button>
+	<p>
+		ID(*)&nbsp;<span id="checkMsg"></span><br /> <input
+			class="w2-input w3-border w3-round" placeholder="영어로 입력해 주세요"
+			type="text" style="width: 30%;" pattern="[a-zA-Z]+" name="id" id="id" /><br />
+	</p>
+
+	<p>
+		닉네임(*)&nbsp;<span id="nickMsg"></span><br> <input
+			placeholder="한글로 입력해 주세요" class="w2-input w3-border w3-round"
+			type="text" style="width: 30%;" pattern="/^[가-힣]+$/" name="nick"
+			id="nick" /><br />
+	</p>
+
+	<p>
+		비밀번호<br> <input class="w2-input w3-border w3-round"
+			type="password" style="width: 30%;" name="pass" /><br />
+	</p>
+
+	<p>
+		E-mail&nbsp;<span id="emailMsg"></span><br> <input
+			class="w2-input w3-border w3-round"
+			placeholder="O@O.OO으로 입력해 주시기 바랍니다." type="text" style="width: 30%;"
+			pattern="/^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/"
+			name="email" id="email" /><br />
+	</p>
+
+	<p>
+		프로필&nbsp;<small>(등록 하고자 하는 사진을 선택바랍니다.)</small><br> <input
+			class="w2-input w3-border w3-round" type="file" style="width: 30%;"
+			name="profile" />
+	</p>
+
+	<button class="button button4" type="submit">처리요청</button>
 	</form>
 	<p></p>
 	<script type="text/javascript">
 		$(document)
 				.ready(
 						function() {
-							$("#id")
+							$('#id')
 									.keyup(
 											function() {
 												$
 														.ajax({
-															type : 'post',
+															type : 'POST',
 															url : '/idcheck',
 															data : {
 																"id" : $('#id')
@@ -101,6 +108,56 @@
 																}
 															}
 														}); //end ajax    
-											}); //end on    
+											}); //end on
+							$('#nick')
+									.focus(
+											function() {
+
+												$('#nickMsg')
+														.html(
+																'<span style="color:red"><small>닉네임을 입력해 주십시오.</small></span>');
+											});
+							$('#nick')
+									.keyup(
+											function() {
+												console.log($(this).val());
+												var result = /^[가-힣]+$/.test($(
+														this).val());
+												console.log(result);
+												if (result) {
+													$('#nickMsg')
+															.html(
+																	'<span style="color:red"><small>닉네임 입력이 가능합니다.</small></span>');
+												} else {
+													$('#nickMsg')
+															.html(
+																	'<span style="color:red"><small>닉네임 입력이 불가능합니다.</small></span>');
+												}
+											}); //end on	
+							$('#email')
+									.focus(
+											function() {
+
+												$('#emailMsg')
+														.html(
+																'<span style="color:red"><small>email을 입력해 주십시오.</small></span>');
+											});
+							$('#email')
+									.keyup(
+											function() {
+												console.log($(this).val());
+												var result2 = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/
+														.test($(this).val());
+												console.log(result2);
+												if (result2) {
+													$('#emailMsg')
+															.html(
+																	'<span style="color:red"><small>email 입력이 가능합니다.</small></span>');
+												} else {
+													$('#emailMsg')
+															.html(
+																	'<span style="color:red"><small>email 입력이 불가능합니다.</small></span>');
+												}
+											}); //end on
 						});
 	</script>

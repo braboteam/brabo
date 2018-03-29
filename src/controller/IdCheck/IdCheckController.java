@@ -40,12 +40,10 @@ public class IdCheckController {
 		rst.put("id", param.get("id"));
 		model.addAttribute("body", "/WEB-INF/view/addjoin.jsp");
 		Map rowcount = idcheckservice.idcheck(rst);
-		if(rowcount == null) {
+		if (rowcount == null) {
 			return "null";
-		}else {
-			return rowcount.toString();			
+		} else {
+			return rowcount.toString();
 		}
-
 	}
-
 }
