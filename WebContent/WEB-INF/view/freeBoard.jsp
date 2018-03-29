@@ -68,41 +68,65 @@ body, html {
 	<!-- 게시글 -->
 	<c:forEach var="i" items="${board }">
 		<div align="center">
-			<table border="0" style="width: 55%; background-color: white;">
+			<table border="0"
+				style="width: 55%; background-color: white; border-radius: 2%;">
 				<tr>
 					<!-- 프로필사진 -->
 					<td rowspan="3" valign="top" align="center" style="width: 18%;"><br />
-						<img src="/Desert.jpg"
-						style="border-radius: 100%; width: 120px; height: 120px;"></td>
+						<a
+						href="${pageContext.request.contextPath }/followinfo?id=${i.ID}"><img
+							src="${i.PROFILE }"
+							style="border-radius: 100%; width: 120px; height: 120px;"></a></td>
 					<!-- 아이디 -->
 					<td style="width: 45%;">
 						<h3>
-							<font color="orangered">${i.ID }</font>
+							<font color="orangered">${i.ID } ( ${i.NICK } )</font>
 						</h3>${i.BOARD_DATE }
 					</td>
 					<!-- 하트댓글표시 -->
 					<td align="right" style="width: 45%;"><font size="5px;">
 							<!-- 하트 --> <span id="heart${i.BOARD_ID }"> <c:choose>
 									<c:when test="${i.LIKE == null }">
-										<a href="javascript:like('${i.BOARD_ID }','t');"> <span
-											class="glyphicon glyphicon-heart-empty"></span>
-										</a>
+										<c:choose>
+											<c:when test="${logon == null }">
+												<a
+													href="${pageContext.request.contextPath }/login?sessionError=로그인 후 이용하시기 바랍니다.">
+													<span class="glyphicon glyphicon-heart-empty"></span>
+												</a>
+											</c:when>
+											<c:otherwise>
+												<a href="javascript:like('${i.BOARD_ID }','t');"> <span
+													class="glyphicon glyphicon-heart-empty"></span>
+												</a>
+											</c:otherwise>
+										</c:choose>
 									</c:when>
 									<c:otherwise>
-										<!-- 색있는 하트 -->
-										<a href="javascript:like('${i.BOARD_ID }','f');"> <span
-											class="glyphicon glyphicon-heart"></span></a>
+										<c:choose>
+											<c:when test="${logon == null }">
+												<a
+													href="${pageContext.request.contextPath }/login?sessionError=로그인 후 이용하시기 바랍니다.">
+													<span class="glyphicon glyphicon-heart-empty"></span>
+												</a>
+											</c:when>
+											<c:otherwise>
+												<!-- 색있는 하트 -->
+												<a href="javascript:like('${i.BOARD_ID }','f');"> <span
+													class="glyphicon glyphicon-heart"></span></a>
+											</c:otherwise>
+										</c:choose>
 									</c:otherwise>
 								</c:choose></span> <span id="count${i.BOARD_ID }">${i.COUNT }</span> <!-- 댓글 --> <a
-							href="#"> <span class="glyphicon glyphicon-user"></span>
+							href="${pageContext.request.contextPath }/boarddetail?pk=${i.BOARD_ID}">
+								<span class="glyphicon glyphicon-user"></span>
 						</a> <c:choose>
-								<c:when test="${i.COMMENTS_COUNT == null}">
-								0
-								</c:when>
+								<c:when test="${i.COMMENTS_COUNT == null }">
+						0
+						</c:when>
 								<c:otherwise>
-						 ${i.COMMENTS_COUNT }
+						${i.COMMENTS_COUNT }
 						</c:otherwise>
-							</c:choose>
+							</c:choose> &nbsp;
 					</font></td>
 				</tr>
 				<tr>

@@ -9,8 +9,21 @@
 	</insert>
 
 	<select id="selectCount" resultType="hashmap">
-		select count(board_id) as
-		COUNT from
-		board_comments
+		select board_id,
+		count(board_id) as COUNT from board_comments
+		<where>
+			<if test="board_id != null">
+				board_id = #{board_id}
+			</if>
+		</where>
+		group by board_id
+	</select>
+
+	<select id="selectAll" resultType="hashmap">
+		select * from board_comments
+		join member on board_comments.id = member.id
+		where
+		board_id=#{board_id}
+		order by comments_date asc
 	</select>
 </mapper>

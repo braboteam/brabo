@@ -92,12 +92,25 @@ public class BoardService {
 		Map map2 = new HashMap<>();
 		map2.put("id", id);
 		map2.put("board_id", pk);
+		Map m = template.selectOne("board_like.selectCount", pk);
+		Map m2 = template.selectOne("board_comments.selectCount", map2);
+		Map m3 = template.selectOne("board.selectMember", pk);
 		for (Map map : list) {
-			Map m = template.selectOne("board_like.selectCount", pk);
-			map.put("COUNT", m.get("COUNT"));
-			if (template.selectOne("board.selectLike", map2) != null) {
-				map.put("LIKE", true);
+			// 좋아요 카운트
+			if (m != null)
+				map.put("COUNT", m.get("COUNT"));
+			// 댓글 카운트
+			if (m2 != null)
+				map.put("COMMENTS_COUNT", m2.get("COUNT"));
+			if (id != null) {
+				// 해당 세션이 좋아요한 게시글인지 확인
+				if (template.selectOne("board.selectLike", map2) != null) {
+					map.put("LIKE", true);
+				}
 			}
+			map.put("PROFILE", m3.get("PROFILE"));
+			map.put("NICK", m3.get("NICK"));
+
 		}
 		return list;
 	}
@@ -120,12 +133,17 @@ public class BoardService {
 
 	// 댓글달기
 	public boolean insertComments(Map map, String id) {
+		System.out.println("insertService!");
 		Map m = new HashMap<>();
 		m.put("board_id", (String) map.get("board_id"));
 		m.put("id", id);
 		m.put("comments", (String) map.get("comments"));
-		template.insert("board_comments.insertOne", m);
 		return template.insert("board_comments.insertOne", m) == 1;
+	}
+
+	// 댓글목록 가져오기
+	public List<Map> selectComments(String pk) {
+		return template.selectList("board_comments.selectAll", pk);
 	}
 
 }

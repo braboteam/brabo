@@ -10,7 +10,8 @@
 	</insert>
 
 	<select id="selectAll" resultType="hashmap">
-		select * from board order by
+		select * from board join
+		member on board.id=member.id order by
 		BOARD_DATE desc
 	</select>
 
@@ -33,9 +34,16 @@
 	<select id="selectLike" resultType="hashmap">
 		select * from board_like
 		<where>
+			board_id = #{board_id}
 			<if test="id != null">
-				id = #{id} and board_id = #{board_id}
+				and id = #{id}
 			</if>
 		</where>
+	</select>
+
+	<select id="selectMember" resultType="hashmap">
+		select * from board join
+		member on board.id=member.id
+		where board_id = #{board_id}
 	</select>
 </mapper>

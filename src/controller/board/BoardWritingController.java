@@ -1,10 +1,10 @@
 package controller.board;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.Map;
 
 import javax.servlet.ServletContext;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -28,9 +28,14 @@ public class BoardWritingController {
 
 	// 글쓰기폼이동
 	@RequestMapping(method = RequestMethod.GET)
-	public String boardWritingGetHandle(Model model) {
-		model.addAttribute("body", "/WEB-INF/view/boardWriteForm.jsp");
-		return "index";
+	public String boardWritingGetHandle(Model model, HttpSession session) {
+		if (session.getAttribute("logon") != null) {
+			model.addAttribute("body", "/WEB-INF/view/boardWriteForm.jsp");
+			return "index";
+		} else {
+			model.addAttribute("sessionError", "로그인 후 이용하시기 바랍니다.");
+			return "redirect:/login";
+		}
 	}
 
 	// 글 등록

@@ -76,36 +76,72 @@ input[type=submit] {
 	</script>
 </c:if>
 
+<!-- 댓글삽입 성공 -->
+<c:if test="${msg != null }">
+	<script>
+		window.alert("${msg}");
+	</script>
+</c:if>
+
 <!-- 디테일게시 -->
 <div align="center">
 	<table border="0" style="width: 55%; background-color: white;">
 		<tr>
 			<!-- 프로필사진 -->
 			<td rowspan="3" valign="top" align="center" style="width: 18%;"><br />
-				<img src="/Desert.jpg"
+				<img src="${board[0].PROFILE }"
 				style="border-radius: 100%; width: 120px; height: 120px;"></td>
 			<!-- 아이디 -->
 			<td style="width: 45%;">
 				<h3>
-					<font color="orangered">${board[0].ID }</font>
+					<font color="orangered">${board[0].ID } ( ${board[0].NICK} )</font>
 				</h3>${board[0].BOARD_DATE }
 			</td>
 			<!-- 하트댓글표시 -->
 			<td align="right" style="width: 45%;"><font size="5px;">
 					<!-- 하트 --> <span id="heart"> <c:choose>
 							<c:when test="${board[0].LIKE == null }">
-								<a href="javascript:like('${board[0].BOARD_ID }','t');"> <span
-									class="glyphicon glyphicon-heart-empty"></span>
-								</a>
+								<c:choose>
+									<c:when test="${logon == null }">
+										<a
+											href="${pageContext.request.contextPath }/login?sessionError=로그인 후 이용하시기 바랍니다.">
+											<span class="glyphicon glyphicon-heart-empty"></span>
+										</a>
+									</c:when>
+									<c:otherwise>
+										<a href="javascript:like('${board[0].BOARD_ID }','t');"> <span
+											class="glyphicon glyphicon-heart-empty"></span>
+										</a>
+									</c:otherwise>
+								</c:choose>
 							</c:when>
 							<c:otherwise>
-								<!-- 색있는 하트 -->
-								<a href="javascript:like('${board[0].BOARD_ID }','f');"> <span
-									class="glyphicon glyphicon-heart"></span></a>
+								<c:choose>
+									<c:when test="${logon == null }">
+										<a
+											href="${pageContext.request.contextPath }/login?sessionError=로그인 후 이용하시기 바랍니다.">
+											<span class="glyphicon glyphicon-heart-empty"></span>
+										</a>
+									</c:when>
+									<c:otherwise>
+										<!-- 색있는 하트 -->
+										<a href="javascript:like('${board[0].BOARD_ID }','f');"> <span
+											class="glyphicon glyphicon-heart"></span></a>
+									</c:otherwise>
+								</c:choose>
+
 							</c:otherwise>
 						</c:choose></span> <span id="count">${board[0].COUNT }</span> <!-- 댓글 --> <a
-					href="#"> <span class="glyphicon glyphicon-user"></span>
-				</a>0
+					href="${pageContext.request.contextPath }"> <span
+						class="glyphicon glyphicon-user"></span>
+				</a> <c:choose>
+						<c:when test="${board[0].COMMENTS_COUNT == null}">
+						0
+						</c:when>
+						<c:otherwise>
+						${board[0].COMMENTS_COUNT}
+						</c:otherwise>
+					</c:choose> &nbsp;
 			</font></td>
 		</tr>
 		<tr>
@@ -128,15 +164,35 @@ input[type=submit] {
 
 	<!-- 댓글 목록-->
 	<h3 align="left" style="width: 55%;">
-		댓글 <font color="pistachio">12</font>
+		댓글 <font color="pistachio"><c:choose>
+				<c:when test="${board[0].COMMENTS_COUNT == null}">
+						0
+						</c:when>
+				<c:otherwise>
+						${board[0].COMMENTS_COUNT}
+						</c:otherwise>
+			</c:choose> &nbsp;</font>
 	</h3>
 	<hr style="width: 55%;" />
 	<div class="w3-container" style="width: 58%;">
-		<ul class="w3-ul w3-hoverable" align="left">
-			<li>Jill</li>
-			<li>Eve</li>
-			<li>Adam</li>
-		</ul>
+		<c:if test="${comments != null }">
+			<ul class="w3-ul w3-hoverable" align="left">
+				<c:forEach var="i" items="${comments }">
+					<li><table style="width: 100%;" border="0">
+							<tr>
+								<td rowspan="2" style="width: 10%;"><img
+									src="${i.PROFILE }"
+									style="border-radius: 100%; width: 50px; height: 50px;">&nbsp;</td>
+								<td><font color="orangered" size="4px">${i.ID } (
+										${i.NICK} )</font> &nbsp; <font color="silver">${i.COMMENTS_DATE }</font></td>
+							</tr>
+							<tr>
+								<td>${i.COMMENTS }</td>
+							</tr>
+						</table></li>
+				</c:forEach>
+			</ul>
+		</c:if>
 	</div>
 	<br />
 	<!-- 댓글달기 -->
