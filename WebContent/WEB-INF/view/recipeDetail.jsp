@@ -48,6 +48,11 @@ body {
 .numberTd{
 	width:30px;
 }
+
+.stepTable{
+	width: 450px;
+}
+
 .recipeTd {
 	width:300px;
 }
@@ -101,11 +106,13 @@ body {
 			<div class="w3-card card">
 				<div class="c">
 					<p>요리 <small class="info infoMent">steps</small></p>
-					<table class="w3-table" >
+					<table class="w3-table stepTable" >
 						<c:forEach var="i" items="${detail }">
 							<tr>
 								<td class="numberTd">${i.STEP }.</td>  <td class="recipeTd">${i.RECIPE }</td> 
-									<td><img src="${pageContext.request.contextPath }/dphoto/${info.ID}/${i.DPHOTO}" class="dphoto"></td>
+									<c:if test="${i.DPHOTO } != default">
+										<td><img src="${pageContext.request.contextPath }/dphoto/${info.ID}/${i.DPHOTO}" class="dphoto"></td>
+									</c:if>
 							</tr>
 						</c:forEach>
 					</table>

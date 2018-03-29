@@ -5,7 +5,9 @@
 		insert into recipe_final values (recipe_final_seq.nextval,#{ino},#{fphoto})
 	</insert>
 	
-	
+	<select id="selectFinal" resultType="hashmap">
+		select * from recipe_final where ino=#{ino}
+	</select>
 	
 	
 	

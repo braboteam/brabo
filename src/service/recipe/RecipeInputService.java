@@ -68,22 +68,25 @@ public class RecipeInputService {
 			if(!dphoto[i].isEmpty()) {
 				map.put("dphoto", rename);
 				dphoto[i].transferTo(photo);
+			} else {
+				map.put("dphoto", "default");
 			}
 			chk += template.insert("recipe_detail.insertDetail", map);
 		}
 		
 		return chk == steps.size();
 	}
-
-	public void inputFinal(String id, int ino, MultipartFile[] fphoto) throws IllegalStateException, IOException {
+	
+	// recipe_final 테이블 - 완성된 요리사진 테이블에 사진 집어넣기 
+	public boolean inputFinal(String id, int ino, MultipartFile[] fphoto) throws IllegalStateException, IOException {
 		String path = ctx.getRealPath("/fphoto/" + id);
 		File file = new File(path);
 		if (!file.exists())
 			file.mkdirs();
 		
 		int chk = 0;
-		for(int i=0; i< fphoto.length; i++) {
-			if(!fphoto[i].isEmpty()) {
+		if(!fphoto[0].isEmpty()) {
+			for(int i=0; i< fphoto.length; i++) {
 				Map<String,Object> map = new HashMap<>();
 				String rename = UUID.randomUUID().toString().substring(0, 12) + ".jpg";
 				File photo = new File(path, rename);
@@ -91,9 +94,9 @@ public class RecipeInputService {
 				map.put("fphoto", rename);
 				chk += template.insert("recipe_final.insertFinal",map);
 				fphoto[i].transferTo(photo);
-			}
+			}	
 		}
-		
+		return chk == fphoto.length;
 	}
 		
 		

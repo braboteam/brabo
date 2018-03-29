@@ -69,6 +69,7 @@ public class RecipeInputController {
 		
 		boolean infoRst = false;
 		boolean detailRst = false;
+		boolean finalRst = false;
 			try {
 				infoRst = recipeService.inputInfo(info,iphoto);
 				if(infoRst) {
@@ -80,7 +81,7 @@ public class RecipeInputController {
 					
 					detailRst = recipeService.inputDetail(id,detail,dphoto);
 					if(detailRst)
-						recipeService.inputFinal(id,recipeService.getInfoNo(rename),fphoto);
+						finalRst = recipeService.inputFinal(id,recipeService.getInfoNo(rename),fphoto);
 				}
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -90,7 +91,9 @@ public class RecipeInputController {
 				
 			}
 			
-			model.addAttribute("body", "/WEB-INF/view/recipeDetail.jsp");
+			System.out.println(finalRst);
+			
+			model.addAttribute("body", "/WEB-INF/view/recipeList.jsp");
 			return "index";
 	}
 			
