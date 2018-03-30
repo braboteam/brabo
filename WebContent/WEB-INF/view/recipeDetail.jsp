@@ -25,6 +25,15 @@ body {
 	width:300px;
 	border-radius:2%;
 }
+
+#infoImg1 {
+	width:85px;
+}
+
+#infoImg2 {
+	width:75px;
+}
+
 .dphoto {
 	width:100px;
 	border-radius: 3%;
@@ -63,18 +72,26 @@ body {
 }
 
 .reTable {
-	width: 400px;
+	width: 550px;
 }
 
 .reTd2{
-	width:300px;
+	width:450px;
 }
 
 .avatar {
-	width:90%;
-	border-radius:3%
+	width:70px;
+	height:70px;
+	border-radius:100%
 }
 
+.link {
+	text-decoration:none;
+}
+
+.no {
+	display:none;
+}
 
 /*슬라이드 쇼 스타일 설정 */
 * {box-sizing: border-box}
@@ -173,6 +190,25 @@ img {vertical-align: middle;}
 @media only screen and (max-width: 300px) {
   .prev, .next,.text {font-size: 11px}
 
+/* 댓글 더보기 버튼 스타일 설정  */
+.btn {
+  border: 2px solid black;
+  border-radius: 5px;
+  background-color: white;
+  color: black;
+  padding: 14px 28px;
+  font-size: 16px;
+  cursor: pointer;
+}
+.default {
+  border-color: #e7e7e7;
+  color: black;
+}
+
+.default:hover {
+  background: #e7e7e7;
+}
+
 
 </style>
 <body>
@@ -196,8 +232,8 @@ img {vertical-align: middle;}
 					<p class="info"></p>
 					<table class="w3-table info infoTable">
 						<tr><td>${info.CATE }</td>  <td>${info.PORTION }인분</td>  <td>${info.TIME }</td></tr>
-					</table>
-					
+						<tr><td><img src="/clip.png" id="infoImg1" id="scrap"></td><td><img src="/chat.png" id="infoImg2"></td></tr>
+					</table>					
 				</div>
 			</div>
 			
@@ -244,9 +280,9 @@ img {vertical-align: middle;}
 					<p>완성된 사진 </p>
 					
 					<div class="slideshow-container">
-						<c:forEach var="i" begin="0" end="${fn:length(fphoto) -1}">
+						<c:forEach var="i" items="${fphoto }">
 							<div class="mySlides fade">
-							  <img src="${pageContext.request.contextPath }/fphoto/${info.ID}/${fphoto[i].FPHOTO}" class="fphoto">
+							  <img src="${pageContext.request.contextPath }/fphoto/${info.ID}/${i.FPHOTO}" class="fphoto">
 							</div>
 						</c:forEach>	  
 						<br/>
@@ -270,18 +306,44 @@ img {vertical-align: middle;}
 					</div><hr/>
 				<div id="replyShow">	
 				<table class="reTable">
-					<c:forEach var="i" items="${reply }">
-						<tr>
-							<td><img src="${pageContext.request.contextPath }${i.PROFILE}" class="avatar"></td>
-							<td class="reTd2">
-								<table>
-									<tr><td><small>수정  삭제</small></td></tr>
-									<tr><td>${i.CONTENT } </td></tr>
-								</table>
-							</td>
-						</tr>
+					<c:forEach var="i" items="${reply }" varStatus="var">
+						<c:choose>
+							<c:when test="${var.count <4 }">
+							<tr>
+								<td><img src="${pageContext.request.contextPath }${i.PROFILE}" class="avatar"></td>
+								<td class="reTd2">
+									<table>
+										<tr><td><b>${i.NICK }</b> <small class="info">수정  
+											<a href="${pageContext.request.contextPath }/recipe/replyDel?rno=${i.NO}" class="link">삭제</a>
+											&nbsp;<fmt:formatDate pattern="yyyy-MM-dd HH:mm" value="${i.REDATE }"/></small></td></tr>
+										<tr><td>${i.CONTENT } </td></tr>
+									</table>
+								</td>
+							</tr>
+							</c:when>
+							<c:otherwise>
+							<tr style="display:none;" class="more">
+								<td><img src="${pageContext.request.contextPath }${i.PROFILE}" class="avatar"></td>
+								<td class="reTd2">
+									<table>
+										<tr><td><b>${i.NICK }</b> <small class="info">수정  
+										<a href="${pageContext.request.contextPath }/recipe/replyDel?rno=${i.NO}" class="link">삭제</a></small></td></tr>
+										<tr><td>${i.CONTENT } </td></tr>
+									</table>
+								</td>
+							</tr>	
+							</c:otherwise>
+						</c:choose>
 					</c:forEach>
 				</table>
+				<c:if test="${fn:length(reply) >=3 }">
+					<button class="btn default" id="showMore">more</button>
+					<script>
+						$("#showMore").click(function(){
+							$(".more").toggle();
+						});
+					</script>
+				</c:if>
 				</div>
 			
 					</div>
@@ -312,9 +374,7 @@ img {vertical-align: middle;}
 	</div>
 	
 	<script>
-		// 로그인 하지 않았을 경우 로그인으로 유도...
-		
-		
+			
 		// 댓글 등록 ajax
 		$("#rbt").click(function(){
 			var reply = $("#re").val();
@@ -325,31 +385,71 @@ img {vertical-align: middle;}
 				"ino":ino,
 				"rate":rate
 			},function(obj){
-				if(obj.rst == true) {
+				if(obj.rst == "yy") {
 					window.alert("성공");
 					replyGet();
-					
 				} else {
-					window.alert("실패");
-				}
+					if(obj.rst == "login") {
+						window.alert("로그인 후 사용해주세요.");
+					} else if(obj.rst == "rate") {
+						window.alert("평점을 입력해주세요.");	
+					} else {
+						window.alert("내용을 입력해주세요.");
+					}
+				}	
 			});
 		});
-		
-		// 댓글 갱신 ajax
+	
+		// 댓글 갱신 ajax - 3개 초과 시, 더보기 출력 
 		function replyGet() {
 			var ino = ${info.NO}
 			$.get("${pageContext.request.contextPath}/recipe/replyGet",{
 				"ino":ino
 			},function(obj){
 				var out = "";
-				for(var i=0; i<obj.length; i++) {
-					out += "<table class=\"reTable\"><tr><td><img src=\"${pageContext.request.contextPath }"+obj[i].PROFILE+"\" class=\"avatar\"></td>";
-					out += "<td class=\"reTd2\"><table><tr><td><small>수정  삭제</small></td></tr><tr><td>"+obj[i].CONTENT+"</td></tr>";
-					out += "</table></td></tr></table>";
+				for(var i=0; i<obj.length-2; i++) {
+					if(i < 3) {
+						out += "<table class=\"reTable\"><tr><td><img src=\"${pageContext.request.contextPath }"+obj[i].PROFILE+"\" class=\"avatar\"></td>";
+						out += "<td class=\"reTd2\"><table><tr><td><b>"+obj[i].NICK+"</b>  <small class=\"info\">수정  삭제</small></td></tr>";
+						out += "<tr><td>"+obj[i].CONTENT+"</td></tr>";
+						out += "</table></td></tr></table>";	
+					} else {
+						out += "<table class=\"reTable\"><tr style=\"display:none;\" class=\"more\"><td><img src=\"${pageContext.request.contextPath }"+obj[i].PROFILE+"\" class=\"avatar\"></td>";
+						out += "<td class=\"reTd2\"><table><tr><td><b>"+obj[i].NICK+"</b>  <small class=\"info\">수정  삭제</small></td></tr>";
+						out += "<tr><td>"+obj[i].CONTENT+"</td></tr>";
+						out += "</table></td></tr></table>";
+					}				
 				}
+				if(obj.length >3) {
+					out += "<button class=\"btn default\" id=\"showMore\">more</button>";
+				}					
 				$("#replyShow").html(out);
+				$("#showMore").click(function(){
+					$(".more").toggle();
+				});
 			});
 		};
+		
+		// 레시피 스크랩 
+		$("#scrap").click(function(){
+			var no = ${info.NO}
+			$.get("${pageContext.request.contextPath}/scrap",{
+				"no":no
+			},function(obj){
+				if(obj.rst == "login") {
+					window.alert("로그인 후 사용해주세요.");
+				} else {
+					if(obj.rst == "yy") {
+						window.alert("스크랩 되었습니다.");
+					} else {
+						window.alert("이미 스크랩 된 레시피입니다.");
+					}
+				}
+			
+			});	
+		});
+		
+		
 		
 		// 슬라이드 쇼 스크립트 설정  
 		var slideIndex = 1;

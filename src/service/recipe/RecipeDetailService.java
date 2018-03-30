@@ -15,6 +15,7 @@ public class RecipeDetailService {
 	
 	// recipe_info 테이블에서 no로 데이터 가져오기
 	public Map getInfo(String no) {
+		System.out.println("no : " + no);
 		Map<String,String> map = new HashMap<>();
 			map.put("no", no);
 		return template.selectOne("recipe_info.selectInfo",map);

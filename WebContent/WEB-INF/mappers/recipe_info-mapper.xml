@@ -30,5 +30,8 @@
 		recipe_info where id=#{id}
 	</select>
 
+	<update id="authRecipe">
+		update recipe_info set right=1 where no=#{no}
+	</update>
 
 </mapper>

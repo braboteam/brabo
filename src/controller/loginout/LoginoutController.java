@@ -36,12 +36,10 @@ public class LoginoutController {
 		if (rst != null) {
 			session.setAttribute("logon", rst.get("ID"));
 			model.addAttribute("body", "/WEB-INF/view/indexBody.jsp");
-			model.addAttribute("success", "로그인을 성공하셨습니다.");
-			model.addAttribute("success", "�α��ο� �����Ͽ����ϴ�.");
+			model.addAttribute("success", rst.get("ID")+"님 환영합니다.");
 			return "index";
 		} else {
-			model.addAttribute("err", "로그인을 실패하셨습니다.");
-			model.addAttribute("err", "�α��ο� �����ϼ̽��ϴ�.");
+			model.addAttribute("err", "로그인 과정에서 문제가 발생했습니다.");
 			model.addAttribute("body", "/WEB-INF/view/login.jsp");
 			return "index";
 		}
@@ -52,7 +50,7 @@ public class LoginoutController {
 
 		session.removeAttribute("logon");
 		model.addAttribute("body", "/WEB-INF/view/indexBody.jsp");
-		model.addAttribute("logout", "로그아웃 되셨습니다.");
+		model.addAttribute("logout", "로그아웃 되었습니다.");
 		return "index";
 	}
 }
