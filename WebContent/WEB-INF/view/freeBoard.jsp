@@ -79,7 +79,7 @@ body, html {
 									href="${pageContext.request.contextPath }/followinfo?id=${i.ID}">
 							</c:when>
 							<c:otherwise>
-								<a href="내정보로 이동시키기">
+								<a href="${pageContext.request.contextPath }/mypage">
 							</c:otherwise>
 						</c:choose> <img src="${i.PROFILE }"
 						style="border-radius: 100%; width: 120px; height: 120px;"></a></td>
@@ -91,7 +91,8 @@ body, html {
 									style="text-decoration: none;">
 							</c:when>
 							<c:otherwise>
-								<a href="내정보로 이동시키기" style="text-decoration: none;">
+								<a href="${pageContext.request.contextPath }/mypage"
+									style="text-decoration: none;">
 							</c:otherwise>
 						</c:choose>
 						<h3>
