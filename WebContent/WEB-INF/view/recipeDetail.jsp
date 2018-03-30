@@ -63,11 +63,11 @@ body {
 }
 
 .reTable {
-	width: 400px;
+	width: 550px;
 }
 
 .reTd2{
-	width:300px;
+	width:450px;
 }
 
 .avatar {
@@ -244,9 +244,9 @@ img {vertical-align: middle;}
 					<p>완성된 사진 </p>
 					
 					<div class="slideshow-container">
-						<c:forEach var="i" begin="0" end="${fn:length(fphoto) -1}">
+						<c:forEach var="i" items="${fphoto }">
 							<div class="mySlides fade">
-							  <img src="${pageContext.request.contextPath }/fphoto/${info.ID}/${fphoto[i].FPHOTO}" class="fphoto">
+							  <img src="${pageContext.request.contextPath }/fphoto/${info.ID}/${i.FPHOTO}" class="fphoto">
 							</div>
 						</c:forEach>	  
 						<br/>
@@ -275,7 +275,7 @@ img {vertical-align: middle;}
 							<td><img src="${pageContext.request.contextPath }${i.PROFILE}" class="avatar"></td>
 							<td class="reTd2">
 								<table>
-									<tr><td><small>수정  삭제</small></td></tr>
+									<tr><td><b>${i.NICK }</b> <small class="info">수정  삭제</small></td></tr>
 									<tr><td>${i.CONTENT } </td></tr>
 								</table>
 							</td>
@@ -325,15 +325,22 @@ img {vertical-align: middle;}
 				"ino":ino,
 				"rate":rate
 			},function(obj){
-				if(obj.rst == true) {
+				if(obj.rst == "yy") {
 					window.alert("성공");
 					replyGet();
 					
 				} else {
-					window.alert("실패");
-				}
+					if(obj.rst == "login") {
+						window.alert("로그인 후 사용해주세요.");
+					} else if(obj.rst == "rate") {
+						window.alert("평점을 입력해주세요.");	
+					} else {
+						window.alert("내용을 입력해주세요.");
+					}
+				}	
 			});
 		});
+	
 		
 		// 댓글 갱신 ajax
 		function replyGet() {
@@ -344,7 +351,8 @@ img {vertical-align: middle;}
 				var out = "";
 				for(var i=0; i<obj.length; i++) {
 					out += "<table class=\"reTable\"><tr><td><img src=\"${pageContext.request.contextPath }"+obj[i].PROFILE+"\" class=\"avatar\"></td>";
-					out += "<td class=\"reTd2\"><table><tr><td><small>수정  삭제</small></td></tr><tr><td>"+obj[i].CONTENT+"</td></tr>";
+					out += "<td class=\"reTd2\"><table><tr><td><b>"+obj[i].NICK+"</b>  <small class=\"info\">수정  삭제</small></td></tr>";
+					out += "<tr><td>"+obj[i].CONTENT+"</td></tr>";
 					out += "</table></td></tr></table>";
 				}
 				$("#replyShow").html(out);

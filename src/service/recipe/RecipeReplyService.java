@@ -14,11 +14,11 @@ public class RecipeReplyService {
 	SqlSessionTemplate template;
 	
 	// 댓글 등록
-	public boolean inputReply(String id, Map<String, String> param) {
+	public void inputReply(String id, Map<String, String> param) {
 		param.put("writer", id);
-		
-		return template.insert("recipe_reply.insertReply", param) == 1;
+		template.insert("recipe_reply.insertReply", param);
 	}
+		
 	
 	// 댓글 내용 가져오기
 	public List<Map<String,Object>> getReply(String ino) {
@@ -36,7 +36,7 @@ public class RecipeReplyService {
 	public Map<String, Object> getProfile(String id) {
 		Map<String,String> map = new HashMap<>();
 			map.put("id", id);
-		return template.selectOne("member.getByIdAndPassword",id);
+		return template.selectOne("member.getByIdAndPassword",map);
 	}
 	
 	

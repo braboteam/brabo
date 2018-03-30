@@ -32,14 +32,22 @@ public class RecipeReplyController {
 		// recipe_reply 테이블에 댓글 등록  
 		// 아이디(댓글 작성자), 댓글내용, recipe_info 기본키 필요.
 		String id = (String)session.getAttribute("logon");
-		boolean rst = rReplyService.inputReply(id,param);
-		Map<String,Boolean> map = new HashMap<>();
+		Map<String,String> map = new HashMap<>();
 		
-		if(rst) 
-			map.put("rst", true);
-		 else 
-			map.put("rst", false);
-
+		if(param.size() == 3) {
+			if(param.get("content").equals(""))
+				map.put("rst", "content");
+			else {
+				rReplyService.inputReply(id,param);
+				map.put("rst", "yy");
+			}
+		} else {
+			if(id == null) 
+				map.put("rst", "login");
+			else if(param.get("rate") == null)
+				map.put("rst", "rate");
+		}
+			
 		return gson.toJson(map);
 	}
 	
