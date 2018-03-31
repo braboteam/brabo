@@ -12,6 +12,12 @@
 	</insert>
 
 	<delete id="deleteOne">
-		delete from follow where id=#{id} and friend=#{friend}
+		delete from follow where id=#{id} and
+		friend=#{friend}
 	</delete>
+
+	<select id="selectList" resultType="hashmap">
+		select * from follow where
+		id=#{id}
+	</select>
 </mapper>

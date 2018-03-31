@@ -52,4 +52,9 @@
 		member on board.id=member.id
 		where board_id = #{board_id}
 	</select>
+
+	<select id="selectCount" resultType="hashmap">
+		select count(*) as COUNT
+		from board where id=#{id}
+	</select>
 </mapper>

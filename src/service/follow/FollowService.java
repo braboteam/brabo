@@ -24,8 +24,12 @@ public class FollowService {
 				map.put("FRIEND", true);
 			}
 		} else {
+			// 로그인되어있지 않은
 			map.put("NOTSESSION", true);
 		}
+		// 게시물 갯수
+		map.put("BOARD_COUNT", ((Map) template.selectOne("board.selectCount", friend)).get("COUNT"));
+		map.put("RECIPE_COUNT", ((Map) template.selectOne("recipe_info.selectCount", friend)).get("COUNT"));
 		return map;
 	}
 

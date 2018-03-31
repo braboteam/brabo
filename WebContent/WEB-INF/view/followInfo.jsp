@@ -54,17 +54,31 @@ body, h1, h2, h3, h4, h5, h6 {
 		<br /> <br />
 	</div>
 	<div class="w3-bar-block">
-		<a href="${pageContext.request.contextPath }/followinfo?id=${member.ID}"
+		<a
+			href="${pageContext.request.contextPath }/followinfo?id=${member.ID}"
 			class="w3-bar-item w3-button w3-padding w3-text-teal"
 			style="text-decoration: none;"><i
-			class="fa fa-th-large fa-fw w3-margin-right"></i>레시피목록</a> <a
-			href="${pageContext.request.contextPath }/freeboard/${member.ID }"
+			class="fa fa-th-large fa-fw w3-margin-right"></i><b>레시피목록 <c:choose>
+					<c:when test="${member.RECIPE_COUNT == null }">
+			( <font color="green">0</font> )
+			</c:when>
+					<c:otherwise>
+			( <font color="green">${member.RECIPE_COUNT }</font> )
+			</c:otherwise>
+				</c:choose>
+		</b></a> <a href="${pageContext.request.contextPath }/freeboard/${member.ID }"
 			class="w3-bar-item w3-button w3-padding"
 			style="text-decoration: none;"><i
-			class="fa fa-user fa-fw w3-margin-right"></i>요리톡목록</a> <a
-			href="javascript:c();" class="w3-bar-item w3-button w3-padding"
+			class="fa fa-user fa-fw w3-margin-right"></i><b>요리톡목록 <c:choose>
+					<c:when test="${member.BOARD_COUNT == null }">
+			( <font color="green">0</font> )
+			</c:when>
+					<c:otherwise>
+			( <font color="green">${member.BOARD_COUNT }</font> )
+			</c:otherwise>
+				</c:choose></b></a> <a href="javascript:c();" class="w3-bar-item w3-button w3-padding"
 			style="text-decoration: none;"><i
-			class="fa fa-envelope fa-fw w3-margin-right"></i>대화신청</a>
+			class="fa fa-envelope fa-fw w3-margin-right"></i><b>대화신청</b></a>
 	</div>
 	<div class="w3-panel w3-large">
 		<i class="fa fa-facebook-official w3-hover-opacity"></i> <i
