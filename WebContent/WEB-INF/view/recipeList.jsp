@@ -104,8 +104,6 @@ h1 {
 <div class="w3-container"   >
 	<!-- MAIN (Center website) -->
 	<form  action="${pageContext.request.contextPath }/recipe/list" method="get"> 
-		<input type="hidden" id="startPage" name="startPage"  value=""/>
-		<input type="hidden" id="visiblePage" name="visiblePage" value="" />
 		<div class="main">
 	
 	

@@ -1,5 +1,6 @@
 package controller.recipeAuth;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -22,21 +23,36 @@ public class RecipeAuthController {
 
 	
 	@RequestMapping(path="/recipeAuth",method=RequestMethod.GET)
-	public String authGetHandle(HttpSession session,Model model) {
+	public String authGetHandle(HttpSession session,Model model,@RequestParam(defaultValue="1") int p) {
 		String id = (String)session.getAttribute("logon");
 		boolean chk = false;
+		List<Map> list = new ArrayList();
 		
 		if(id != null)
 			chk = rAuthService.checkAdmin(id);
-		
+	
 		if(chk) {
 			// 관리자인 경우 
-			List<Map> list = rAuthService.getAllRecipe();
-			model.addAttribute("print", list);
-		} else {
-			// 관리자 아닌 경우 
+			list = rAuthService.getAllRecipe();
 			
-		}
+			// 페이징 출력 위한 작업..
+			int row = 13;
+			int totalCnt = rAuthService.getAllList();
+			if(totalCnt % row == 0)
+				totalCnt = totalCnt/row;
+			else
+				totalCnt = totalCnt/row + 1;
+			
+			int t = row;
+			int begin = (p-1)*t;
+			int end = p*t;
+			if(end > list.size()) 
+				end = list.size();
+			
+			model.addAttribute("page", p);
+			model.addAttribute("totalCnt",totalCnt);
+			model.addAttribute("recipe", list.subList(begin, end));
+		} 
 		
 		model.addAttribute("body", "/WEB-INF/view/admin.jsp");
 		
