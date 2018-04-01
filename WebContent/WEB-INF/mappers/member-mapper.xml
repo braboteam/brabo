@@ -10,6 +10,33 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</insert>
 	<select id="getByIdAndPassword" parameterType="hashmap"
 		resultType="hashmap">
-		select * from member where id=#{id} and pass=#{pass}
+		select * from member
+		<where>
+			<if test="id != null">
+				id=#{id}
+			</if>
+			<if test="pass != null">
+				and pass=#{pass}
+			</if>
+		</where>
 	</select>
+	<select id="checkId" resultType="hashmap">
+		select * from member where
+		id=#{id}
+	</select>
+
+	<select id="selectOne" resultType="hashmap">
+		select * from member m
+		left
+		join (select member.id, count(follow.friend) as COUNT from member
+		left
+		join follow on member.id=follow.friend group by member.id)t
+		on m.id =
+		t.id where m.id=#{id}
+	</select>
+
+	<select id="selectList" resultType="hashmap">
+		select * from member
+	</select>
+
 </mapper>

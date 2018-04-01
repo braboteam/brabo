@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="recipe_reply">
+	
+	<insert id="insertReply" parameterType="hashmap">
+		insert into recipe_reply values (recipe_reply_seq.nextval,#{ino},#{writer},#{content},#{rate},sysdate)
+	</insert>
+	
+	<select id="selectAll" resultType="hashmap">
+		select * from recipe_reply left join member on recipe_reply.writer = member.id where ino=#{ino} order by recipe_reply.no desc
+	</select>
+	<select id="selectAVg" resultType="hashmap">
+		select avg(rate) as avg from recipe_reply where ino=#{ino}
+	</select>
+	<select id="selectInfoNo" resultType="String">
+		select ino from recipe_reply where no=#{no}
+	</select>
+	
+	<delete id="deleteOne">
+		delete from recipe_reply where no=#{no}
+	</delete>
+	
+</mapper>

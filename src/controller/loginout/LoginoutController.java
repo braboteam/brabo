@@ -19,7 +19,13 @@ public class LoginoutController {
 	LoginoutService loginoutservice;
 
 	@RequestMapping(path = "/login", method = RequestMethod.GET)
-	public String loginGetHandle() {
+	public String loginGetHandle(Model model) {
+		model.addAttribute("body", "/WEB-INF/view/login.jsp");
+		return "index";
+	}
+	
+	public String loginGetHandle(@RequestParam(required = false) String sessionError, Model model) {
+		model.addAttribute("sessionError", sessionError);
 		return "login";
 	}
 
@@ -30,12 +36,21 @@ public class LoginoutController {
 		if (rst != null) {
 			session.setAttribute("logon", rst.get("ID"));
 			model.addAttribute("body", "/WEB-INF/view/indexBody.jsp");
-			model.addAttribute("success", "·Î±×ÀÎ¿¡ ¼º°øÇÏ¿´½À´Ï´Ù.");
+			model.addAttribute("success", rst.get("ID")+"ë‹˜ í™˜ì˜í•©ë‹ˆë‹¤.");
 			return "index";
 		} else {
-			model.addAttribute("err", "·Î±×ÀÎ¿¡ ½ÇÆĞÇÏ¼Ì½À´Ï´Ù.");
+			model.addAttribute("err", "ë¡œê·¸ì¸ ê³¼ì •ì—ì„œ ë¬¸ì œê°€ ë°œìƒí–ˆìŠµë‹ˆë‹¤.");
 			model.addAttribute("body", "/WEB-INF/view/login.jsp");
 			return "index";
 		}
+	}
+
+	@RequestMapping(path = "/logout", method = RequestMethod.GET)
+	public String logoutPostHandle(HttpSession session, Model model) {
+
+		session.removeAttribute("logon");
+		model.addAttribute("body", "/WEB-INF/view/indexBody.jsp");
+		model.addAttribute("logout", "ë¡œê·¸ì•„ì›ƒ ë˜ì—ˆìŠµë‹ˆë‹¤.");
+		return "index";
 	}
 }

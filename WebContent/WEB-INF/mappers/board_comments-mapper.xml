@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="board_comments">
+	<insert id="insertOne">
+		insert into board_comments
+		values(board_comments_sequence.nextval,
+		#{board_id}, #{id},
+		#{comments}, sysdate)
+	</insert>
+
+	<select id="selectCount" resultType="hashmap">
+		select board_id,
+		count(board_id) as COUNT from board_comments
+		<where>
+			<if test="board_id != null">
+				board_id = #{board_id}
+			</if>
+		</where>
+		group by board_id
+	</select>
+
+	<select id="selectAll" resultType="hashmap">
+		select * from board_comments
+		join member on board_comments.id = member.id
+		where
+		board_id=#{board_id}
+		order by comments_date asc
+	</select>
+</mapper>

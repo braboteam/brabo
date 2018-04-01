@@ -2,6 +2,10 @@
 	pageEncoding="UTF-8"%>
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <style>
 body, html {
@@ -64,25 +68,80 @@ body, html {
 	<!-- 게시글 -->
 	<c:forEach var="i" items="${board }">
 		<div align="center">
-			<table border="0" style="width: 55%; background-color: white;">
+			<table border="0"
+				style="width: 55%; background-color: white; border-radius: 2%;">
 				<tr>
 					<!-- 프로필사진 -->
 					<td rowspan="3" valign="top" align="center" style="width: 18%;"><br />
-						<img src="/Desert.jpg"
-						style="border-radius: 100%; width: 120px; height: 120px;"></td>
+						<c:choose>
+							<c:when test="${logon != i.ID }">
+								<a
+									href="${pageContext.request.contextPath }/followinfo?id=${i.ID}">
+							</c:when>
+							<c:otherwise>
+								<a href="${pageContext.request.contextPath }/mypage">
+							</c:otherwise>
+						</c:choose> <img src="${i.PROFILE }"
+						style="border-radius: 100%; width: 120px; height: 120px;"></a></td>
 					<!-- 아이디 -->
-					<td style="width: 45%;">
+					<td style="width: 45%;"><c:choose>
+							<c:when test="${logon != i.ID }">
+								<a
+									href="${pageContext.request.contextPath }/followinfo?id=${i.ID}"
+									style="text-decoration: none;">
+							</c:when>
+							<c:otherwise>
+								<a href="${pageContext.request.contextPath }/mypage"
+									style="text-decoration: none;">
+							</c:otherwise>
+						</c:choose>
 						<h3>
-							<font color="orangered">${i.ID }</font>
-						</h3>${i.BOARD_DATE }
-					</td>
+							<font color="orangered"> ${i.NICK } ( ${i.ID } )</font>
+						</h3> </a>${i.BOARD_DATE }</td>
 					<!-- 하트댓글표시 -->
 					<td align="right" style="width: 45%;"><font size="5px;">
-							<!-- 하트 --> <a href="#"> <span
-								class="glyphicon glyphicon-heart-empty"></span>
-						</a>0 <!-- 댓글 --> <a href="#"> <span
-								class="glyphicon glyphicon-user"></span>
-						</a>0
+							<!-- 하트 --> <span id="heart${i.BOARD_ID }"> <c:choose>
+									<c:when test="${i.LIKE == null }">
+										<c:choose>
+											<c:when test="${logon == null }">
+												<a
+													href="${pageContext.request.contextPath }/login?sessionError=로그인 후 이용하시기 바랍니다.">
+													<span class="glyphicon glyphicon-heart-empty"></span>
+												</a>
+											</c:when>
+											<c:otherwise>
+												<a href="javascript:like('${i.BOARD_ID }','t');"> <span
+													class="glyphicon glyphicon-heart-empty"></span>
+												</a>
+											</c:otherwise>
+										</c:choose>
+									</c:when>
+									<c:otherwise>
+										<c:choose>
+											<c:when test="${logon == null }">
+												<a
+													href="${pageContext.request.contextPath }/login?sessionError=로그인 후 이용하시기 바랍니다.">
+													<span class="glyphicon glyphicon-heart-empty"></span>
+												</a>
+											</c:when>
+											<c:otherwise>
+												<!-- 색있는 하트 -->
+												<a href="javascript:like('${i.BOARD_ID }','f');"> <span
+													class="glyphicon glyphicon-heart"></span></a>
+											</c:otherwise>
+										</c:choose>
+									</c:otherwise>
+								</c:choose></span> <span id="count${i.BOARD_ID }">${i.COUNT }</span> <!-- 댓글 --> <a
+							href="${pageContext.request.contextPath }/boarddetail?pk=${i.BOARD_ID}">
+								<span class="glyphicon glyphicon-user"></span>
+						</a> <c:choose>
+								<c:when test="${i.COMMENTS_COUNT == null }">
+						0
+						</c:when>
+								<c:otherwise>
+						${i.COMMENTS_COUNT }
+						</c:otherwise>
+							</c:choose> &nbsp;
 					</font></td>
 				</tr>
 				<tr>
@@ -110,9 +169,59 @@ body, html {
 		</div>
 		<br />
 	</c:forEach>
+
+	<script>
+		function like(pk, b) {
+			if (b == 't') {
+				$
+						.get(
+								"${pageContext.request.contextPath}/like",
+								{
+									"board_id" : pk,
+								},
+								function(rst) {
+									if (rst == true) {
+										window.alert("좋아요 하였습니다.");
+										$("#heart" + pk)
+												.html(
+														"<a href=\"javascript:like('"
+																+ pk
+																+ "','f');\"> <span class='glyphicon glyphicon-heart'></span></a>");
+										$("#count" + pk).html(
+												JSON.parse($("#count" + pk)
+														.html()) + 1);
+										//location.href = "";
+									} else {
+										console.log("[Error] 좋아요 실패")
+									}
+								});
+			} else {
+				$
+						.get(
+								"${pageContext.request.contextPath}/likecancel",
+								{
+									"board_id" : pk,
+								},
+								function(rst) {
+									if (rst == true) {
+										window.alert("좋아요를 취소하였습니다.");
+										$("#heart" + pk)
+												.html(
+														"<a href=\"javascript:like('"
+																+ pk
+																+ "','t');\"> <span class='glyphicon glyphicon-heart-empty'></span></a>");
+										$("#count" + pk).html(
+												JSON.parse($("#count" + pk)
+														.html()) - 1);
+										//location.href = "";
+									} else {
+										window.alert("[Error] 좋아요 취소실패")
+									}
+								});
+			}
+		}
+	</script>
 	<!-- 게시글끝 -->
-
-
 </div>
 
 
