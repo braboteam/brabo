@@ -27,12 +27,16 @@ body {
 	border-radius:2%;
 }
 
+.infoTd {
+	text-align: center;
+}
+
 #scrap {
 	width:75px;
 }
 
 #chat {
-	width:65px;
+	width:75px;
 }
 
 #sbt {
@@ -55,7 +59,7 @@ body {
 	font-style: italic; 
 }
 .infoTable {
-	width:300px;
+	width:350px;
 }
 .itemsTable{
 	width:300px;
@@ -78,8 +82,13 @@ body {
 
 .reTable {
 	width: 550px;
+    border-collapse: collapse;
+ 
 }
-
+.reTd1 {
+	border-bottom: 1px solid silver;
+    padding: 10px;
+}
 .reTd2{
 	width:450px;
 }
@@ -232,13 +241,31 @@ img {vertical-align: middle;}
 					<a href="${pageContext.request.contextPath }/followinfo?id=?${info.ID}" class="link">by ${profile.NICK }</a>
 					</div>
 					<p class="info infoMent">
+						❝ <br/>
 						${info.INFO }
 					</p>
 					<p class="info"></p>
-					<table class="w3-table info infoTable">
-						<tr><td>${info.CATE }</td>  <td>${info.PORTION }인분</td>  <td>${info.TIME }</td></tr>
-						<tr><td><img src="/clip.png" id="scrap"></td><td><img src="/chat.png" id="chat"></td></tr>
-						<tr><td><button type="button" id="sbt" ></button></td></tr>
+					<table class="info infoTable">
+						<tr>
+							<td class="infoTd">${info.CATE }</td>  <td class="infoTd">${info.PORTION }인분</td>  <td class="infoTd">${info.TIME }</td>
+						</tr>
+					</table>	
+					<table>
+						<tr>
+							<td>
+								<table>
+									<tr><td><img src="/clip.png" id="scrap"></td></tr>
+									<tr><td class="infoTd info">${fn:length(reply) }</td></tr>
+								</table>	
+								
+							</td>
+							<td>
+								<table>
+									<tr><td><img src="/chat.png" id="chat"></td></tr>
+									<tr><td class="infoTd info">${fn:length(reply) }</td></tr>
+								</table>		
+							</td>
+						</tr>
 					</table>					
 				</div>
 			</div>
@@ -316,8 +343,8 @@ img {vertical-align: middle;}
 						<c:choose>
 							<c:when test="${var.count <4 }">
 							<tr>
-								<td><img src="${pageContext.request.contextPath }${i.PROFILE}" class="avatar"></td>
-								<td class="reTd2">
+								<td class="reTd1"><img src="${pageContext.request.contextPath }${i.PROFILE}" class="avatar"></td>
+								<td class="reTd1 reTd2">
 									<table>
 										<tr><td><b>${i.NICK }</b> <small class="info">수정  
 											<a href="${pageContext.request.contextPath }/recipe/replyDel?rno=${i.NO}" class="link">삭제</a>
@@ -329,8 +356,8 @@ img {vertical-align: middle;}
 							</c:when>
 							<c:otherwise>
 							<tr style="display:none;" class="more">
-								<td><img src="${pageContext.request.contextPath }${i.PROFILE}" class="avatar"></td>
-								<td class="reTd2">
+								<td class="reTd1"><img src="${pageContext.request.contextPath }${i.PROFILE}" class="avatar"></td>
+								<td class="reTd1 reTd2">
 									<table>
 										<tr><td><b>${i.NICK }</b> <small class="info">수정  
 										<a href="${pageContext.request.contextPath }/recipe/replyDel?rno=${i.NO}" class="link">삭제</a></small></td></tr>
@@ -414,13 +441,16 @@ img {vertical-align: middle;}
 				var out = "";
 				for(var i=0; i<obj.length-2; i++) {
 					if(i < 3) {
-						out += "<table class=\"reTable\"><tr><td><img src=\"${pageContext.request.contextPath }"+obj[i].PROFILE+"\" class=\"avatar\"></td>";
-						out += "<td class=\"reTd2\"><table><tr><td><b>"+obj[i].NICK+"</b>  <small class=\"info\">수정  삭제</small></td></tr>";
+						out += "<table class=\"reTable\"><tr><td class=\"reTd1\"><img src=\"${pageContext.request.contextPath }"+obj[i].PROFILE+"\" class=\"avatar\"></td>";
+						out += "<td class=\"reTd1 reTd2\"><table><tr><td><b>"+obj[i].NICK+"</b>  <small class=\"info\">수정  ";
+						out += "<a href=\"${pageContext.request.contextPath }/recipe/replyDel?rno="+obj[i].NO+"\" class=\"link\">삭제</a></small></td></tr>";
 						out += "<tr><td>"+obj[i].CONTENT+"</td></tr>";
 						out += "</table></td></tr></table>";	
 					} else {
-						out += "<table class=\"reTable\"><tr style=\"display:none;\" class=\"more\"><td><img src=\"${pageContext.request.contextPath }"+obj[i].PROFILE+"\" class=\"avatar\"></td>";
-						out += "<td class=\"reTd2\"><table><tr><td><b>"+obj[i].NICK+"</b>  <small class=\"info\">수정  삭제</small></td></tr>";
+						out += "<table class=\"reTable\"><tr style=\"display:none;\" class=\"more\">";
+						out += "<td class=\"reTd1\"><img src=\"${pageContext.request.contextPath }"+obj[i].PROFILE+"\" class=\"avatar\"></td>";
+						out += "<td class=\"reTd1 reTd2\"><table><tr><td><b>"+obj[i].NICK+"</b>  <small class=\"info\">수정 ";  
+						out += "	<a href=\"${pageContext.request.contextPath }/recipe/replyDel?rno="+obj[i].NO+"\" class=\"link\">삭제</a></small></td></tr>";
 						out += "<tr><td>"+obj[i].CONTENT+"</td></tr>";
 						out += "</table></td></tr></table>";
 					}				
