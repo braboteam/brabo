@@ -1,5 +1,6 @@
 package controller.recipe;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -18,9 +19,14 @@ public class RecipeListController {
 	RecipeListService rListService;
 	
 	@RequestMapping("/list")
-	public String listHandle(Model model,@RequestParam(defaultValue="1")int p) {
+	public String listHandle(Model model,@RequestParam(defaultValue="1")int p,@RequestParam(defaultValue="default") String rate) {
 		System.out.println("recipeListController 접근..");
-		List<Map<String,Object>> rInfo = rListService.getAllInfo();
+		List<Map<String,Object>> rInfo = new ArrayList();
+		
+		if(!rate.equals("default"))
+			// rInfo = rListService.getAllInfoByRate();
+		
+		rInfo = rListService.getAllInfo();
 		
 		// 한 페이지당 출력될 행수
 		int row = 9;

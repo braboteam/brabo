@@ -1,4 +1,4 @@
-package service.recipeAuth;
+package service.admin;
 
 import java.util.HashMap;
 import java.util.List;

@@ -30,7 +30,7 @@
 	</select>
 
 	<update id="authRecipe">
-		update recipe_info set right=1 where no=#{no}
+		update recipe_info set right=1-right where no=#{no}
 	</update>
 	
 </mapper>

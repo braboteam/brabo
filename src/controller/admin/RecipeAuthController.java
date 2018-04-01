@@ -1,4 +1,4 @@
-package controller.recipeAuth;
+package controller.admin;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.gson.Gson;
 
-import service.recipeAuth.RecipeAuthService;
+import service.admin.RecipeAuthService;
 
 @Controller
 @RequestMapping("/admin")

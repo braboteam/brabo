@@ -9,20 +9,31 @@
 		<a
 			class="w3-bar-item w3-button w3-hide-medium w3-hide-large w3-right w3-hover-white w3-theme-d2"
 			href="javascript:void(0);" onclick="openNav()"><i
-			class="fa fa-bars"></i></a> <a
-			href="${pageContext.request.contextPath }/index"
-			class="w3-bar-item w3-button w3-teal"><i
-			class="fa fa-home w3-margin-right"></i>Home</a> <a
-			href="${pageContext.request.contextPath }/recipe/list"
-			class="w3-bar-item w3-button w3-hide-small w3-hover-white">Recipe</a>
-		<a href="${pageContext.request.contextPath }/freeboard"
-			class="w3-bar-item w3-button w3-hide-small w3-hover-white">Free
-			Board</a> <a href="${pageContext.request.contextPath }/freeboard"
-			class="w3-bar-item w3-button w3-hide-small w3-hover-white">Follow
-			Chef</a> <a href="${pageContext.request.contextPath }/cheflist"
-			class="w3-bar-item w3-button w3-hide-small w3-hover-white"><i
-			class="fa fa-search"> Search Chef </i></a>
-
+			class="fa fa-bars"></i></a> 
+			<c:choose>
+				<c:when test="${memberRight == 0 }">
+					<a href="${pageContext.request.contextPath }/index"
+					class="w3-bar-item w3-button w3-teal"><i
+					class="fa fa-home w3-margin-right"></i>Home</a> <a
+					href="${pageContext.request.contextPath }/recipe/list"
+					class="w3-bar-item w3-button w3-hide-small w3-hover-white">Recipe</a>
+				<a href="${pageContext.request.contextPath }/freeboard"
+					class="w3-bar-item w3-button w3-hide-small w3-hover-white">Free
+					Board</a> <a href="${pageContext.request.contextPath }/freeboard"
+					class="w3-bar-item w3-button w3-hide-small w3-hover-white">Follow
+					Chef</a> <a href="${pageContext.request.contextPath }/cheflist"
+					class="w3-bar-item w3-button w3-hide-small w3-hover-white"><i
+					class="fa fa-search"> Search Chef </i></a>
+				</c:when>
+				<c:otherwise>
+					<a href="${pageContext.request.contextPath }/admin/recipeAuth"
+					class="w3-bar-item w3-button w3-teal"><i
+					class="fa fa-home w3-margin-right"></i>admin</a>
+				</c:otherwise>		
+			</c:choose>
+			
+			
+			
 		<!-- 로그인 메뉴 -->
 		<c:choose>
 			<c:when test="${logon != null}">
