@@ -7,7 +7,15 @@
 	</select>
 	
 	<select id="selectScrapCheck" resultType="hashmap">
-		select * from scrap where id=#{id} and recipe_no=#{ino}
+		select * from scrap 
+		<where>
+			<if test="recipe_no != null">
+				recipe_no=#{ino}
+			</if>
+			<if test="id != null">
+				and id=#{id}
+			</if>
+		</where>		
 	</select>
 	
 	

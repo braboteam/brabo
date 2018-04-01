@@ -40,12 +40,16 @@ public class RecipeDetailController {
 			
 		// 댓글 출력 위한 작업.
 		List<Map<String,Object>> reply = rReplyService.getReply(no);	
+		
+		// 스크랩 갯수 출력 위한 작업.
+		List<Map<String,String>> scrap = rDetailService.getScrap(no);
 			
 		model.addAttribute("profile", profile);
 		model.addAttribute("info", info);
 		model.addAttribute("detail", detail);
 		model.addAttribute("fphoto", fphoto);
 		model.addAttribute("reply",reply);
+		model.addAttribute("scrap", scrap);
 		model.addAttribute("rate",rReplyService.getAvg(no));
 		model.addAttribute("body", "/WEB-INF/view/recipeDetail.jsp");
 		

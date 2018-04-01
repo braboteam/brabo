@@ -40,6 +40,14 @@ public class RecipeDetailService {
 		
 		return list;
 	}
+
+	public List<Map<String, String>> getScrap(String no) {
+		Map<String,String> map = new HashMap<>();
+			map.put("ino", no);	
+		List<Map<String,String>> list = template.selectList("scrap.selectScrapCheck", map);
+		
+		return list;
+	}
 	
 	
 	

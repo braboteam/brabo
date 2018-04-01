@@ -16,13 +16,14 @@ body {
 
 .c {
 	margin-top:30px;
+	margin-bottom:30px;
 }
 .card {
 	background-color:white;
 	width: 800px;
 }
 .iphoto {
-	margin-top:50px;
+	margin-top:70px;
 	height:300px;
 	border-radius:2%;
 }
@@ -80,10 +81,11 @@ body {
 	width:300px;
 }
 
+
+
 .reTable {
 	width: 550px;
     border-collapse: collapse;
- 
 }
 .reTd1 {
 	border-bottom: 1px solid silver;
@@ -105,6 +107,10 @@ body {
 
 .no {
 	display:none;
+}
+
+#reInfo {
+	margin-top:30px;
 }
 
 /*슬라이드 쇼 스타일 설정 */
@@ -238,7 +244,10 @@ img {vertical-align: middle;}
 					</p>
 					<div>
 						<h3>${info.TITLE }</h3>
-					<a href="${pageContext.request.contextPath }/followinfo?id=?${info.ID}" class="link">by ${profile.NICK }</a>
+					<a href="${pageContext.request.contextPath }/followinfo?id=?${info.ID}" class="link">
+					<img src="${pageContext.request.contextPath}${profile.PROFILE}" class="avatar"></a>
+			
+					<p>by ${profile.NICK }</p>
 					</div>
 					<p class="info infoMent">
 						❝ <br/>
@@ -255,7 +264,7 @@ img {vertical-align: middle;}
 							<td>
 								<table>
 									<tr><td><img src="/clip.png" id="scrap"></td></tr>
-									<tr><td class="infoTd info">${fn:length(reply) }</td></tr>
+									<tr><td class="infoTd info">${fn:length(scrap) }</td></tr>
 								</table>	
 								
 							</td>
@@ -334,9 +343,16 @@ img {vertical-align: middle;}
 			
 			<div class="w3-card card">
 				<div class="c">
-					<div style="text-align:left">댓글 <span class="info">${fn:length(reply)} </span> 평점 
-						<span class="info"><fmt:formatNumber pattern="0.00" value="${rate.AVG }" /></span>
-					</div><hr/>
+				<div style="width:550px;">
+					<table class="w3-table"  style="text-align:left">
+						<tr>
+							<td>
+								댓글 <span class="info">${fn:length(reply)}</span> &nbsp;
+								평점 <span class="info"><fmt:formatNumber pattern="0.00" value="${rate.AVG }" /></span>
+							</td>
+						</tr>
+					</table>
+				</div>
 				<div id="replyShow">	
 				<table class="reTable">
 					<c:forEach var="i" items="${reply }" varStatus="var">
@@ -370,7 +386,7 @@ img {vertical-align: middle;}
 					</c:forEach>
 				</table>
 				<c:if test="${fn:length(reply) >=3 }">
-					<button class="btn default" id="showMore">more</button>
+					<p><button class="btn default" id="showMore">more</button></p>
 					<script>
 						$("#showMore").click(function(){
 							$(".more").toggle();
@@ -381,10 +397,14 @@ img {vertical-align: middle;}
 			
 					</div>
 					<form>
-						<c:forEach var="i" begin="1" end="5">
-							${i }<input type="radio" name="rate" class="rate" value="${i }"/>
- 						</c:forEach>
- 						<br/>
+						<div style="width:550px;">
+							<p style="text-align:left;">
+								평점선택  &nbsp;  
+								<c:forEach var="i" begin="1" end="5">
+									${i }<input type="radio" name="rate" class="rate" value="${i }"/>
+		 						</c:forEach>
+	 						</p>
+ 						</div>
  						<table>
  							<tr>
 	 							<td>
@@ -456,7 +476,7 @@ img {vertical-align: middle;}
 					}				
 				}
 				if(obj.length >3) {
-					out += "<button class=\"btn default\" id=\"showMore\">more</button>";
+					out += "<p><button class=\"btn default\" id=\"showMore\">more</button></p>";
 				}					
 				$("#replyShow").html(out);
 				$("#showMore").click(function(){
@@ -515,6 +535,4 @@ img {vertical-align: middle;}
 		}
 		
 	</script>
-
-
-
+	
