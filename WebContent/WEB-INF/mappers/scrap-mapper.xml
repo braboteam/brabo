@@ -5,4 +5,15 @@
 		select count(*) as COUNT
 		from scrap where id=#{id}
 	</select>
+	
+	<select id="selectScrapCheck" resultType="hashmap">
+		select * from scrap where id=#{id} and recipe_no=#{ino}
+	</select>
+	
+	
+	<insert id="insertRecipe" parameterType="hashmap">
+		insert into scrap values (scrap_sequence.nextval,#{id},#{ino})
+	</insert>
+	
+	
 </mapper>

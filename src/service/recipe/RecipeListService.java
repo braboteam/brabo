@@ -1,5 +1,6 @@
 package service.recipe;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -13,13 +14,17 @@ public class RecipeListService {
 	SqlSessionTemplate template;
 	
 	public List<Map<String, Object>> getAllInfo() {
-		List<Map<String,Object>> rInfo = template.selectList("recipe_info.selectInfoForList");
+		Map<String,String> map = new HashMap<>();
+			map.put("right", "right");
+		List<Map<String,Object>> rInfo = template.selectList("recipe_info.selectInfo",map);
 		
 		return rInfo;
 	}
 
 	public int getAllList() {
-		List<Map<String,String>> list = template.selectList("recipe_info.selectInfo");
+		Map<String,String> map = new HashMap<>();
+			map.put("right", "right");
+		List<Map<String,String>> list = template.selectList("recipe_info.selectInfo",map);
 		int size = 0;
 		if(list != null)
 			size = list.size();

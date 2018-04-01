@@ -17,12 +17,11 @@
 			<if test="no != null">
 				no=#{no}
 			</if>
+			<if test="right != null">
+				right=1
+			</if>
 		</where>
-	</select>
-
-	<select id="selectInfoForList" resultType="hashmap">
-		select * from
-		recipe_info order by no desc
+		order by no desc
 	</select>
 
 	<select id="selectCount" resultType="hashmap">
@@ -33,5 +32,5 @@
 	<update id="authRecipe">
 		update recipe_info set right=1 where no=#{no}
 	</update>
-
+	
 </mapper>

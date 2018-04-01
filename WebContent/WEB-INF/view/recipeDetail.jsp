@@ -22,16 +22,21 @@ body {
 	width: 800px;
 }
 .iphoto {
-	width:300px;
+	margin-top:50px;
+	height:300px;
 	border-radius:2%;
 }
 
-#infoImg1 {
-	width:85px;
+#scrap {
+	width:75px;
 }
 
-#infoImg2 {
-	width:75px;
+#chat {
+	width:65px;
+}
+
+#sbt {
+	display: none;
 }
 
 .dphoto {
@@ -211,7 +216,7 @@ img {vertical-align: middle;}
 
 
 </style>
-<body>
+
 	<script
 		src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<div align="center">
@@ -219,12 +224,12 @@ img {vertical-align: middle;}
 		
 			<div class="w3-card card">
 				<div class="c">
+					<p>
+						<img src="${pageContext.request.contextPath }/iphoto/${profile.ID}/${info.IPHOTO}" class="iphoto"> 
+					</p>
 					<div>
 						<h3>${info.TITLE }</h3>
-					<a href="${pageContext.request.contextPath }/followinfo?id=?${info.ID}"><small>by ${profile.NICK }</small></a>
-					</div>
-					<div>
-						<img src="${pageContext.request.contextPath }/iphoto/${profile.ID}/${info.IPHOTO}" class="iphoto dphoto"> 
+					<a href="${pageContext.request.contextPath }/followinfo?id=?${info.ID}" class="link">by ${profile.NICK }</a>
 					</div>
 					<p class="info infoMent">
 						${info.INFO }
@@ -232,7 +237,8 @@ img {vertical-align: middle;}
 					<p class="info"></p>
 					<table class="w3-table info infoTable">
 						<tr><td>${info.CATE }</td>  <td>${info.PORTION }인분</td>  <td>${info.TIME }</td></tr>
-						<tr><td><img src="/clip.png" id="infoImg1" id="scrap"></td><td><img src="/chat.png" id="infoImg2"></td></tr>
+						<tr><td><img src="/clip.png" id="scrap"></td><td><img src="/chat.png" id="chat"></td></tr>
+						<tr><td><button type="button" id="sbt" ></button></td></tr>
 					</table>					
 				</div>
 			</div>
@@ -371,7 +377,6 @@ img {vertical-align: middle;}
 			</div>
 			
 		</div>
-	</div>
 	
 	<script>
 			
@@ -430,10 +435,10 @@ img {vertical-align: middle;}
 			});
 		};
 		
-		// 레시피 스크랩 
+		// 레시피 스크랩 ajax
 		$("#scrap").click(function(){
 			var no = ${info.NO}
-			$.get("${pageContext.request.contextPath}/scrap",{
+			$.get("${pageContext.request.contextPath}/scrapGet/recipe",{
 				"no":no
 			},function(obj){
 				if(obj.rst == "login") {
@@ -441,7 +446,7 @@ img {vertical-align: middle;}
 				} else {
 					if(obj.rst == "yy") {
 						window.alert("스크랩 되었습니다.");
-					} else {
+					} else if(obj.rst == "double") {
 						window.alert("이미 스크랩 된 레시피입니다.");
 					}
 				}
@@ -480,7 +485,6 @@ img {vertical-align: middle;}
 		}
 		
 	</script>
-</body>
 
 
 

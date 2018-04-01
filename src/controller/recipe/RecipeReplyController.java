@@ -37,21 +37,20 @@ public class RecipeReplyController {
 		// 아이디(댓글 작성자), 댓글내용, recipe_info 기본키 필요.
 		String id = (String)session.getAttribute("logon");
 		Map<String,String> map = new HashMap<>();
-		
-		if(param.size() == 3) {
-			if(param.get("content").equals(""))
+			
+		if(id == null) {
+			map.put("rst", "login");
+		} else {
+			if(param.get("rate") == null) {
+				map.put("rst", "rate");
+			} else if(param.get("content").equals("")) {
 				map.put("rst", "content");
-			else {
+			} else {
 				rReplyService.inputReply(id,param);
 				map.put("rst", "yy");
 			}
-		} else {
-			if(id == null) 
-				map.put("rst", "login");
-			else if(param.get("rate") == null)
-				map.put("rst", "rate");
 		}
-			
+		
 		return gson.toJson(map);
 	}
 	

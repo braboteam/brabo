@@ -1,6 +1,7 @@
 package controller.recipeAuth;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -12,6 +13,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.google.gson.Gson;
 
 import service.recipeAuth.RecipeAuthService;
 
@@ -20,6 +24,8 @@ import service.recipeAuth.RecipeAuthService;
 public class RecipeAuthController {
 	@Autowired
 	RecipeAuthService rAuthService;
+	@Autowired
+	Gson gson;
 
 	
 	@RequestMapping(path="/recipeAuth",method=RequestMethod.GET)
@@ -59,10 +65,20 @@ public class RecipeAuthController {
 		return "index";
 	}
 	
-	@RequestMapping(path="/recipeAuth",method=RequestMethod.POST)
+	@RequestMapping(path="/recipeAuth",method=RequestMethod.POST,produces="application/json;charset=utf-8")
+	@ResponseBody
 	public String recipeAuthHandle(@RequestParam String no) {
 		boolean rst = rAuthService.authReciep(no);
+		Map map = new HashMap<>();	
+			map.put("rst", rst);
 		
-		return "";
+		return gson.toJson(map);
 	}
+	
+	
+	
+	
+	
+	
+	
 }
