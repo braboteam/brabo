@@ -39,4 +39,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		select * from member
 	</select>
 
+	<select id="selectFind" resultType="hashmap">
+		select * from member where
+		nick like #{keyword} or id
+		like #{keyword}
+	</select>
+
 </mapper>

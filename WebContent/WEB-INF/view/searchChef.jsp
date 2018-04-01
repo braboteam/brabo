@@ -105,14 +105,15 @@ body, html {
 	</div>
 	<br />
 	<form class="example" style="margin: auto; max-width: 300px">
-		<input type="text" placeholder="Search.." onkeyup="search(this);">
-		<button type="button">
+		<input type="text" placeholder="Search.." onkeyup="search(this);"
+			onchange="search(this);" id="searchBar">
+		<button type="button" onclick="search($('#searchBar'));">
 			<i class="fa fa-search"></i>
 		</button>
 	</form>
 	<br /> <br />
 	<div>
-		<table align="center" border="0" style="whidth: 70%;">
+		<table align="center" border="0" style="whidth: 70%;" id="content">
 			<c:forEach var="i" items="${member }">
 				<tr>
 					<td style="width: 30%;" align="center">
@@ -127,7 +128,10 @@ body, html {
 						</c:choose> <!--  --> <img src="${i.PROFILE }"
 						style="width: 100px; height: 100px; border-radius: 100%;"></a>
 					</td>
-					<td style="width: 30%;"><p>${i.NICK }(${i.NICK })</p>
+					<td style="width: 30%;"><p>
+							<b style="color: orange; font-size: 20px;">${i.NICK } (
+								${i.ID } )</b>
+						</p>
 						<p>${i.EMAIL }</p></td>
 					<td style="width: 40%;" align="center"><c:if
 							test="${logon != null }">
@@ -173,10 +177,52 @@ body, html {
 	}
 
 	function search(k) {
-		$.get("${pageContext.request.contextPath}/chefsearch", {
-			"friend" : $(k).val()
-		}, function(rst) {
-			location.href = "";
-		});
+		$
+				.get(
+						"${pageContext.request.contextPath}/chefsearch",
+						{
+							"keyword" : $(k).val()
+						},
+						function(obj) {
+							$("#content").html("");
+							// 반복시작
+							for (var i = 0; i < obj.length; i++) {
+								var href = "";
+								if ("${logon}" != obj[i].ID) {
+									href = "${pageContext.request.contextPath }/followinfo?id="
+											+ obj[i].ID;
+								} else {
+									href = "${pageContext.request.contextPath }/mypage";
+								}
+								var total = "<tr> <td style='width: 30%;' align='center'>"
+										+ "<img src='"
+										+ obj[i].PROFILE
+										+ "' style='width: 100px; height: 100px; border-radius: 100%;'></a></td>"
+										+ "<td style='width: 30%;'> <p><b style='color: orange; font-size: 20px;'> "
+										+ obj[i].NICK
+										+ " ( "
+										+ obj[i].ID
+										+ " ) </b></p> <p> "
+										+ obj[i].EMAIL
+										+ " </p></td> <td style='width: 40%;' align='center'>";
+								if ("${logon}" != "") {
+									if (obj[i].FID == null) {
+										total += "<button type='button' class='btn btn-success' onclick=\"follow('"
+												+ obj[i].ID
+												+ "');\">팔로우신청</button>";
+									} else {
+										total += "<font color='green'><b> follower </b></font><button type='button' class='btn btn-danger'"
+												+ "style='font-size: 1px;' onclick=\"followCancle('"
+												+ obj[i].ID
+												+ "');\">Cancle</button>";
+									}
+									total += "</td></tr>";
+								}
+								total += "<tr> <td colspan='3'><hr /></td></tr>";
+								// 컨텐츠
+								$("#content")
+										.html($("#content").html() + total);
+							}
+						});
 	}
 </script>
