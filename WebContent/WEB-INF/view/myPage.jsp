@@ -205,7 +205,7 @@ body, h1, h2, h3, h4, h5, h6 {
 		<a href="${pageContext.request.contextPath }/mypage"
 			class="w3-bar-item w3-button w3-padding w3-text-teal"
 			style="text-decoration: none;"><i
-			class="fa fa-user fa-fw w3-margin-right"></i><b>MyInfo</b></a>
+			class="fa fa-user fa-fw w3-margin-right"></i><b>My Info</b></a>
 		<!-- 내 게시물 -->
 		<a href="${pageContext.request.contextPath }/"
 			class="w3-bar-item w3-button w3-padding"

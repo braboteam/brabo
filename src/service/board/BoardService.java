@@ -209,12 +209,16 @@ public class BoardService {
 
 	// 댓글달기
 	public boolean insertComments(Map map, String id) {
-		System.out.println("insertService!");
 		Map m = new HashMap<>();
 		m.put("board_id", (String) map.get("board_id"));
 		m.put("id", id);
 		m.put("comments", (String) map.get("comments"));
 		return template.insert("board_comments.insertOne", m) == 1;
+	}
+
+	// 댓글삭제
+	public boolean deleteComments(String pk) {
+		return template.delete("board_comments.deleteOne", pk) == 1;
 	}
 
 	// 댓글목록 가져오기

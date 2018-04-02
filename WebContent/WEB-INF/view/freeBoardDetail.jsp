@@ -178,6 +178,15 @@ input[type=submit] {
 					</c:forEach>
 				</c:if></td>
 		</tr>
+		<!-- 삭제버튼 -->
+		<c:if test="${logon == board[0].ID }">
+			<tr>
+				<td colspan="3" align="right"><br />
+					<button type="button"
+						onclick="deleteBoard('${board[0].BOARD_ID}');"
+						style="font-size: 20px;" class="btn btn-danger">Delete</button></td>
+			</tr>
+		</c:if>
 	</table>
 
 	<!-- 댓글 목록-->
@@ -200,12 +209,23 @@ input[type=submit] {
 							<tr>
 								<td rowspan="2" style="width: 10%;"><img
 									src="${i.PROFILE }"
-									style="border-radius: 100%; width: 50px; height: 50px;">&nbsp;</td>
-								<td><font color="orangered" size="4px">${i.ID } (
-										${i.NICK} )</font> &nbsp; <font color="silver">${i.COMMENTS_DATE }</font></td>
+									style="border-radius: 100%; width: 50px; height: 50px;"
+									onclick="info('${i.ID}');">&nbsp;</td>
+								<td onclick="info('${i.ID}');"><font color="orangered"
+									size="4px">${i.ID } ( ${i.NICK} )</font> &nbsp; <font
+									color="silver">${i.COMMENTS_DATE }</font></td>
+								<!-- 댓글삭제 -->
+								<td align="right"><c:if test="${logon == i.ID }">
+										<a href="javascript:deleteReply('${i.BOARD_COMMENTS_ID }');"
+											onmouseover="$('#x${i.ID}').css('color', 'red');"
+											onmouseout="$('#x${i.ID}').css('color', 'gray');"
+											style="text-decoration: none;"><li class="w3-large"
+											style="color: gray;" id="x${i.ID }"><i
+												class="fa fa-close"></i></li></a>
+									</c:if></td>
 							</tr>
 							<tr>
-								<td>${i.COMMENTS }</td>
+								<td colspan="2" onclick="info('${i.ID}');">${i.COMMENTS }</td>
 							</tr>
 						</table></li>
 				</c:forEach>
@@ -274,6 +294,48 @@ input[type=submit] {
 									window.alert("[Error] 좋아요 취소실패")
 								}
 							});
+		}
+	}
+
+	function deleteBoard(pk) {
+		if (window.confirm("해당 게시글을 삭제하시겠습니까?")) {
+			$
+					.get(
+							"${pageContext.request.contextPath}/deleteboard",
+							{
+								"board_id" : pk,
+							},
+							function(rst) {
+								if (rst) {
+									window.alert("게시글이 삭제되었습니다.");
+									location.href = "${pageContext.request.contextPath}/freeboard";
+								} else {
+									window.alert("게시글 삭제에 실패하였습니다.");
+								}
+							});
+		}
+	}
+	function info(id) {
+		if (id != "${logon}") {
+			location.href = "${pageContext.request.contextPath}/followinfo?id="
+					+ id;
+		} else {
+			location.href = "${pageContext.request.contextPath}/mypage";
+		}
+	}
+
+	function deleteReply(comment) {
+		if (window.confirm("해당 댓글을 삭제하시겠습니까?")) {
+			$.get("${pageContext.request.contextPath}/deletecomments", {
+				"board_comments_id" : comment
+			}, function(rst) {
+				if (rst) {
+					window.alert("게시글이 삭제되었습니다.");
+					location.href = "";
+				} else {
+					window.alert("게시글 삭제에 실패하였습니다.");
+				}
+			});
 		}
 	}
 </script>

@@ -122,7 +122,7 @@ body, h1, h2, h3, h4, h5, h6 {
 					id="default">DEFAULT</button>
 				<button class="w3-button w3-white c_button" onclick="color(this);"
 					id="green">
-					<i class="fa fa-diamond w3-margin-right"></i>GREEN
+					<i class="fa fa-diamond w3-margin-right"></i>WHITE
 				</button>
 				<button class="w3-button w3-white w3-hide-small c_button"
 					onclick="color(this);" id="blue">
@@ -132,6 +132,8 @@ body, h1, h2, h3, h4, h5, h6 {
 					onclick="color(this);" id="yellow">
 					<i class="fa fa-map-pin w3-margin-right"></i>YELLOW
 				</button>
+				<button type="button" class="btn btn-primary w3-right"
+					onclick="location.href='${pageContext.request.contextPath}boardwriting'">글쓰기</button>
 			</div>
 		</div>
 		</header>
