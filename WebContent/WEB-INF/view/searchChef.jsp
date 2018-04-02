@@ -104,12 +104,16 @@ body, html {
 		</div>
 	</div>
 	<br />
+	<!-- 검색바 -->
 	<form class="example" style="margin: auto; max-width: 300px">
 		<input type="text" placeholder="Search.." onkeyup="search(this);"
 			onchange="search(this);" id="searchBar">
 		<button type="button" onclick="search($('#searchBar'));">
 			<i class="fa fa-search"></i>
 		</button>
+		<input class="w3-check" type="checkbox" id="check"
+			onclick="search($('#searchBar'));"> <label>Follow
+			Only</label>
 	</form>
 	<br /> <br />
 	<div>
@@ -129,8 +133,19 @@ body, html {
 						style="width: 100px; height: 100px; border-radius: 100%;"></a>
 					</td>
 					<td style="width: 30%;"><p>
-							<b style="color: orange; font-size: 20px;">${i.NICK } (
-								${i.ID } )</b>
+							<c:choose>
+								<c:when test="${logon != i.ID }">
+									<a
+										href="${pageContext.request.contextPath }/followinfo?id=${i.ID}"
+										style="text-decoration: none;">
+								</c:when>
+								<c:otherwise>
+									<a href="${pageContext.request.contextPath }/mypage"
+										style="text-decoration: none;">
+								</c:otherwise>
+							</c:choose>
+							<b style="color: orange; font-size: 20px;"> ${i.NICK } (
+								${i.ID } )</b></a>
 						</p>
 						<p>${i.EMAIL }</p></td>
 					<td style="width: 40%;" align="center"><c:if
@@ -181,7 +196,8 @@ body, html {
 				.get(
 						"${pageContext.request.contextPath}/chefsearch",
 						{
-							"keyword" : $(k).val()
+							"keyword" : $(k).val(),
+							"check" : $("#check").prop("checked")
 						},
 						function(obj) {
 							$("#content").html("");
@@ -195,14 +211,14 @@ body, html {
 									href = "${pageContext.request.contextPath }/mypage";
 								}
 								var total = "<tr> <td style='width: 30%;' align='center'>"
-										+ "<img src='"
+										+ "<a href="+href+"><img src='"
 										+ obj[i].PROFILE
 										+ "' style='width: 100px; height: 100px; border-radius: 100%;'></a></td>"
-										+ "<td style='width: 30%;'> <p><b style='color: orange; font-size: 20px;'> "
+										+ "<td style='width: 30%;'> <p><a href="+href+" style='text-decoration:none;'><b style='color: orange; font-size: 20px;'> "
 										+ obj[i].NICK
 										+ " ( "
 										+ obj[i].ID
-										+ " ) </b></p> <p> "
+										+ " ) </b></a></p> <p> "
 										+ obj[i].EMAIL
 										+ " </p></td> <td style='width: 40%;' align='center'>";
 								if ("${logon}" != "") {

@@ -31,8 +31,13 @@ public class SearchChefController {
 
 	@RequestMapping(path = "/chefsearch", method = RequestMethod.GET, produces = "application/json;charset=utf-8")
 	@ResponseBody
-	public String searchHandle(HttpSession session, @RequestParam String keyword) {
-		List list = searchchefService.searchChef(keyword, (String) session.getAttribute("logon"));
+	public String searchHandle(HttpSession session, @RequestParam String keyword, @RequestParam boolean check) {
+		List list = null;
+		if (check) {
+			list = searchchefService.searchFollow(keyword, (String) session.getAttribute("logon"));
+		} else {
+			list = searchchefService.searchChef(keyword, (String) session.getAttribute("logon"));
+		}
 		return new Gson().toJson(list);
 	}
 

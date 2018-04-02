@@ -1,5 +1,6 @@
 package controller.mypage;
 
+import java.io.IOException;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
@@ -8,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import service.board.BoardService;
 import service.mypage.MyPageService;
@@ -38,5 +41,17 @@ public class MyPageController {
 				(String) session.getAttribute("logon")));
 
 		return "index";
+	}
+
+	@RequestMapping("/updatemember")
+	public String updateMemberHandle(Model model, @RequestParam Map<String, String> param,
+			@RequestParam MultipartFile img) throws IllegalStateException, IOException {
+		if (mypageService.updateMember(param, img)) {
+			model.addAttribute("msg", "회원정보를 수정하였습니다.");
+			return "redirect:mypage";
+		} else {
+			model.addAttribute("msg", "회원정보 수정에 실패하였습니다.");
+			return "redirect:mypage";
+		}
 	}
 }

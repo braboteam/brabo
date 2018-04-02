@@ -57,4 +57,8 @@
 		select count(*) as COUNT
 		from board where id=#{id}
 	</select>
+
+	<delete id="deleteOne">
+		delete from board where board_id=#{board_id}
+	</delete>
 </mapper>

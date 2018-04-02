@@ -66,11 +66,11 @@ body, html {
 	<!-- 필터 -->
 	<div class="w3-container">
 		<div class="w3-section w3-bottombar w3-padding-16" align="center">
-			<button class="w3-button w3-black c_button" onclick="allBoard();"
+			<button class="w3-button w3-white c_button" onclick="allBoard();"
 				id="default">
 				<i class="fa fa-map-pin w3-margin-right"></i>All
 			</button>
-			<button class="w3-button w3-white c_button" onclick="followOnly();"
+			<button class="w3-button w3-black c_button" onclick="followOnly();"
 				id="green">
 				<i class="fa fa-diamond w3-margin-right"></i>Follow Only
 			</button>
@@ -233,8 +233,9 @@ body, html {
 			}
 		}
 		function allBoard() {
-			location.href = "${pageContext.request.contextPath}/freeboard";
+			location.href = "${pageContext.request.contextPath }/freeboard";
 		}
+
 		function followOnly() {
 			location.href = "${pageContext.request.contextPath}/onlyfollowboard";
 		}

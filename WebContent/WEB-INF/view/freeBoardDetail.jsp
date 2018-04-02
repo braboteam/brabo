@@ -89,15 +89,32 @@ input[type=submit] {
 		<tr>
 			<!-- 프로필사진 -->
 			<td rowspan="3" valign="top" align="center" style="width: 18%;"><br />
-				<img src="${board[0].PROFILE }"
-				style="border-radius: 100%; width: 120px; height: 120px;"></td>
+				<c:choose>
+					<c:when test="${logon != board[0].ID }">
+						<a
+							href="${pageContext.request.contextPath }/followinfo?id=${board[0].ID}">
+					</c:when>
+					<c:otherwise>
+						<a href="${pageContext.request.contextPath }/mypage">
+					</c:otherwise>
+				</c:choose> <img src="${board[0].PROFILE }"
+				style="border-radius: 100%; width: 120px; height: 120px;"></a></td>
 			<!-- 아이디 -->
-			<td style="width: 45%;">
+			<td style="width: 45%;"><c:choose>
+					<c:when test="${logon != board[0].ID }">
+						<a
+							href="${pageContext.request.contextPath }/followinfo?id=${board[0].ID}"
+							style="text-decoration: none;">
+					</c:when>
+					<c:otherwise>
+						<a href="${pageContext.request.contextPath }/mypage"
+							style="text-decoration: none;">
+					</c:otherwise>
+				</c:choose>
 				<h3>
 					<font color="orangered"> ${board[0].NICK} ( ${board[0].ID }
 						)</font>
-				</h3>${board[0].BOARD_DATE }
-			</td>
+				</h3> </a>${board[0].BOARD_DATE }</td>
 			<!-- 하트댓글표시 -->
 			<td align="right" style="width: 45%;"><font size="5px;">
 					<!-- 하트 --> <span id="heart"> <c:choose>

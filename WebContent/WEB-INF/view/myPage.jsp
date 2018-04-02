@@ -178,6 +178,12 @@ body, h1, h2, h3, h4, h5, h6 {
 	text-align: center;
 }
 </style>
+<!-- 정보수정에러  -->
+<c:if test="${param.msg != null }">
+	<script>
+		window.alert("${param.msg}");
+	</script>
+</c:if>
 <!-- 사이드바 메뉴 -->
 <nav class="w3-sidebar w3-collapse w3-white w3-animate-left"
 	style="z-index: 3; width: 300px;" id="mySidebar">
@@ -272,8 +278,8 @@ body, h1, h2, h3, h4, h5, h6 {
 				<!--  -->
 				<div id="id01" align="left;">
 					<form class="modal-content"
-						action="${pageContext.request.contextPath }/aaa" method="post"
-						enctype="multipart/form-data">
+						action="${pageContext.request.contextPath }/updatemember"
+						method="post" enctype="multipart/form-data">
 						<div class="container">
 							<h1>회원정보수정</h1>
 							<!-- 프로필 -->
@@ -287,15 +293,14 @@ body, h1, h2, h3, h4, h5, h6 {
 								</div>
 							</div>
 							<input type="file" id="img" style="display: none;"
-								onchange="miri(this);"><br />
+								onchange="miri(this);" name="img"><br />
 							<!-- 프로필끝 -->
 							<!-- 아이디 -->
 							<label><b>ID </b><small style="color: red;"> (
-									수정불가 )</small></label> <input type="text" name="id" disabled
+									수정불가 )</small></label> <input type="text" name="id" readonly
 								value="${member.ID }">
 							<!-- 닉네임 -->
-							<label><b>NICK </b><small style="color: red;"> (
-									수정불가 )</small></label> <input type="text" name="nick" disabled
+							<label><b>NICK </b></label> <input type="text" name="nick"
 								value="${member.NICK }">
 							<!-- 이메일 -->
 							<label for="email"><b>Email</b></label> <input type="text"

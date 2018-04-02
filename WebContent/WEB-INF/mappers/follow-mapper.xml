@@ -20,4 +20,13 @@
 		select * from follow where
 		id=#{id}
 	</select>
+
+	<select id="selectSearchFollow" resultType="hashmap">
+		select member.* from
+		follow join member on
+		follow.friend = member.id where follow.id=#{id}
+		and ( follow.friend
+		like
+		#{keyword} or member.nick like #{keyword})
+	</select>
 </mapper>

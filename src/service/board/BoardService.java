@@ -2,6 +2,7 @@ package service.board;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -120,6 +121,47 @@ public class BoardService {
 		return list;
 	}
 
+	// 팔로우게시글만 가져오기
+	public List<Map> selectFollowBoard(String id) {
+		List<Map> list = null;
+		List<Map> returnList = new ArrayList<>(); // 반환할 리스트
+		list = template.selectList("board.selectAll");
+
+		List<Map> list2 = template.selectList("board.selectLikeCount"); // 좋아요갯수카운트
+		List<Map> list3 = template.selectList("board_comments.selectCount");// 댓글 카운트
+		List<Map> list4 = template.selectList("follow.selectList", id);
+		for (Map m : list) {
+			// 각 게시물에 좋아요 갯수를 COUNT라는 컬럼명으로 넣기
+			for (Map m2 : list2) {
+				if (m.get("BOARD_ID").equals(m2.get("BOARD_ID"))) {
+					m.put("COUNT", m2.get("COUNT"));
+				}
+			}
+			// 각 게시물이 현재 로그인사용자가 좋아요한 상태인 글인지 체크
+			if (id != null) {
+				Map map = new HashMap<>();
+				map.put("id", id);
+				map.put("board_id", (String) m.get("BOARD_ID"));
+				if (template.selectOne("board.selectLike", map) != null) {
+					m.put("LIKE", true);
+				}
+			}
+			// 각 게시물의댓글 갯수등록
+			for (Map m3 : list3) {
+				if (m.get("BOARD_ID").equals(m3.get("BOARD_ID"))) {
+					m.put("COMMENTS_COUNT", m3.get("COUNT"));
+				}
+			}
+			// 친구만 추가
+			for (Map m4 : list4) {
+				if (m.get("ID").equals(m4.get("FRIEND"))) {
+					returnList.add(m);
+				}
+			}
+		}
+		return returnList;
+	}
+
 	// 게시판 테이블 사진 모두 가져오기
 	public List<Map> selectDetail(String pk, String id) {
 		List<Map> list = template.selectList("board.selectPhoto", pk);
@@ -180,4 +222,7 @@ public class BoardService {
 		return template.selectList("board_comments.selectAll", pk);
 	}
 
+	public boolean deleteBoard(String board_id) {
+		return template.delete("board.deleteOne", board_id) == 1;
+	}
 }

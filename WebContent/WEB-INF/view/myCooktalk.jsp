@@ -145,16 +145,15 @@ body, h1, h2, h3, h4, h5, h6 {
 					<tr>
 						<!-- 프로필사진 -->
 						<td rowspan="3" valign="top" align="center" style="width: 18%;"><br />
-							<a
-							href="${pageContext.request.contextPath }/followinfo?id=${i.ID}"><img
+							<a href="${pageContext.request.contextPath }/mypage"><img
 								src="${i.PROFILE }"
 								style="border-radius: 100%; width: 100px; height: 100px;"></a></td>
 						<!-- 아이디 -->
-						<td style="width: 45%;">
-							<h3>
-								<font color="orangered"> ${i.NICK } ( ${i.ID } )</font>
-							</h3>${i.BOARD_DATE }
-						</td>
+						<td style="width: 45%;"><a
+							href="${pageContext.request.contextPath }/mypage"
+							style="text-decoration: none;"><h3>
+									<font color="orangered"> ${i.NICK } ( ${i.ID } )</font>
+								</h3></a>${i.BOARD_DATE }</td>
 						<!-- 하트댓글표시 -->
 						<td align="right" style="width: 45%;"><font size="5px;">
 								<!-- 하트 --> <span id="heart${i.BOARD_ID }"> <c:choose>
@@ -221,7 +220,9 @@ body, h1, h2, h3, h4, h5, h6 {
 							</c:if></td>
 					</tr>
 					<tr>
-						<td colspan="3"><br /></td>
+						<td colspan="3" align="right"><button type="button"
+								onclick="deleteBoard('${i.BOARD_ID}');" class="btn btn-danger">Delete</button>
+							<br /></td>
 					</tr>
 				</table>
 			</div>
@@ -296,6 +297,21 @@ body, h1, h2, h3, h4, h5, h6 {
 									window.alert("[Error] 좋아요 취소실패")
 								}
 							});
+		}
+	}
+
+	function deleteBoard(pk) {
+		if (window.confirm("해당 게시글을 삭제하시겠습니까?")) {
+			$.get("${pageContext.request.contextPath}/deleteboard", {
+				"board_id" : pk,
+			}, function(rst) {
+				if (rst) {
+					window.alert("게시글이 삭제되었습니다.");
+					location.href = "";
+				} else {
+					window.alert("게시글 삭제에 실패하였습니다.");
+				}
+			});
 		}
 	}
 </script>
