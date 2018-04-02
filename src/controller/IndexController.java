@@ -25,6 +25,11 @@ public class IndexController {
 	@RequestMapping("/")
 	public String b(Model model) {
 		List<Map<String,Object>> list = rListService.getAllInfo();
+		for(Map m : list ) {
+			
+		}
+		
+		
 		
 		model.addAttribute("list",list);
 		model.addAttribute("body", "/WEB-INF/view/indexBody.jsp");
