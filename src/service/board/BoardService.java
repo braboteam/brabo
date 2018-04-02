@@ -28,6 +28,7 @@ public class BoardService {
 		map.put("board_id", pk);
 		map.put("id", m.get("id"));
 		map.put("comments", m.get("comments"));
+
 		////////////////////////////////////////////
 		map2.put("board_id", pk);
 		// 파일없을 때
