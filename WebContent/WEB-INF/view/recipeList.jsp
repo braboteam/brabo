@@ -107,7 +107,7 @@ h1 {
 			<div id="myBtnContainer">
 				<button class="btn active" onclick="filterSelection('all')">
 					Show all</button>
-				<button class="btn" id="rateBt" type="submit" value="rate">평점순</button>
+				<button class="btn" id="rateBt" type="submit" name="r" value="rate">평점순</button>
 				<button class="btn" onclick="filterSelection('cars')">Cars</button>
 				<button class="btn" onclick="filterSelection('people')">
 					People</button>

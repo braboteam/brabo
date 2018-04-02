@@ -19,18 +19,38 @@ public class RecipeListController {
 	RecipeListService rListService;
 	
 	@RequestMapping("/list")
-	public String listHandle(Model model,@RequestParam(defaultValue="1")int p) {
+	public String listHandle(Model model,@RequestParam(defaultValue="1")int p,@RequestParam(defaultValue="all") String s,
+			@RequestParam(defaultValue="ignore") String r) {
 		System.out.println("recipeListController 접근..");
 		List<Map<String,Object>> rInfo = new ArrayList();
 		
-		
-		rInfo = rListService.getAllInfo();
+		System.out.println(s);
+		if(s.equals("all")) {
+			if(r.equals("ignore")) {
+				// 아무 조건없이 모든 데이터 가져오기
+				rInfo = rListService.getAllInfo();
+			}
+			else {
+				// 평점순으로 데이터 가져오기
+				rInfo = rListService.getAllInfoByRate(s);
+			}	
+		}	
+		else {
+			if(r.equals("ignore")) {
+				// 카테고리로 데이터 가져오기
+				rInfo = rListService.getAllInfoByCate(s);
+			} else {
+				// 카테고리 및 평점순으로 데이터 가져오기
+				rInfo = rListService.getAllInfoByRate(s);
+			}
+		}
+			
 		
 		// 한 페이지당 출력될 행수
 		int row = 9;
 		
 		// 전체 페이지 수 출력용...
-		int totalCnt = rListService.getAllList();
+		int totalCnt = rInfo.size();
 		if(totalCnt % row == 0)
 			totalCnt = totalCnt/row;
 		else

@@ -244,7 +244,7 @@ img {vertical-align: middle;}
 					</p>
 					<div>
 						<h3>${info.TITLE }</h3>
-					<a href="${pageContext.request.contextPath }/followinfo?id=?${info.ID}" class="link">
+					<a href="${pageContext.request.contextPath }/followinfo?id=${info.ID}" class="link">
 					<img src="${pageContext.request.contextPath}${profile.PROFILE}" class="avatar"></a>
 			
 					<p>by ${profile.NICK }</p>
@@ -305,9 +305,9 @@ img {vertical-align: middle;}
 						<c:forEach var="i" items="${detail }">
 							<tr>
 								<td class="numberTd">${i.STEP }.</td>  <td class="recipeTd">${i.RECIPE }</td> 
-									
-									<td><img src="${pageContext.request.contextPath }/dphoto/${info.ID}/${i.DPHOTO}" class="dphoto"></td>
-								
+									<c:if test="${i.DPHOTO }!= null">
+										<td><img src="${pageContext.request.contextPath }/dphoto/${info.ID}/${i.DPHOTO}" class="dphoto"></td>
+									</c:if>
 							</tr>
 						</c:forEach>
 					</table>
@@ -331,7 +331,7 @@ img {vertical-align: middle;}
 						
 						<div style="text-align:center">
 							<c:forEach var="i" begin="0" end="${fn:length(fphoto) }">	
-						  		<span class="dot" onclick="currentSlide(${i})"></span> 
+						 		<span class="dot" onclick="currentSlide(${i})"></span> 
 							</c:forEach>
 						 </div>
 					</div>

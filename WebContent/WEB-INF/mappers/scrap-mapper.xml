@@ -9,7 +9,7 @@
 	<select id="selectScrapCheck" resultType="hashmap">
 		select * from scrap 
 		<where>
-			<if test="recipe_no != null">
+			<if test="ino != null">
 				recipe_no=#{ino}
 			</if>
 			<if test="id != null">

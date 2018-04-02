@@ -1,5 +1,6 @@
 package service.recipe;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -22,19 +23,46 @@ public class RecipeListService {
 		return rInfo;
 	}
 	
-	public int getAllList() {
+	// recipe_info 테이블에서 right=1인 데이터의 카테고리만 뽑아온다. 
+	// index 페이지 출력용..
+	public List getAllCate(List<Map<String, Object>> all) {
+		List list = new ArrayList();
+		Map<String,String> map = new HashMap<>();
+		
+		for(Map<String,Object> m :all) {
+				map.put(String.valueOf(m.get("CATE")), String.valueOf(m.get("CATE")));
+		}
+		for(String s : map.keySet()) {
+			Map m = new HashMap<>();
+				m.put("cateChk", map.get(s));
+			list.add(m);
+		}
+	
+		return list;
+	}
+
+	public List<Map<String, Object>> getAllInfoByCate(String s) {
 		Map<String,String> map = new HashMap<>();
 			map.put("right", "right");
-		List<Map<String,String>> list = template.selectList("recipe_info.selectInfo",map);
-		int size = 0;
-		if(list != null)
-			size = list.size();
+			map.put("cate", s);
+		List<Map<String,Object>> rInfo = template.selectList("recipe_info.selectInfo",map);
 		
-		return size;
+		return rInfo;
+	}
+	
+	
+	public List<Map<String, Object>> getAllInfoByRate(String s) {
+		Map<String,String> map = new HashMap<>();
+			map.put("right", "right");
+		if(!s.equals("all"))
+			map.put("cate", s);
+		
+		List<Map<String,Object>> rInfo = template.selectList("recipe_info.selectByRateAndCate", map);
+		
+		return rInfo;
 	}
 
 	
-	
-	
+
 
 }
