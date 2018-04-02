@@ -11,7 +11,12 @@
 			href="javascript:void(0);" onclick="openNav()"><i
 			class="fa fa-bars"></i></a> 
 			<c:choose>
-				<c:when test="${memberRight == 0 }">
+				<c:when test="${memberRight == 1}">
+					<a href="${pageContext.request.contextPath }/admin/recipeAuth"
+					class="w3-bar-item w3-button w3-teal"><i
+					class="fa fa-home w3-margin-right"></i>admin</a>
+				</c:when>
+				<c:otherwise>
 					<a href="${pageContext.request.contextPath }/index"
 					class="w3-bar-item w3-button w3-teal"><i
 					class="fa fa-home w3-margin-right"></i>Home</a> <a
@@ -24,11 +29,6 @@
 					Chef</a> <a href="${pageContext.request.contextPath }/cheflist"
 					class="w3-bar-item w3-button w3-hide-small w3-hover-white"><i
 					class="fa fa-search"> Search Chef </i></a>
-				</c:when>
-				<c:otherwise>
-					<a href="${pageContext.request.contextPath }/admin/recipeAuth"
-					class="w3-bar-item w3-button w3-teal"><i
-					class="fa fa-home w3-margin-right"></i>admin</a>
 				</c:otherwise>		
 			</c:choose>
 			

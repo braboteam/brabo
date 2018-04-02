@@ -13,6 +13,7 @@ public class RecipeListService {
 	@Autowired
 	SqlSessionTemplate template;
 	
+	// 승인된 레시피만 가져오기 
 	public List<Map<String, Object>> getAllInfo() {
 		Map<String,String> map = new HashMap<>();
 			map.put("right", "right");
@@ -20,7 +21,7 @@ public class RecipeListService {
 		
 		return rInfo;
 	}
-
+	
 	public int getAllList() {
 		Map<String,String> map = new HashMap<>();
 			map.put("right", "right");

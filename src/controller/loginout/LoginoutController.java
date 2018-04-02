@@ -50,6 +50,7 @@ public class LoginoutController {
 	public String logoutPostHandle(HttpSession session, Model model) {
 
 		session.removeAttribute("logon");
+		session.removeAttribute("memberRight");
 		model.addAttribute("body", "/WEB-INF/view/indexBody.jsp");
 		model.addAttribute("logout", "로그아웃 되었습니다.");
 		return "index";

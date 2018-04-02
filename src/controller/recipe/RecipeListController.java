@@ -19,12 +19,10 @@ public class RecipeListController {
 	RecipeListService rListService;
 	
 	@RequestMapping("/list")
-	public String listHandle(Model model,@RequestParam(defaultValue="1")int p,@RequestParam(defaultValue="default") String rate) {
+	public String listHandle(Model model,@RequestParam(defaultValue="1")int p) {
 		System.out.println("recipeListController 접근..");
 		List<Map<String,Object>> rInfo = new ArrayList();
 		
-		if(!rate.equals("default"))
-			// rInfo = rListService.getAllInfoByRate();
 		
 		rInfo = rListService.getAllInfo();
 		
