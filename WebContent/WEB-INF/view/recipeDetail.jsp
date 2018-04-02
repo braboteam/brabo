@@ -376,7 +376,8 @@ img {vertical-align: middle;}
 								<td class="reTd1 reTd2">
 									<table>
 										<tr><td><b>${i.NICK }</b> <small class="info">수정  
-										<a href="${pageContext.request.contextPath }/recipe/replyDel?rno=${i.NO}" class="link">삭제</a></small></td></tr>
+										<a href="${pageContext.request.contextPath }/recipe/replyDel?rno=${i.NO}" class="link">삭제</a>
+										&nbsp;<fmt:formatDate pattern="yyyy-MM-dd HH:mm" value="${i.REDATE }"/></small></td></tr>
 										<tr><td>${i.CONTENT } </td></tr>
 									</table>
 								</td>
@@ -450,6 +451,7 @@ img {vertical-align: middle;}
 					}
 				}	
 			});
+			$("#re").html("");
 		});
 	
 		// 댓글 갱신 ajax - 3개 초과 시, 더보기 출력 
@@ -463,14 +465,16 @@ img {vertical-align: middle;}
 					if(i < 3) {
 						out += "<table class=\"reTable\"><tr><td class=\"reTd1\"><img src=\"${pageContext.request.contextPath }"+obj[i].PROFILE+"\" class=\"avatar\"></td>";
 						out += "<td class=\"reTd1 reTd2\"><table><tr><td><b>"+obj[i].NICK+"</b>  <small class=\"info\">수정  ";
-						out += "<a href=\"${pageContext.request.contextPath }/recipe/replyDel?rno="+obj[i].NO+"\" class=\"link\">삭제</a></small></td></tr>";
+						out += "<a href=\"${pageContext.request.contextPath }/recipe/replyDel?rno="+obj[i].NO+"\" class=\"link\">삭제</a>";
+						out += ""+obj[i].REDATE+"</small></td></tr>";
 						out += "<tr><td>"+obj[i].CONTENT+"</td></tr>";
 						out += "</table></td></tr></table>";	
 					} else {
 						out += "<table class=\"reTable\"><tr style=\"display:none;\" class=\"more\">";
 						out += "<td class=\"reTd1\"><img src=\"${pageContext.request.contextPath }"+obj[i].PROFILE+"\" class=\"avatar\"></td>";
 						out += "<td class=\"reTd1 reTd2\"><table><tr><td><b>"+obj[i].NICK+"</b>  <small class=\"info\">수정 ";  
-						out += "	<a href=\"${pageContext.request.contextPath }/recipe/replyDel?rno="+obj[i].NO+"\" class=\"link\">삭제</a></small></td></tr>";
+						out += "	<a href=\"${pageContext.request.contextPath }/recipe/replyDel?rno="+obj[i].NO+"\" class=\"link\">삭제</a>";
+						out += ""+obj[i].REDATE+"</small></td></tr>";
 						out += "<tr><td>"+obj[i].CONTENT+"</td></tr>";
 						out += "</table></td></tr></table>";
 					}				

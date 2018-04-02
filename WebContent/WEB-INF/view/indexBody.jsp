@@ -41,11 +41,12 @@
 						<button class="w3-button w3-white w3-border w3-round-large">more</button></a></th>
 					</tr>
 					<tr>	
-						<c:forEach var="j" begin="0" end="${fn:length(all) }">
-							<c:if test="${i.cateChk == all[j].CATE }">
+						<c:forEach var="j" begin="0" end="${fn:length(all) }" >
+							<c:if test="${i.cateChk == all[j].CATE }"> 
+								<c:set var="c" value="${c+1 }"/>
+								<c:if test="${c < 7 }">
 								<td>
 									<div>
-										
 										<table>
 											<tr><td><a href="${pageContext.request.contextPath }/recipe/list/${all[j].NO}" class="link"> 
 												<img src="${pageContext.request.contextPath }/iphoto/${all[j].ID}/${all[j].IPHOTO}" class="img">
@@ -62,7 +63,8 @@
 										
 									</div>
 								</td>
-							</c:if>
+								</c:if>
+								</c:if>
 						</c:forEach>			
 					</tr>
 				</table>
