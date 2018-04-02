@@ -170,7 +170,7 @@ div.header {
 
 												$('#checkMsg')
 														.html(
-																'<span style="color:red"><small>ID를 입력해 주십시오.</small></span>');
+																'<span style="color:green"><small>ID를 입력해 주십시오.</small></span>');
 											});
 							$('#id')
 									.keyup(
@@ -183,13 +183,13 @@ div.header {
 												if (id == "") {
 													$('#checkMsg')
 															.html(
-																	'<span style="color:red"><small>ID를 입력해 주십시오.</small></span>');
+																	'<span style="color:green"><small>ID를 입력해 주십시오.</small></span>');
 												} else {
 													if (result3) {
 
 														$('#checkMsg')
 																.html(
-																		'<span style="color:red"><small>ID 입력이 가능합니다.</small></span>');
+																		'<span style="color:green"><small>ID 입력이 가능합니다.</small></span>');
 													} else {
 														$('#checkMsg')
 																.html(
@@ -204,7 +204,7 @@ div.header {
 
 												$('#nickMsg')
 														.html(
-																'<span style="color:red"><small>닉네임을 입력해 주십시오.</small></span>');
+																'<span style="color:green"><small>닉네임을 입력해 주십시오.</small></span>');
 											});
 							$('#nick')
 									.keyup(
@@ -217,13 +217,13 @@ div.header {
 												if (nick == "") {
 													$('#nickMsg')
 															.html(
-																	'<span style="color:red"><small>닉네임을 입력해 주십시오.</small></span>');
+																	'<span style="color:green"><small>닉네임을 입력해 주십시오.</small></span>');
 												} else {
 													if (result) {
 
 														$('#nickMsg')
 																.html(
-																		'<span style="color:red"><small>닉네임 입력이 가능합니다.</small></span>');
+																		'<span style="color:green"><small>닉네임 입력이 가능합니다.</small></span>');
 													} else {
 														$('#nickMsg')
 																.html(
@@ -238,7 +238,7 @@ div.header {
 
 												$('#emailMsg')
 														.html(
-																'<span style="color:red"><small>email을 입력해 주십시오.</small></span>');
+																'<span style="color:green"><small>email을 입력해 주십시오.</small></span>');
 											});
 							$('#email')
 									.keyup(
@@ -251,13 +251,13 @@ div.header {
 												if (email == "") {
 													$('#emailMsg')
 															.html(
-																	'<span style="color:red"><small>email을 입력해 주십시오.</small></span>');
+																	'<span style="color:green"><small>email을 입력해 주십시오.</small></span>');
 												} else {
 													if (result2) {
 
 														$('#emailMsg')
 																.html(
-																		'<span style="color:red"><small>email 입력이 가능합니다.</small></span>');
+																		'<span style="color:green"><small>email 입력이 가능합니다.</small></span>');
 													} else {
 														$('#emailMsg')
 																.html(

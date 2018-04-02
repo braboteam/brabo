@@ -53,38 +53,11 @@ div.header {
 <title>로그인</title>
 </head>
 <body>
-	<!-- 로그인 세션없음 -->
 	<c:if test="${param.sessionError != null }">
 		<script>
 			window.alert("${param.sessionError}");
 		</script>
-<<<<<<< HEAD
 	</c:if>
-<p></p>
-<div class="card">
-  <div class="header">
-	<form class="w3-container  w3-light-white" action="<%=request.getContextPath()%>login" autocomplete="off"
-		method="post">
-		<h3>로그인</h3>
-	    <small>ID와 패스워드를 정확히 입력해 주세요</small>
-		<p>
-			ID(*)<br> <input class="w2-input w3-border w3-round" type="text"
-				style="width: 80%;" pattern="[a-zA-Z]+" name="id" /><br />
-		</p>
-		<p>
-			비밀번호(*)<br> <input class="w2-input w3-border w3-round" type="text" style="width: 80%;" name="pass" /><br />
-		
-		</p>
-		<button class="button button4" type="submit">로그인</button>
-	</form>
-=======
-	</c:if>
-
-	<h3>로그인</h3>
-	<small>ID와 패스워드를 정확히 입력해 주세요</small>
-
-
->>>>>>> branch 'master' of https://github.com/braboteam/brabo.git
 	<p></p>
 	<div class="card">
 		<div class="header">
@@ -99,7 +72,7 @@ div.header {
 				</p>
 				<p>
 					비밀번호(*)<br> <input class="w2-input w3-border w3-round"
-						type="text" style="width: 30%;" name="pass" /><br />
+						type="text" style="width: 80%;" name="pass" /><br />
 
 				</p>
 				<button class="button button4" type="submit">로그인</button>
