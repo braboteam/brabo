@@ -1,4 +1,4 @@
-package service.recipeAuth;
+package service.admin;
 
 import java.util.HashMap;
 import java.util.List;
@@ -25,11 +25,11 @@ public class RecipeAuthService {
 			map.put("id", id);
 		Map m = template.selectOne("member.getByIdAndPassword", map);
 		boolean rst = false;
-		if(m.get("RIGHT").equals(1)) 
-			rst = true;
-		else 
-			rst = false;
+		System.out.println(m.get("RIGHT"));
 		
+		if(String.valueOf(m.get("RIGHT")).equals("1")) 
+			rst = true;
+	
 		return rst;
 	}
 	
@@ -37,6 +37,15 @@ public class RecipeAuthService {
 	public List<Map> getAllRecipe() {
 		
 		return template.selectList("recipe_info.selectInfo");
+	}
+
+	public int getAllList() {
+		List<Map<String,String>> list =  template.selectList("recipe_info.selectInfo");
+		int size = 0;
+		if(list != null)
+			size = list.size();
+		
+		return size;
 	}
 	
 	

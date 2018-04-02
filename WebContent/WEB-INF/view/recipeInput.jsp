@@ -95,11 +95,23 @@
 					<div>
 						종류 <select class="w2-select w2-border" name="cate">
 							<option value="" disabled selected>종류선택</option>
-							<option value="한식">한식</option>
-							<option value="중식">중식</option>
-							<option value="일식">일식</option>
-							<option value="양식">양식</option>
+							<option value="밑반찬">밑반찬</option>
+							<option value="메인반찬">메인반찬</option>
+							<option value="국/탕">국/탕</option>
+							<option value="찌개">찌개</option>
+							<option value="디저트">디저트</option>
+							<option value="면/만두">면/만두</option>
+							<option value="밥/죽/떡">밥/죽/떡</option>
 							<option value="퓨전음식">퓨전음식</option>
+							<option value="김치/젓갈/장류">김치/젓갈/장류</option>
+							<option value="양념/소스/잼">양념/소스/잼</option>
+							<option value="양식">양식</option>
+							<option value="샐러드">샐러드</option>
+							<option value="스프">스프</option>
+							<option value="빵">빵</option>
+							<option value="과자">과자</option>
+							<option value="차/음료/술">차/음료/술</option>
+							<option value="기타">기타</option>
 						</select> 인원 <select class="w1-select w1-border" name="portion">
 							<option value="" disabled selected>인원선택</option>
 							<option value="1">1인분</option>

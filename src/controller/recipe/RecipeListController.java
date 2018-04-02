@@ -1,5 +1,6 @@
 package controller.recipe;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -18,21 +19,44 @@ public class RecipeListController {
 	RecipeListService rListService;
 	
 	@RequestMapping("/list")
-	public String listHandle(Model model,@RequestParam(defaultValue="1")int p) {
+	public String listHandle(Model model,@RequestParam(defaultValue="1")int p,@RequestParam(defaultValue="all") String s,
+			@RequestParam(defaultValue="ignore") String r) {
 		System.out.println("recipeListController 접근..");
-		List<Map<String,Object>> rInfo = rListService.getAllInfo();
+		List<Map<String,Object>> rInfo = new ArrayList();
+		
+		System.out.println(s);
+		if(s.equals("all")) {
+			if(r.equals("ignore")) {
+				// 아무 조건없이 모든 데이터 가져오기
+				rInfo = rListService.getAllInfo();
+			}
+			else {
+				// 평점순으로 데이터 가져오기
+				rInfo = rListService.getAllInfoByRate(s);
+			}	
+		}	
+		else {
+			if(r.equals("ignore")) {
+				// 카테고리로 데이터 가져오기
+				rInfo = rListService.getAllInfoByCate(s);
+			} else {
+				// 카테고리 및 평점순으로 데이터 가져오기
+				rInfo = rListService.getAllInfoByRate(s);
+			}
+		}
+			
 		
 		// 한 페이지당 출력될 행수
 		int row = 9;
 		
 		// 전체 페이지 수 출력용...
-		int totalCnt = rListService.getAllList();
+		int totalCnt = rInfo.size();
 		if(totalCnt % row == 0)
 			totalCnt = totalCnt/row;
 		else
 			totalCnt = totalCnt/row + 1;
 		
-		// substring을 할 때, end에서 데이터가 없으면 터질 수 있으므로, 이 점 생각해서 세팅한다.
+		// subList을 할 때, end에서 데이터가 없으면 터질 수 있으므로, 이 점 생각해서 세팅한다.
 		// 파라미터 p값을  view에서 어떤식으로 넘겨받아야 할지?? 하단 페이징처리된 버튼 클릭시 넘겨 받을 수 있게 링크 걸어두면 될듯? 
 		
 		int t = row;

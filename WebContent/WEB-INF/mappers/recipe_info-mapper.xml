@@ -17,21 +17,38 @@
 			<if test="no != null">
 				no=#{no}
 			</if>
+			<if test="right != null">
+				right=1
+			</if>
+			<if test="cate != null">
+				and cate=#{cate}
+			</if>
 		</where>
+		order by no desc
 	</select>
-
-	<select id="selectInfoForList" resultType="hashmap">
-		select * from
-		recipe_info order by no desc
+	
+	<select id="selectByRateAndCate" resultType="hashmap">
+		select * from recipe_info join 
+		(select recipe_info.no,avg(recipe_reply.rate) as avg from recipe_info join recipe_reply on recipe_info.no = recipe_reply.ino 
+		<where>
+			<if test="right != null">
+				right=1
+			</if>
+			<if test="cate != null">
+				and cate=#{cate}
+			</if>
+		</where> 
+		group by recipe_info.no) tmp on recipe_info.no = tmp.no order by avg desc
 	</select>
-
+	
+	
 	<select id="selectCount" resultType="hashmap">
 		select count(*) from
 		recipe_info where id=#{id}
 	</select>
-
+	
 	<update id="authRecipe">
-		update recipe_info set right=1 where no=#{no}
+		update recipe_info set right=1-right where no=#{no}
 	</update>
-
+	
 </mapper>

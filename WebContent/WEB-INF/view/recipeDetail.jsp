@@ -16,22 +16,32 @@ body {
 
 .c {
 	margin-top:30px;
+	margin-bottom:30px;
 }
 .card {
 	background-color:white;
 	width: 800px;
 }
 .iphoto {
-	width:300px;
+	margin-top:70px;
+	height:300px;
 	border-radius:2%;
 }
 
-#infoImg1 {
-	width:85px;
+.infoTd {
+	text-align: center;
 }
 
-#infoImg2 {
+#scrap {
 	width:75px;
+}
+
+#chat {
+	width:75px;
+}
+
+#sbt {
+	display: none;
 }
 
 .dphoto {
@@ -50,7 +60,7 @@ body {
 	font-style: italic; 
 }
 .infoTable {
-	width:300px;
+	width:350px;
 }
 .itemsTable{
 	width:300px;
@@ -71,10 +81,16 @@ body {
 	width:300px;
 }
 
+
+
 .reTable {
 	width: 550px;
+    border-collapse: collapse;
 }
-
+.reTd1 {
+	border-bottom: 1px solid silver;
+    padding: 10px;
+}
 .reTd2{
 	width:450px;
 }
@@ -91,6 +107,10 @@ body {
 
 .no {
 	display:none;
+}
+
+#reInfo {
+	margin-top:30px;
 }
 
 /*슬라이드 쇼 스타일 설정 */
@@ -211,7 +231,7 @@ img {vertical-align: middle;}
 
 
 </style>
-<body>
+
 	<script
 		src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<div align="center">
@@ -219,20 +239,42 @@ img {vertical-align: middle;}
 		
 			<div class="w3-card card">
 				<div class="c">
+					<p>
+						<img src="${pageContext.request.contextPath }/iphoto/${profile.ID}/${info.IPHOTO}" class="iphoto"> 
+					</p>
 					<div>
 						<h3>${info.TITLE }</h3>
-					<a href="${pageContext.request.contextPath }/followinfo?id=?${info.ID}"><small>by ${profile.NICK }</small></a>
-					</div>
-					<div>
-						<img src="${pageContext.request.contextPath }/iphoto/${profile.ID}/${info.IPHOTO}" class="iphoto dphoto"> 
+					<a href="${pageContext.request.contextPath }/followinfo?id=${info.ID}" class="link">
+					<img src="${pageContext.request.contextPath}${profile.PROFILE}" class="avatar"></a>
+			
+					<p>by ${profile.NICK }</p>
 					</div>
 					<p class="info infoMent">
+						❝ <br/>
 						${info.INFO }
 					</p>
 					<p class="info"></p>
-					<table class="w3-table info infoTable">
-						<tr><td>${info.CATE }</td>  <td>${info.PORTION }인분</td>  <td>${info.TIME }</td></tr>
-						<tr><td><img src="/clip.png" id="infoImg1" id="scrap"></td><td><img src="/chat.png" id="infoImg2"></td></tr>
+					<table class="info infoTable">
+						<tr>
+							<td class="infoTd">${info.CATE }</td>  <td class="infoTd">${info.PORTION }인분</td>  <td class="infoTd">${info.TIME }</td>
+						</tr>
+					</table>	
+					<table>
+						<tr>
+							<td>
+								<table>
+									<tr><td><img src="/clip.png" id="scrap"></td></tr>
+									<tr><td class="infoTd info">${fn:length(scrap) }</td></tr>
+								</table>	
+								
+							</td>
+							<td>
+								<table>
+									<tr><td><img src="/chat.png" id="chat"></td></tr>
+									<tr><td class="infoTd info">${fn:length(reply) }</td></tr>
+								</table>		
+							</td>
+						</tr>
 					</table>					
 				</div>
 			</div>
@@ -263,9 +305,9 @@ img {vertical-align: middle;}
 						<c:forEach var="i" items="${detail }">
 							<tr>
 								<td class="numberTd">${i.STEP }.</td>  <td class="recipeTd">${i.RECIPE }</td> 
-									
-									<td><img src="${pageContext.request.contextPath }/dphoto/${info.ID}/${i.DPHOTO}" class="dphoto"></td>
-								
+									<c:if test="${i.DPHOTO }!= null">
+										<td><img src="${pageContext.request.contextPath }/dphoto/${info.ID}/${i.DPHOTO}" class="dphoto"></td>
+									</c:if>
 							</tr>
 						</c:forEach>
 					</table>
@@ -289,7 +331,7 @@ img {vertical-align: middle;}
 						
 						<div style="text-align:center">
 							<c:forEach var="i" begin="0" end="${fn:length(fphoto) }">	
-						  		<span class="dot" onclick="currentSlide(${i})"></span> 
+						 		<span class="dot" onclick="currentSlide(${i})"></span> 
 							</c:forEach>
 						 </div>
 					</div>
@@ -301,17 +343,24 @@ img {vertical-align: middle;}
 			
 			<div class="w3-card card">
 				<div class="c">
-					<div style="text-align:left">댓글 <span class="info">${fn:length(reply)} </span> 평점 
-						<span class="info"><fmt:formatNumber pattern="0.00" value="${rate.AVG }" /></span>
-					</div><hr/>
+				<div style="width:550px;">
+					<table class="w3-table"  style="text-align:left">
+						<tr>
+							<td>
+								댓글 <span class="info">${fn:length(reply)}</span> &nbsp;
+								평점 <span class="info"><fmt:formatNumber pattern="0.00" value="${rate.AVG }" /></span>
+							</td>
+						</tr>
+					</table>
+				</div>
 				<div id="replyShow">	
 				<table class="reTable">
 					<c:forEach var="i" items="${reply }" varStatus="var">
 						<c:choose>
 							<c:when test="${var.count <4 }">
 							<tr>
-								<td><img src="${pageContext.request.contextPath }${i.PROFILE}" class="avatar"></td>
-								<td class="reTd2">
+								<td class="reTd1"><img src="${pageContext.request.contextPath }${i.PROFILE}" class="avatar"></td>
+								<td class="reTd1 reTd2">
 									<table>
 										<tr><td><b>${i.NICK }</b> <small class="info">수정  
 											<a href="${pageContext.request.contextPath }/recipe/replyDel?rno=${i.NO}" class="link">삭제</a>
@@ -323,8 +372,8 @@ img {vertical-align: middle;}
 							</c:when>
 							<c:otherwise>
 							<tr style="display:none;" class="more">
-								<td><img src="${pageContext.request.contextPath }${i.PROFILE}" class="avatar"></td>
-								<td class="reTd2">
+								<td class="reTd1"><img src="${pageContext.request.contextPath }${i.PROFILE}" class="avatar"></td>
+								<td class="reTd1 reTd2">
 									<table>
 										<tr><td><b>${i.NICK }</b> <small class="info">수정  
 										<a href="${pageContext.request.contextPath }/recipe/replyDel?rno=${i.NO}" class="link">삭제</a></small></td></tr>
@@ -337,7 +386,7 @@ img {vertical-align: middle;}
 					</c:forEach>
 				</table>
 				<c:if test="${fn:length(reply) >=3 }">
-					<button class="btn default" id="showMore">more</button>
+					<p><button class="btn default" id="showMore">more</button></p>
 					<script>
 						$("#showMore").click(function(){
 							$(".more").toggle();
@@ -348,10 +397,14 @@ img {vertical-align: middle;}
 			
 					</div>
 					<form>
-						<c:forEach var="i" begin="1" end="5">
-							${i }<input type="radio" name="rate" class="rate" value="${i }"/>
- 						</c:forEach>
- 						<br/>
+						<div style="width:550px;">
+							<p style="text-align:left;">
+								평점선택  &nbsp;  
+								<c:forEach var="i" begin="1" end="5">
+									${i }<input type="radio" name="rate" class="rate" value="${i }"/>
+		 						</c:forEach>
+	 						</p>
+ 						</div>
  						<table>
  							<tr>
 	 							<td>
@@ -371,7 +424,6 @@ img {vertical-align: middle;}
 			</div>
 			
 		</div>
-	</div>
 	
 	<script>
 			
@@ -409,19 +461,22 @@ img {vertical-align: middle;}
 				var out = "";
 				for(var i=0; i<obj.length-2; i++) {
 					if(i < 3) {
-						out += "<table class=\"reTable\"><tr><td><img src=\"${pageContext.request.contextPath }"+obj[i].PROFILE+"\" class=\"avatar\"></td>";
-						out += "<td class=\"reTd2\"><table><tr><td><b>"+obj[i].NICK+"</b>  <small class=\"info\">수정  삭제</small></td></tr>";
+						out += "<table class=\"reTable\"><tr><td class=\"reTd1\"><img src=\"${pageContext.request.contextPath }"+obj[i].PROFILE+"\" class=\"avatar\"></td>";
+						out += "<td class=\"reTd1 reTd2\"><table><tr><td><b>"+obj[i].NICK+"</b>  <small class=\"info\">수정  ";
+						out += "<a href=\"${pageContext.request.contextPath }/recipe/replyDel?rno="+obj[i].NO+"\" class=\"link\">삭제</a></small></td></tr>";
 						out += "<tr><td>"+obj[i].CONTENT+"</td></tr>";
 						out += "</table></td></tr></table>";	
 					} else {
-						out += "<table class=\"reTable\"><tr style=\"display:none;\" class=\"more\"><td><img src=\"${pageContext.request.contextPath }"+obj[i].PROFILE+"\" class=\"avatar\"></td>";
-						out += "<td class=\"reTd2\"><table><tr><td><b>"+obj[i].NICK+"</b>  <small class=\"info\">수정  삭제</small></td></tr>";
+						out += "<table class=\"reTable\"><tr style=\"display:none;\" class=\"more\">";
+						out += "<td class=\"reTd1\"><img src=\"${pageContext.request.contextPath }"+obj[i].PROFILE+"\" class=\"avatar\"></td>";
+						out += "<td class=\"reTd1 reTd2\"><table><tr><td><b>"+obj[i].NICK+"</b>  <small class=\"info\">수정 ";  
+						out += "	<a href=\"${pageContext.request.contextPath }/recipe/replyDel?rno="+obj[i].NO+"\" class=\"link\">삭제</a></small></td></tr>";
 						out += "<tr><td>"+obj[i].CONTENT+"</td></tr>";
 						out += "</table></td></tr></table>";
 					}				
 				}
 				if(obj.length >3) {
-					out += "<button class=\"btn default\" id=\"showMore\">more</button>";
+					out += "<p><button class=\"btn default\" id=\"showMore\">more</button></p>";
 				}					
 				$("#replyShow").html(out);
 				$("#showMore").click(function(){
@@ -430,10 +485,10 @@ img {vertical-align: middle;}
 			});
 		};
 		
-		// 레시피 스크랩 
+		// 레시피 스크랩 ajax
 		$("#scrap").click(function(){
 			var no = ${info.NO}
-			$.get("${pageContext.request.contextPath}/scrap",{
+			$.get("${pageContext.request.contextPath}/scrapGet/recipe",{
 				"no":no
 			},function(obj){
 				if(obj.rst == "login") {
@@ -441,7 +496,7 @@ img {vertical-align: middle;}
 				} else {
 					if(obj.rst == "yy") {
 						window.alert("스크랩 되었습니다.");
-					} else {
+					} else if(obj.rst == "double") {
 						window.alert("이미 스크랩 된 레시피입니다.");
 					}
 				}
@@ -480,7 +535,4 @@ img {vertical-align: middle;}
 		}
 		
 	</script>
-</body>
-
-
-
+	

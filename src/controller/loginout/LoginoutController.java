@@ -35,6 +35,7 @@ public class LoginoutController {
 		Map rst = loginoutservice.loginByIdAndPass(param);
 		if (rst != null) {
 			session.setAttribute("logon", rst.get("ID"));
+			session.setAttribute("memberRight",rst.get("RIGHT"));
 			model.addAttribute("body", "/WEB-INF/view/indexBody.jsp");
 			model.addAttribute("success", rst.get("ID")+"님 환영합니다.");
 			return "index";
@@ -49,6 +50,7 @@ public class LoginoutController {
 	public String logoutPostHandle(HttpSession session, Model model) {
 
 		session.removeAttribute("logon");
+		session.removeAttribute("memberRight");
 		model.addAttribute("body", "/WEB-INF/view/indexBody.jsp");
 		model.addAttribute("logout", "로그아웃 되었습니다.");
 		return "index";

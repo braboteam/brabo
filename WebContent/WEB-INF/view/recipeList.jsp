@@ -98,26 +98,20 @@ h1 {
 }
 .pagination a:hover:not(.active) {background-color: #ddd;}
 </style>
-</head>
-<body>
-	
+
 <div class="w3-container"   >
 	<!-- MAIN (Center website) -->
 	<form  action="${pageContext.request.contextPath }/recipe/list" method="get"> 
-		<input type="hidden" id="startPage" name="startPage"  value=""/>
-		<input type="hidden" id="visiblePage" name="visiblePage" value="" />
 		<div class="main">
-	
-	
+		
 			<div id="myBtnContainer">
 				<button class="btn active" onclick="filterSelection('all')">
 					Show all</button>
-				<button class="btn" id="rateBt">평점순</button>
+				<button class="btn" id="rateBt" type="submit" name="r" value="rate">평점순</button>
 				<button class="btn" onclick="filterSelection('cars')">Cars</button>
 				<button class="btn" onclick="filterSelection('people')">
 					People</button>
 			</div>
-	
 			<!-- Portfolio Gallery Grid -->
 			<div class="row">
 	
@@ -160,6 +154,8 @@ h1 {
 	</form>
 </div>	
 	<script>
+	
+	
 		filterSelection("all")
 		function filterSelection(c) {
 			var x, i;
@@ -211,4 +207,3 @@ h1 {
 
 
 
-</body>
