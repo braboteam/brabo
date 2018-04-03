@@ -27,24 +27,19 @@ public class JoinController {
 
 	@RequestMapping(method = RequestMethod.POST)
 	public String joinPostHandle(Model model, @RequestParam Map<String, String> param, 
-			@RequestParam MultipartFile profile) {
+			@RequestParam MultipartFile profile)throws IllegalStateException, IOException{
 		   
 			System.out.println(param.size());
-			boolean rst = false;
-			
-			try {
-					rst = joinservice.addNewJoin(param, profile);
-			} catch (IllegalStateException | IOException e) {
-				e.printStackTrace();
-			}
+			boolean rst = joinservice.addNewJoin(param, profile);
 			
 			if (rst) {
 			model.addAttribute("body", "/WEB-INF/view/indexBody.jsp");
 			model.addAttribute("join", "회원가입에 성공하셨습니다. 로그인 하시기 바랍니다.");
+			return "redirect:/index";
 			}else{
 				model.addAttribute("body", "/WEB-INF/view/addjoin.jsp");
-				model.addAttribute("err", "회원가입에 실패하셨습니다. 다시 작성하시기 바랍니다.");
+				model.addAttribute("err2", "회원가입에 실패하셨습니다. 다시 작성하시기 바랍니다.");
+				return "index";
 			}
-			return "index";
 	}
 }

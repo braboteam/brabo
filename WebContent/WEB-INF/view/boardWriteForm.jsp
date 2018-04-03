@@ -132,7 +132,7 @@ body, html {
 	<input type="hidden" name="id" value="${logon }">
 	<p>
 		<textarea class="w3-input" placeholder="내용" rows="10" cols="10"
-			name="comments"></textarea>
+			name="comments" required></textarea>
 	</p>
 	<p>
 		<label>사진</label> <input class="w3-input" type="file"
