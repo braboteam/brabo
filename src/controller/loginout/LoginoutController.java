@@ -40,7 +40,7 @@ public class LoginoutController {
 			model.addAttribute("success", rst.get("ID") + "님 환영합니다.");
 			return "redirect:/index";
 		} else {
-			model.addAttribute("err", "로그인 과정에서 문제가 발생했습니다.");
+			model.addAttribute("err1", "로그인 과정에서 문제가 발생했습니다.");
 			model.addAttribute("body", "/WEB-INF/view/login.jsp");
 			return "index";
 		}

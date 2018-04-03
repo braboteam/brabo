@@ -80,6 +80,11 @@ div.header {
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 </head>
 <body>
+	<c:if test="${err2 != null }">
+		<script>
+			window.alert("${err2}");
+		</script>
+	</c:if>
 	<p></p>
 	<div class="card">
 		<div class="header">
@@ -92,7 +97,7 @@ div.header {
 					ID(*)&nbsp;<span id="checkMsg"></span><br /> <input
 						class="w2-input w3-border w3-round" placeholder="영어로 입력해 주세요"
 						type="text" style="width: 80%;" pattern="[a-zA-Z]+" name="id"
-						id="id" />
+						id="id" required />
 					<button type="button" id="jungbock" class="button2 button1">중복ID</button>
 					<br />
 				</p>
@@ -101,12 +106,12 @@ div.header {
 					닉네임(*)&nbsp;<span id="nickMsg"></span><br> <input
 						placeholder="한글로 입력해 주세요" class="w2-input w3-border w3-round"
 						type="text" style="width: 80%;" pattern="[가-힣]+" name="nick"
-						id="nick" /><br />
+						id="nick" required /><br />
 				</p>
 
 				<p>
 					비밀번호<br> <input class="w2-input w3-border w3-round"
-						type="password" style="width: 80%;" name="pass" /><br />
+						type="password" style="width: 80%;" name="pass" required /><br />
 				</p>
 
 				<p>
@@ -115,7 +120,7 @@ div.header {
 						placeholder="O@O.OO으로 입력해 주시기 바랍니다." type="text"
 						style="width: 80%;"
 						pattern="^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-Za-z0-9\-]+"
-						name="email" id="email" /><br />
+						name="email" id="email" required /><br />
 				</p>
 
 				<p>
@@ -123,14 +128,14 @@ div.header {
 						class="w2-input w3-border w3-round" type="file"
 						style="width: 80%;" name="profile" />
 				</p>
-
-				<button class="button button4" type="submit">등록</button>
+					<button class="button button4" type="button" onclick="submitCheck()">등록</button>
 			</form>
 			<p></p>
 		</div>
 	</div>
 	<p></p>
 	<script type="text/javascript">
+		var check = 0;
 		$(document)
 				.ready(
 						function() {
@@ -148,11 +153,14 @@ div.header {
 															success : function(
 																	data) {
 																var result4 = /^[a-zA-Z]+$/
-																	.test($('#id').val());
+																		.test($(
+																				'#id')
+																				.val());
 																if (data == null) {
 																	if (result4) {
 																		window
 																				.alert("사용 가능한 ID 입니다.");
+																		check = 1;
 																	} else {
 																		window
 																				.alert("사용 불가능한 ID 입니다.");
@@ -266,4 +274,12 @@ div.header {
 												}
 											}); //end on
 						});
+		
+		function submitCheck(b){
+			if(check == 1){
+				submit;
+			}else{
+				window.alert("중복ID 입니다.");
+			}
+		}
 	</script>
