@@ -9,6 +9,7 @@
 
 
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <style>
 * {
 	box-sizing: border-box;
@@ -85,7 +86,8 @@ h1 {
 .link {
 	text-decoration: none;
 }
-.pagination a {
+
+.gination a {
     color: black;
     float: left;
     padding: 8px 16px;
@@ -97,20 +99,30 @@ h1 {
     color: white;
 }
 .pagination a:hover:not(.active) {background-color: #ddd;}
+
+
+}
 </style>
 
 <div class="w3-container"   >
 	<!-- MAIN (Center website) -->
-	<form  action="${pageContext.request.contextPath }/recipe/list" method="get"> 
+	<form  class="example"	action="${pageContext.request.contextPath }/recipe/list" method="get"> 
 		<div class="main">
 		
 			<div id="myBtnContainer">
-				<button class="btn active" onclick="filterSelection('all')">
-					Show all</button>
-				<button class="btn" id="rateBt" type="submit" name="r" value="rate">평점순</button>
-				<button class="btn" onclick="filterSelection('cars')">Cars</button>
-				<button class="btn" onclick="filterSelection('people')">
-					People</button>
+				<table>
+					<tr>
+						<td>
+							<button class="btn active" onclick="filterSelection('all')">
+								Show all</button>
+						</td>
+						<td>		
+							<button class="btn" id="rateBt" type="submit" name="r" value="rate">평점순</button>
+						</td>
+						<td>	
+							<input class="w3-input w3-border w3-round-large" name="c" type="text" >
+						</td>
+				 </table>
 			</div>
 			<!-- Portfolio Gallery Grid -->
 			<div class="row">
@@ -138,8 +150,9 @@ h1 {
 	
 				<!-- END GRID -->
 			</div>
-			<div id="pagination">
-				<c:if test="${page != 1 }">
+			<div class="w3-center">
+				<div class="w3-bar">
+				 <c:if test="${page != 1 }">
 					<a href="${pageContext.request.contextPath }/recipe/list?p=${page-1}">&laquo;</a>
 				</c:if>
 				<c:forEach var="i" begin="1" end="${totalCnt }">
@@ -148,7 +161,8 @@ h1 {
 				<c:if test="${page != totalCnt }">
   					<a href="${pageContext.request.contextPath }/recipe/list?p=${page+1}">&raquo;</a>
   				</c:if>	
-			</div>
+				</div>
+		
 			<!-- END MAIN -->
 		</div>
 	</form>

@@ -23,6 +23,9 @@
 			<if test="cate != null">
 				and cate=#{cate}
 			</if>
+			<if test="title != null">
+				or (right=1 and title like #{title})
+			</if>
 		</where>
 		order by no desc
 	</select>
@@ -33,6 +36,9 @@
 		<where>
 			<if test="right != null">
 				right=1
+			</if>
+			<if test="title != null">
+				and title=#{title}
 			</if>
 			<if test="cate != null">
 				and cate=#{cate}

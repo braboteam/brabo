@@ -62,6 +62,16 @@ public class RecipeListService {
 		return rInfo;
 	}
 
+	public List<Map<String, Object>> getAllInfoByCateAndTitle(String c) {
+		Map<String,String> map = new HashMap<>();
+			map.put("right", "right");
+			map.put("cate", c);
+			map.put("title", "%"+c+"%");
+		List<Map<String,Object>> rInfo = template.selectList("recipe_info.selectInfo",map);	
+		
+		return rInfo;
+	}
+
 	
 
 
