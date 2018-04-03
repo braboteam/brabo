@@ -38,7 +38,7 @@ public class LoginoutController {
 			session.setAttribute("memberRight",rst.get("RIGHT"));
 			model.addAttribute("body", "/WEB-INF/view/indexBody.jsp");
 			model.addAttribute("success", rst.get("ID")+"님 환영합니다.");
-			return "index";
+			return "redirect:/index";
 		} else {
 			model.addAttribute("err", "로그인 과정에서 문제가 발생했습니다.");
 			model.addAttribute("body", "/WEB-INF/view/login.jsp");
@@ -53,6 +53,6 @@ public class LoginoutController {
 		session.removeAttribute("memberRight");
 		model.addAttribute("body", "/WEB-INF/view/indexBody.jsp");
 		model.addAttribute("logout", "로그아웃 되었습니다.");
-		return "index";
+		return "redirect:/index";
 	}
 }

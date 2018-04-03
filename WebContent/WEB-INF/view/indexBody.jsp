@@ -26,8 +26,29 @@
 	color:gray;
 }
 </style>
+<c:if test="${param.success != null}">
+		<script>
+			window.alert("${param.success}");
+		</script>
+	</c:if>
 
-		
+	<c:if test="${err != null}">
+		<script>
+			window.alert("${err}");
+		</script>
+	</c:if>
+
+	<c:if test="${logout != null}">
+		<script>
+			window.alert("${logout}");
+		</script>
+	</c:if>
+	
+	<c:if test="${join != null}">
+		<script>
+			window.alert("${join}");
+		</script>
+	</c:if>
 <div align="center" style="margin-top: 40px;">
 	<div style="width:800px">
 		<hr/>
