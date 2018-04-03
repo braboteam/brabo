@@ -20,18 +20,25 @@ public class SocketController extends TextWebSocketHandler {
 	// (클라이언트와)연결 되었을 때
 	@Override
 	public void afterConnectionEstablished(WebSocketSession session) throws Exception {
+		// 로그인 아이디 - WebSocket 등록
 		Map map = session.getAttributes();
-		socketService.addSocket((String) map.get("logon"), session);
+		if (map.get("logon") != null) {
+			socketService.addSocket((String) map.get("logon"), session);
+		}
 	}
 
 	// (클라이언트와)메시지를 보낼 떄
 	@Override
 	protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
+		System.out.println("메시지전송");
 	}
 
 	// (클라이언트와)연결 해제 시
 	@Override
 	public void afterConnectionClosed(WebSocketSession session, CloseStatus status) throws Exception {
-
+		Map map = session.getAttributes();
+		if (map.get("logon") != null) {
+			socketService.removeSocket((String) map.get("logon"), session);
+		}
 	}
 }

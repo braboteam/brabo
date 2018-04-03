@@ -100,7 +100,7 @@ body, html {
 	<div class="hero-image">
 		<div class="hero-text">
 			<h1 style="font-size: 50px">Search Chef</h1>
-			<p>( 아이디 또는 닉네임으로 검색하실 수 있습니다. )</p>
+			<p>아이디 또는 닉네임으로 검색하실 수 있습니다.</p>
 		</div>
 	</div>
 	<br />

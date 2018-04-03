@@ -21,13 +21,14 @@
 					class="w3-bar-item w3-button w3-teal"><i
 					class="fa fa-home w3-margin-right"></i>Home</a>
 				<a href="${pageContext.request.contextPath }/recipe/list"
-					class="w3-bar-item w3-button w3-hide-small w3-hover-white">Recipe</a>
+					class="w3-bar-item w3-button w3-hide-small w3-hover-white"><span
+					class="glyphicon glyphicon-cutlery"></span> Recipe </a>
 				<a href="${pageContext.request.contextPath }/freeboard"
-					class="w3-bar-item w3-button w3-hide-small w3-hover-white">Free
-					Board</a>
-				<a href="${pageContext.request.contextPath }/freeboard"
-					class="w3-bar-item w3-button w3-hide-small w3-hover-white">Follow
-					Chef</a>
+					class="w3-bar-item w3-button w3-hide-small w3-hover-white"><span
+					class="glyphicon glyphicon-cloud"></span> Free Board </a>
+				<a href="${pageContext.request.contextPath }/chatting"
+					class="w3-bar-item w3-button w3-hide-small w3-hover-white"><span
+					class="glyphicon glyphicon-comment"></span> Chatting </a>
 				<a href="${pageContext.request.contextPath }/cheflist"
 					class="w3-bar-item w3-button w3-hide-small w3-hover-white"><i
 					class="fa fa-search"> Search Chef </i></a>
@@ -67,3 +68,26 @@
 			class="w3-bar-item w3-button w3-hide-small w3-right w3-hover-teal"
 			title="Search"><i class="fa fa-search"> 내정보</i></a> -->
 	</div>
+	<!--  -->
+	<script>
+		var ws = new WebSocket("ws://${pageContext.request.serverName}/socket");
+
+		//연결이 됬을때
+		ws.onopen = function() {
+			console.log("연결");
+		}
+
+		//메시지가 들어올 때
+		ws.onmessage = function(obj) {
+			var msg = JSON.parse(obj.data);
+			if (msg.sessionOut != null) {
+				window.alert(msg.sessionOut);
+				location.href = "${pageContext.request.contextPath}/index";
+			}
+		}
+
+		//연결이 끊길 때 ( 서버가 꺼질 때 )
+		ws.onclose = function() {
+			console.log("연결해제");
+		}
+	</script>
