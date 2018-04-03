@@ -25,7 +25,7 @@
 					class="glyphicon glyphicon-cutlery"></span> Recipe </a>
 				<a href="${pageContext.request.contextPath }/freeboard"
 					class="w3-bar-item w3-button w3-hide-small w3-hover-white"><span
-					class="glyphicon glyphicon-cloud"></span> Free Board </a>
+					class="glyphicon glyphicon-cloud"></span> Cook Talk </a>
 				<a href="${pageContext.request.contextPath }/chatting"
 					class="w3-bar-item w3-button w3-hide-small w3-hover-white"><span
 					class="glyphicon glyphicon-comment"></span> Chatting </a>
@@ -83,6 +83,9 @@
 			if (msg.sessionOut != null) {
 				window.alert(msg.sessionOut);
 				location.href = "${pageContext.request.contextPath}/index";
+			}
+			if (msg.openmsg != null && flag == 0) { // 오픈채팅 메시지가 오고, 오픈채팅방에 있을때만
+				openChat();
 			}
 		}
 

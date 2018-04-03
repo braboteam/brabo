@@ -15,7 +15,7 @@ import com.google.gson.Gson;
 @Service
 public class SocketService {
 	// id, session
-	public Map map;
+	public Map<String, WebSocketSession> map;
 
 	public SocketService() {
 		map = new HashMap();
@@ -38,12 +38,22 @@ public class SocketService {
 		return new ArrayList<>(map.keySet());
 	}
 
-	// 특정 사용자에게 메시지보내기
+	// 같은 아이디 세션에 메시지보내기
 	public boolean sessionOutSendMsg(String id) throws IOException {
 		Map msgMap = new HashMap<>();
 		msgMap.put("sessionOut", "다른 브라우저에서 현재 계정이 접속되어 로그아웃됩니다.\n접속 ip : "
 				+ ((WebSocketSession) map.get(id)).getRemoteAddress().getAddress().getHostAddress() + "");
 		((WebSocketSession) map.get(id)).sendMessage(new TextMessage(new Gson().toJson(msgMap)));
+		return true;
+	}
+
+	// 오픈채팅 사용자에게 메시지 보내기
+	public boolean allSendMsg(String msg) throws IOException {
+		Map msgMap = new HashMap<>();
+		msgMap.put("openmsg", msg);
+		for (String id : map.keySet()) {
+			((WebSocketSession) map.get(id)).sendMessage(new TextMessage(new Gson().toJson(msgMap)));
+		}
 		return true;
 	}
 

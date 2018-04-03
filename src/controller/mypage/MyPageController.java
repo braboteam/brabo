@@ -60,7 +60,6 @@ public class MyPageController {
 	@RequestMapping("/myrecipe")
 	public String myRecipeHandle(HttpSession session, Model model) {
 		Map map = mypageService.MyInfo((String) session.getAttribute("logon"));
-
 		List<Map<String, Object>> list = mypageService.MyRecipe((String) session.getAttribute("logon"));
 
 		model.addAttribute("member", map);
