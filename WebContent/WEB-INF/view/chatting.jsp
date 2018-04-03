@@ -7,6 +7,52 @@
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<!-- 대화창 스타일  -->
+<style>
+.container {
+	border: 2px solid #dedede;
+	background-color: #f1f1f1;
+	border-radius: 5px;
+	padding: 10px;
+	margin: 10px 0;
+}
+
+.darker {
+	border-color: #ccc;
+	background-color: #ddd;
+}
+
+.container::after {
+	content: "";
+	clear: both;
+	display: table;
+}
+
+.container img {
+	float: left;
+	max-width: 60px;
+	width: 100%;
+	margin-right: 20px;
+	border-radius: 50%;
+}
+
+.container img.right {
+	float: right;
+	margin-left: 20px;
+	margin-right: 0;
+}
+
+.time-right {
+	float: right;
+	color: #aaa;
+}
+
+.time-left {
+	float: left;
+	color: #999;
+}
+</style>
+<!--  -->
 <style>
 body, html {
 	height: 100%;
@@ -83,7 +129,7 @@ footer {
 <div class="hero-image">
 	<div class="hero-text">
 		<h1 style="font-size: 50px">Chatting</h1>
-		<p>현재 로그인중인 유저와 채팅할 수 있습니다.</p>
+		<p>오픈 채팅 및 현재 접속중인 유저와 1:1대화가 가능합니다.</p>
 	</div>
 </div>
 <br />
@@ -92,12 +138,27 @@ footer {
 <div class="container-fluid">
 	<div class="row content">
 		<div class="col-sm-3 sidenav">
-			<h4>John's Blog</h4>
+			<h4>현재 접속 : ${member.size() }</h4>
+			<br />
 			<ul class="nav nav-pills nav-stacked">
-				<li class="active"><a href="#section1">Home</a></li>
-				<li><a href="#section2">Friends</a></li>
-				<li><a href="#section3">Family</a></li>
-				<li><a href="#section3">Photos</a></li>
+				<li class="active select" onclick="selectBar(this)"><a
+					style="text-align: center; text-decoration: none;"> <span
+						class="glyphicon glyphicon-comment"></span> Open Chat
+				</a></li>
+				<c:forEach var="i" items="${member }">
+					<li class="select" onclick="selectBar(this)"><a
+						style="text-decoration: none;"><font color="black"><b><img
+									src="${i.PROFILE }"
+									style="width: 30px; height: 30px; border-radius: 100%;">
+									${i.NICK} ( ${i.ID } ) <c:choose>
+										<c:when test="${i.FID != null }">
+											<font color="green"> follow </font>
+										</c:when>
+										<c:otherwise>
+											<font color="red"> not follow </font>
+										</c:otherwise>
+									</c:choose> <span class="glyphicon glyphicon-comment w3-right"></span></b></font></a></li>
+				</c:forEach>
 			</ul>
 			<br>
 			<div class="input-group">
@@ -110,11 +171,45 @@ footer {
 			</div>
 		</div>
 		<!-- 사이드바 끝 -->
-		<div class="col-sm-9">
-			<h4>
-				<small>RECENT POSTS</small>
-			</h4>
-			<hr>
+		<!-- 대화창 -->
+		<div class="col-sm-9"
+			style="overflow: scroll; height: 30%; width: 60%;">
+			<h2>Chat Messages</h2>
+
+			<div class="container" style="width: 80%;">
+				<img src="${member[0].PROFILE }" alt="Avatar" style="width: 100%;">
+				<b>아이디</b>
+				<p>Hello. How are you today?</p>
+				<span class="time-right">11:00</span>
+			</div>
+
+			<div class="container darker" style="width: 80%;">
+				<img src="/Desert.jpg" alt="Avatar" class="right"
+					style="width: 100%;">
+				<p>Hey! I'm fine. Thanks for asking!</p>
+				<span class="time-left">11:01</span>
+			</div>
+
+			<div class="container" style="width: 80%;">
+				<img src="/w3images/bandmember.jpg" alt="Avatar"
+					style="width: 100%;">
+				<p>Sweet! So, what do you wanna do today?</p>
+				<span class="time-right">11:02</span>
+			</div>
+			<c:forEach var="i" step="1" begin="1" end="100">
+				<div class="container darker" style="width: 80%;">
+					<img src="/w3images/avatar_g2.jpg" alt="Avatar"
+						style="width: 100%;">
+					<p>Nah, I dunno. Play soccer.. or learn more coding perhaps?</p>
+					<span class="time-left">11:05</span>
+				</div>
+			</c:forEach>
 		</div>
 	</div>
 </div>
+<script>
+	function selectBar(bar) {
+		$(".select").removeClass("active");
+		$(bar).addClass("active");
+	}
+</script>

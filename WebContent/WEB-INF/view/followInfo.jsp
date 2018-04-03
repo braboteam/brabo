@@ -32,7 +32,9 @@ body, h1, h2, h3, h4, h5, h6 {
 			class="w3-hide-large w3-right w3-jumbo w3-padding w3-hover-grey"
 			title="close menu"> <i class="fa fa-remove"></i>
 		</a> <img src="${member.PROFILE }" style="width: 45%;" class="w3-round"><br>
-		<font color="blue"><b>팔로워 ${member.COUNT }</b></font><br /> <br />
+		<font color="blue"><b>팔로워 ${member.COUNT }</b></font><br /> <br /> <span
+			class="glyphicon glyphicon-remove-sign"></span>노접속<span
+			class="glyphicon glyphicon-ok-sign"></span>접속
 		<h4>
 			<b> ${member.NICK} ( ${member.ID } )</b>
 		</h4>

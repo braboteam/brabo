@@ -24,14 +24,12 @@ public class SocketService {
 	// 로그인시 소켓세션 추가
 	public boolean addSocket(String id, WebSocketSession session) {
 		map.put(id, session);
-		System.out.println(map);
 		return true;
 	}
 
 	// 로그아웃 또는 브라우저종료 시 소켓세션 제거
-	public boolean removeSocket(String id, WebSocketSession session) {
+	public boolean removeSocket(String id) {
 		map.remove(id);
-		System.out.println(map);
 		return true;
 	}
 

@@ -48,6 +48,7 @@ public class LoginoutController {
 			if (application.getAttribute((String) rst.get("ID")) != null) {
 				socketService.sessionOutSendMsg((String) rst.get("ID"));
 				((HttpSession) application.getAttribute((String) rst.get("ID"))).removeAttribute("logon");
+				application.removeAttribute((String) rst.get("ID"));
 			}
 			session.setAttribute("logon", rst.get("ID"));
 			session.setAttribute("memberRight", rst.get("RIGHT"));
@@ -65,7 +66,8 @@ public class LoginoutController {
 
 	@RequestMapping(path = "/logout", method = RequestMethod.GET)
 	public String logoutPostHandle(HttpSession session, Model model) {
-
+		application.removeAttribute((String) session.getAttribute("logon"));
+		socketService.removeSocket((String) session.getAttribute("logon"));
 		session.removeAttribute("logon");
 		session.removeAttribute("memberRight");
 		model.addAttribute("body", "/WEB-INF/view/indexBody.jsp");

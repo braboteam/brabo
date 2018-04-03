@@ -38,7 +38,7 @@ public class SocketController extends TextWebSocketHandler {
 	public void afterConnectionClosed(WebSocketSession session, CloseStatus status) throws Exception {
 		Map map = session.getAttributes();
 		if (map.get("logon") != null) {
-			socketService.removeSocket((String) map.get("logon"), session);
+			socketService.removeSocket((String) map.get("logon"));
 		}
 	}
 }
