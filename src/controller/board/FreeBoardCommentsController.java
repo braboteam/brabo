@@ -9,6 +9,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.google.gson.Gson;
 
 import service.board.BoardService;
 
@@ -20,7 +23,6 @@ public class FreeBoardCommentsController {
 
 	@RequestMapping("/addcomments")
 	public String addCommentsHandle(@RequestParam Map map, HttpSession session, Model model) {
-		System.out.println("addController!");
 		String board_id = (String) map.get("board_id");
 		if (session.getAttribute("logon") != null) {
 			boolean b = boardService.insertComments(map, (String) session.getAttribute("logon"));
@@ -35,5 +37,11 @@ public class FreeBoardCommentsController {
 			model.addAttribute("sessionError", "로그인 후 이용하시기 바랍니다.");
 			return "redirect:/login";
 		}
+	}
+
+	@RequestMapping(path = "/deletecomments", produces = "application/json; charset=UTF-8")
+	@ResponseBody
+	public String deleteCommentsHandle(@RequestParam String board_comments_id) {
+		return new Gson().toJson(boardService.deleteComments(board_comments_id));
 	}
 }

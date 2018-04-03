@@ -2,7 +2,9 @@ package service.mypage;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.ServletContext;
@@ -52,5 +54,24 @@ public class MyPageService {
 		}
 		map.put("right", 0);
 		return template.update("member.updateMember", map) == 1;
+	}
+
+	public List<Map<String, Object>> MyRecipe(String id) {
+		Map<String,String> map = new HashMap<>();
+			map.put("right", "right");
+			map.put("id", id);
+
+		List<Map<String, Object>> list = template.selectList("recipe_info.selectInfo", map);
+		return list;
+	}
+
+	public List<Map<String, Object>> MyScrap(String id) {
+		List<Map<String,Object>> list = template.selectList("scrap.getInfoNo", id);
+		List<Map<String,Object>> scrap = new ArrayList();
+		for(Map m : list ) {
+			scrap.addAll(template.selectList("scrap.selectMyScrap", m.get("RECIPE_NO")));
+		}
+			
+		return scrap;
 	}
 }

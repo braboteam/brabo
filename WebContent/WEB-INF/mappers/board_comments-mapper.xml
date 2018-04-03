@@ -26,4 +26,8 @@
 		board_id=#{board_id}
 		order by comments_date asc
 	</select>
+
+	<delete id="deleteOne">
+		delete from board_comments where board_comments_id = #{board_comments_id}
+	</delete>
 </mapper>

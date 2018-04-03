@@ -20,19 +20,32 @@ public class RecipeListController {
 	
 	@RequestMapping("/list")
 	public String listHandle(Model model,@RequestParam(defaultValue="1")int p,@RequestParam(defaultValue="all") String s,
-			@RequestParam(defaultValue="ignore") String r) {
+			@RequestParam(defaultValue="ignore") String r,@RequestParam(defaultValue="not") String c) {
 		System.out.println("recipeListController 접근..");
 		List<Map<String,Object>> rInfo = new ArrayList();
 		
 		System.out.println(s);
-		if(s.equals("all")) {
+		System.out.println(c);
+		
+		if (s.equals("all")) {
 			if(r.equals("ignore")) {
-				// 아무 조건없이 모든 데이터 가져오기
-				rInfo = rListService.getAllInfo();
+				if(c.equals("not")) {
+					// 아무 조건없이 모든 데이터 가져오기
+					rInfo = rListService.getAllInfo();
+				}	
+				else {
+					// 텍스트 검색으로 데이터 가져오기 - title과 cate에서 검색한다.
+					rInfo = rListService.getAllInfoByCateAndTitle(c);
+				}
 			}
 			else {
-				// 평점순으로 데이터 가져오기
-				rInfo = rListService.getAllInfoByRate(s);
+				if(c.equals("not")) {
+					// 평점순으로 데이터 가져오기
+					rInfo = rListService.getAllInfoByRate(s);
+				} else {
+					// 평점 및 텍스트 검색으로 데이터 가져오기
+					rInfo = rListService.getAllInfoByRate(c);
+				}
 			}	
 		}	
 		else {

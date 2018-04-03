@@ -1,6 +1,7 @@
 package service.follow;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
@@ -39,5 +40,15 @@ public class FollowService {
 
 	public boolean followCancle(Map map) {
 		return template.insert("follow.deleteOne", map) == 1;
+	}
+	
+	// followInfo 페이지에서 레시피 목록 클릭했을 경우
+	public List<Map<String, Object>> getRecipe(String id) {
+		Map<String,String> map = new HashMap<>();
+			map.put("right", "right");
+			map.put("id",id);
+		// 해당 유저이름으로 레시피 검색해서 가져오기
+		List<Map<String,Object>> list = template.selectList("recipe_info.selectInfo", map);	
+		return list;
 	}
 }

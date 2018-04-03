@@ -18,6 +18,15 @@
 		</where>		
 	</select>
 	
+	<select id="getInfoNo" resultType="hashmap">
+		select * from scrap where id=#{id}
+	</select>
+	
+	
+	<select id="selectMyScrap" resultType="hashmap">
+		select * from recipe_info join scrap on recipe_info.no = recipe_no 
+			where recipe_info.no = #{no}
+	</select>
 	
 	<insert id="insertRecipe" parameterType="hashmap">
 		insert into scrap values (scrap_sequence.nextval,#{id},#{ino})
