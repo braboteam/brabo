@@ -3,7 +3,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 
-<title>Insert title here</title>
 <script
 		src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
@@ -16,8 +15,7 @@
 }
 
 body {
-	background-color: #f1f1f1;
-	padding: 20px;
+	background-color: white;
 }
 
 /* Center website */
@@ -27,7 +25,6 @@ body {
 }
 
 h1 {
-	font-size: 50px;
 	word-break: break-all;
 }
 
@@ -100,7 +97,9 @@ h1 {
 }
 .pagination a:hover:not(.active) {background-color: #ddd;}
 
-
+.nick {
+	color:gray;
+}
 }
 </style>
 
@@ -117,10 +116,14 @@ h1 {
 								Show all</button>
 						</td>
 						<td>		
-							<button class="btn" id="rateBt" type="submit" name="r" value="rate">평점순</button>
+							<button class="btn" id="rateBt" type="submit" name="r" value="rate">Show rated</button>
+						</td>
+						<td>		
+							<a href="${pageContext.request.contextPath }/recipe/input">
+							<button class="btn" id="rateBt" type="button" >Register recipe</button></a>
 						</td>
 						<td>	
-							<input class="w3-input w3-border w3-round-large" name="c" type="text" >
+							<input class="w3-input w3-border"  name="c" type="text" style="height:100%">
 						</td>
 				 </table>
 			</div>
@@ -131,18 +134,18 @@ h1 {
 					<div class="column">
 						<div class="content">
 	
-							<div class="card">
+							<div class="w3-card">
+								<div>
 								<a href="${pageContext.request.contextPath }/recipe/list/${i.NO}"
-									class="link"> <img
-									src="${pageContext.request.contextPath }/iphoto/${i.ID}/${i.IPHOTO}"
-									style="width: 100%">
-									<div class="container">
-										<h4>
-											<b>${i.TITLE }</b>
-										</h4>
-										<small class="nick">by ${i.ID }</small>
-									</div>
-								</a>
+									class="link"> <img src="${pageContext.request.contextPath }/iphoto/${i.ID}/${i.IPHOTO}"
+									style="width: 100%"></a>
+								</div>	
+								<div class="container">
+									<h4>
+										<b>${i.TITLE }</b>
+									</h4>
+									<small class="nick">by ${i.ID }</small>
+								</div>
 							</div>
 						</div>
 					</div>
@@ -164,6 +167,7 @@ h1 {
 				</div>
 		
 			<!-- END MAIN -->
+		</div>
 		</div>
 	</form>
 </div>	

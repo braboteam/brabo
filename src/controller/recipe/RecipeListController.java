@@ -26,7 +26,8 @@ public class RecipeListController {
 		
 		System.out.println(s);
 		System.out.println(c);
-		if(s.equals("all")) {
+		
+		if (s.equals("all")) {
 			if(r.equals("ignore")) {
 				if(c.equals("not")) {
 					// 아무 조건없이 모든 데이터 가져오기

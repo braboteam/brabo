@@ -11,7 +11,7 @@
 
 <style>
 body {
-	background-color:#f1f1f1;
+	background-color:white;
 }
 
 .c {
@@ -263,14 +263,24 @@ img {vertical-align: middle;}
 						<tr>
 							<td>
 								<table>
-									<tr><td><img src="/clip.png" id="scrap"></td></tr>
+									<tr>
+										<td>
+											<a href="#" data-toggle="scrapTip" title="스크랩 하기"> 
+											<img src="/clip.png" id="scrap"></a>
+										</td>
+									</tr>
 									<tr><td class="infoTd info">${fn:length(scrap) }</td></tr>
 								</table>	
 								
 							</td>
 							<td>
 								<table>
-									<tr><td><img src="/chat.png" id="chat"></td></tr>
+									<tr>
+										<td>
+											<a href="#" data-toggle="chatTip" title="댓글 갯수">
+											<img src="/chat.png" id="chat"></a>
+										</td>
+									</tr>
 									<tr><td class="infoTd info">${fn:length(reply) }</td></tr>
 								</table>		
 							</td>

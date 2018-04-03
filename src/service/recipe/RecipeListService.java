@@ -44,7 +44,7 @@ public class RecipeListService {
 	public List<Map<String, Object>> getAllInfoByCate(String s) {
 		Map<String,String> map = new HashMap<>();
 			map.put("right", "right");
-			map.put("cate", s);
+			map.put("cate", "%"+s+"%");
 		List<Map<String,Object>> rInfo = template.selectList("recipe_info.selectInfo",map);
 		
 		return rInfo;
@@ -55,7 +55,7 @@ public class RecipeListService {
 		Map<String,String> map = new HashMap<>();
 			map.put("right", "right");
 		if(!s.equals("all"))
-			map.put("cate", s);
+			map.put("cate", "%"+s+"%");
 		
 		List<Map<String,Object>> rInfo = template.selectList("recipe_info.selectByRateAndCate", map);
 		
@@ -65,8 +65,17 @@ public class RecipeListService {
 	public List<Map<String, Object>> getAllInfoByCateAndTitle(String c) {
 		Map<String,String> map = new HashMap<>();
 			map.put("right", "right");
-			map.put("cate", c);
-			map.put("title", "%"+c+"%");
+			map.put("cate", "%"+c+"%");
+			//map.put("title", "%"+c+"%");
+		List<Map<String,Object>> rInfo = template.selectList("recipe_info.selectInfo",map);	
+		
+		return rInfo;
+	}
+
+	public List<Map<String, Object>> getAllMine(String mine) {
+		Map<String,String> map = new HashMap<>();
+			map.put("right", "right");
+			map.put("id", mine);
 		List<Map<String,Object>> rInfo = template.selectList("recipe_info.selectInfo",map);	
 		
 		return rInfo;

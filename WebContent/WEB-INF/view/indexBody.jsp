@@ -16,8 +16,13 @@
 .link {
 	text-decoration:none;
 }
+.thumb {
+	width:200px;
+	height:200px;
+}
 .img {
-	height:150px;
+	width:100%;
+	height:auto%;
 }
 .ment {
 	text-align:center;
@@ -33,6 +38,7 @@
 		<hr/>
 		<c:forEach var="i" items="${cateChk }">
 			<div class="content">
+				
 				<table>
 					<tr>
 						<th>${i.cateChk }</th>
@@ -50,9 +56,12 @@
 								<td>
 									<div>
 										<table>
-											<tr><td><a href="${pageContext.request.contextPath }/recipe/list/${all[j].NO}" class="link"> 
-												<img src="${pageContext.request.contextPath }/iphoto/${all[j].ID}/${all[j].IPHOTO}" class="img">
-												</a></td></tr>
+											<tr>
+												<td class="thumb"><a href="${pageContext.request.contextPath }/recipe/list/${all[j].NO}" class="link"> 
+													<img src="${pageContext.request.contextPath }/iphoto/${all[j].ID}/${all[j].IPHOTO}" class="img">
+													</a>
+												</td>
+											</tr>
 											<tr>
 												<td >
 													<table style="width:100%">
@@ -71,6 +80,7 @@
 						</c:forEach>			
 					</tr>
 				</table>
+				
 			</div>	
 			<hr/>	
 		</c:forEach>
