@@ -58,7 +58,7 @@ public class LoginoutController {
 			application.setAttribute((String) rst.get("ID"), session);
 			return "redirect:/index";
 		} else {
-			model.addAttribute("err", "로그인 과정에서 문제가 발생했습니다.");
+			model.addAttribute("err1", "로그인 과정에서 문제가 발생했습니다.");
 			model.addAttribute("body", "/WEB-INF/view/login.jsp");
 			return "index";
 		}

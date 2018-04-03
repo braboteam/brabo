@@ -53,9 +53,9 @@ div.header {
 <title>로그인</title>
 </head>
 <body>
-	<c:if test="${param.sessionError != null }">
+	<c:if test="${err1 != null }">
 		<script>
-			window.alert("${param.sessionError}");
+			window.alert("${err1}");
 		</script>
 	</c:if>
 	<p></p>
@@ -68,11 +68,12 @@ div.header {
 				<small>ID와 패스워드를 정확히 입력해 주세요</small>
 				<p>
 					ID(*)<br> <input class="w2-input w3-border w3-round"
-						type="text" style="width: 80%;" pattern="[a-zA-Z]+" name="id" /><br />
+						type="text" style="width: 80%;" pattern="[a-zA-Z]+" name="id"
+						required /><br />
 				</p>
 				<p>
 					비밀번호(*)<br> <input class="w2-input w3-border w3-round"
-						type="text" style="width: 80%;" name="pass" /><br />
+						type="password" style="width: 80%;" name="pass" required /><br />
 
 				</p>
 				<button class="button button4" type="submit">로그인</button>

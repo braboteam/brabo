@@ -25,7 +25,7 @@ public class IdCheckController {
 
 	@Autowired
 	LoginoutService loginoutservice;
-	
+
 	@Autowired
 	Gson gson;
 
@@ -35,7 +35,7 @@ public class IdCheckController {
 		return "addjoin";
 	}
 
-	@RequestMapping(path = "/idcheck", method = RequestMethod.POST, produces="applicaion/json;charset=utf-8")
+	@RequestMapping(path = "/idcheck", method = RequestMethod.POST, produces = "applicaion/json;charset=utf-8")
 	@ResponseBody
 	public String checkSignup(@RequestParam Map<String, String> param, Model model)
 			throws IllegalStateException, IOException {
@@ -43,8 +43,7 @@ public class IdCheckController {
 		rst.put("id", param.get("id"));
 		model.addAttribute("body", "/WEB-INF/view/addjoin.jsp");
 		Map rowcount = idcheckservice.idcheck(rst);
-		
-		
+
 		return gson.toJson(rowcount);
 	}
 }
