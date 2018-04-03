@@ -16,6 +16,7 @@
 
 body {
 	background-color: white;
+	font-family: gothic;
 }
 
 /* Center website */
@@ -123,7 +124,8 @@ h1 {
 							<button class="btn" id="rateBt" type="button" >Register recipe</button></a>
 						</td>
 						<td>	
-							<input class="w3-input w3-border"  name="c" type="text" style="height:100%">
+							<input class="w3-input w3-border"  name="c" type="text" 
+								style="height:100%;width:300px;" placeholder="Search..">
 						</td>
 				 </table>
 			</div>
@@ -138,13 +140,15 @@ h1 {
 								<div>
 								<a href="${pageContext.request.contextPath }/recipe/list/${i.NO}"
 									class="link"> <img src="${pageContext.request.contextPath }/iphoto/${i.ID}/${i.IPHOTO}"
-									style="width: 100%"></a>
+									style="width:100%;height:300px;"></a>
 								</div>	
 								<div class="container">
+									<div style="margin-left:10px;">
 									<h4>
 										<b>${i.TITLE }</b>
 									</h4>
 									<small class="nick">by ${i.ID }</small>
+									</div>
 								</div>
 							</div>
 						</div>

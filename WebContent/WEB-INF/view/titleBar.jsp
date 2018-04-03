@@ -3,7 +3,6 @@
 
 <%@ taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<div class="">
 	<!-- 상단메뉴 -->
 	<div class="w3-bar w3-theme-d2 w3-left-align">
 		<a
@@ -12,9 +11,12 @@
 			class="fa fa-bars"></i></a>
 		<c:choose>
 			<c:when test="${memberRight == 1}">
-				<a href="${pageContext.request.contextPath }/admin/recipeAuth"
+				<a href="${pageContext.request.contextPath }/index"
 					class="w3-bar-item w3-button w3-teal"><i
-					class="fa fa-home w3-margin-right"></i>admin</a>
+					class="fa fa-home w3-margin-right"></i>Home</a>
+				<a href="${pageContext.request.contextPath }/admin/recipeAuth"
+					class="w3-bar-item w3-button w3-hide-small w3-hover-white"><i
+					class="fa fa-search"></i>admin</a>
 			</c:when>
 			<c:otherwise>
 				<a href="${pageContext.request.contextPath }/index"

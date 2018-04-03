@@ -31,7 +31,7 @@
 			<div class="w3-container" >
 			<h4 class="title">레시피 승인</h4>
 			<small class="title grayInfo">승인할 레시피를 선택해주세요.</small>
-				<table class="w3-table w3-bordered">
+				<table class="w3-table w3-bordered" style="margin-top:30px;">
 					<tr id="th">
 						<th>번호</th> <th>제목</th> <th>작성자</th> <th>승인여부</th> <th>권한변경</th>
 					</tr>
@@ -57,7 +57,7 @@
 			</div>
 		</div>
 	
-		<div id="pagination">
+		<div id="pagination" style="margin-top:20px">
 			<c:if test="${page != 1 }">
 				<a href="${pageContext.request.contextPath }/admin/recipeAuth?p=${page-1}">&laquo;</a>
 			</c:if>

@@ -46,7 +46,7 @@
 	<form class="w3-container  w3-light-white"
 		action="${pageContext.request.contextPath }/recipe/input"
 		method="post" enctype="multipart/form-data">
-		<table >
+		<table style="margin-top:30px;">
 			<tr>
 				<td><h4>Recipe</h4></td>
 			</tr>

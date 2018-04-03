@@ -61,88 +61,60 @@
 	</script>
 </c:if>
 <div align="center" style="margin-top: 40px;">
-	<div style="width: 800px">
-		<hr />
+	<div style="width:800px">
+		<hr/>
 		<c:forEach var="i" items="${cateChk }">
 			<div class="content">
+				
 				<table>
 					<tr>
 						<th>${i.cateChk }</th>
-						<th></th>
-						<th></th>
-						<th></th>
-						<th><a
-							href="${pageContext.request.contextPath }/recipe/list?s=${i.cateChk}">
-								<button class="w3-button w3-white w3-border w3-round-large">more</button>
-						</a></th>
+						<th></th><th></th><th></th>
+						<th><a href="${pageContext.request.contextPath }/recipe/list?s=${i.cateChk}">
+						<button class="w3-button w3-white w3-border w3-round-large">more</button></a></th>
 					</tr>
-					<tr>
-						<c:forEach var="j" begin="0" end="${fn:length(all) }">
-							<c:if test="${i.cateChk == all[j].CATE }">
-								<tr>
-									<c:set var="c" value="0" />
-									<c:forEach var="j" begin="0" end="${fn:length(all) }"
-										varStatus="vs">
-										<c:if test="${i.cateChk == all[j].CATE }">
-											<c:set var="c" value="${c+1 }" />
-											<c:choose>
-												<c:when test="${c <5 }">
-													<td>
-														<div>
-															<table>
-																<tr>
-																	<td class="thumb"><a
-																		href="${pageContext.request.contextPath }/recipe/list/${all[j].NO}"
-																		class="link"> <img
-																			src="${pageContext.request.contextPath }/iphoto/${all[j].ID}/${all[j].IPHOTO}"
-																			class="img">
-																	</a></td>
-																</tr>
-
-																<tr>
-																	<td><a
-																		href="${pageContext.request.contextPath }/recipe/list/${all[j].NO}"
-																		class="link"> <img
-																			src="${pageContext.request.contextPath }/iphoto/${all[j].ID}/${all[j].IPHOTO}"
-																			class="img">
-																	</a></td>
-																</tr>
-																<tr>
-																	<td>
-																		<table style="width: 100%">
-																			<tr>
-																				<td class="ment"><b>${all[j].TITLE }</b></td>
-																			</tr>
-																			<tr>
-																				<td class="ment grayMent"><small>by
-																						${all[j].ID }</small></td>
-																			</tr>
-																		</table>
-																	</td>
-																</tr>
-															</table>
-
-														</div>
-													</td>
-												</c:when>
-											</c:choose>
-										</c:if>
-									</c:forEach>
-								</tr>
+					<tr>	
+						<c:set var="c" value="0"/>
+						<c:forEach var="j" begin="0" end="${fn:length(all) }" varStatus="vs">
+							<c:if test="${i.cateChk == all[j].CATE }"> 
+								<c:set var="c" value="${c+1 }"/>
+								<c:choose>
+									<c:when test="${c <5 }">
+								<td>
+									<div>
+										<table>
+											<tr>
+												<td class="thumb"><a href="${pageContext.request.contextPath }/recipe/list/${all[j].NO}" class="link"> 
+													<img src="${pageContext.request.contextPath }/iphoto/${all[j].ID}/${all[j].IPHOTO}" class="img">
+													</a>
+												</td>
+											</tr>
+											<tr>
+												<td >
+													<table style="width:100%">
+														<tr><td class="ment"><b>${all[j].TITLE }</b></td></tr>
+														<tr><td class="ment grayMent"><small>by ${all[j].ID }</small></td></tr>
+													</table>
+												</td>
+											</tr>
+										</table>
+										
+									</div>
+								</td>
+								</c:when>
+								</c:choose>
 							</c:if>
-						</c:forEach>
+						</c:forEach>			
 					</tr>
 				</table>
-			</div>
-			<hr />
+				
+			</div>	
+			<hr/>	
+		</c:forEach>
 	</div>
-	<hr />
-	</c:forEach>
-</div>
-</div>
+</div>	
 
-<!--  -->
 
-<!--  -->
+
 
 
