@@ -217,10 +217,10 @@ input[type=submit] {
 								<!-- 댓글삭제 -->
 								<td align="right"><c:if test="${logon == i.ID }">
 										<a href="javascript:deleteReply('${i.BOARD_COMMENTS_ID }');"
-											onmouseover="$('#x${i.ID}').css('color', 'red');"
-											onmouseout="$('#x${i.ID}').css('color', 'gray');"
+											onmouseover="$('#x${i.BOARD_COMMENTS_ID}').css('color', 'red');"
+											onmouseout="$('#x${i.BOARD_COMMENTS_ID}').css('color', 'gray');"
 											style="text-decoration: none;"><li class="w3-large"
-											style="color: gray;" id="x${i.ID }"><i
+											style="color: gray;" id="x${i.BOARD_COMMENTS_ID }"><i
 												class="fa fa-close"></i></li></a>
 									</c:if></td>
 							</tr>

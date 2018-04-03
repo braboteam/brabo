@@ -31,7 +31,7 @@
 			window.alert("${logout}");
 		</script>
 	</c:if>
-	
+
 	<c:if test="${join != null}">
 		<script>
 			window.alert("${join}");

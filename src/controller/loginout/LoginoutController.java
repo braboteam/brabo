@@ -23,7 +23,7 @@ public class LoginoutController {
 		model.addAttribute("body", "/WEB-INF/view/login.jsp");
 		return "index";
 	}
-	
+
 	public String loginGetHandle(@RequestParam(required = false) String sessionError, Model model) {
 		model.addAttribute("sessionError", sessionError);
 		return "login";
@@ -35,9 +35,9 @@ public class LoginoutController {
 		Map rst = loginoutservice.loginByIdAndPass(param);
 		if (rst != null) {
 			session.setAttribute("logon", rst.get("ID"));
-			session.setAttribute("memberRight",rst.get("RIGHT"));
+			session.setAttribute("memberRight", rst.get("RIGHT"));
 			model.addAttribute("body", "/WEB-INF/view/indexBody.jsp");
-			model.addAttribute("success", rst.get("ID")+"님 환영합니다.");
+			model.addAttribute("success", rst.get("ID") + "님 환영합니다.");
 			return "index";
 		} else {
 			model.addAttribute("err", "로그인 과정에서 문제가 발생했습니다.");
