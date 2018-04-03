@@ -47,9 +47,12 @@ public class RecipeInputController {
 			info.put("id", id);
 			info.put("title", param.get("title").get(0));
 			info.put("info", param.get("info").get(0));
-			info.put("cate", param.get("cate").get(0));
-			info.put("portion", param.get("portion").get(0));
-			info.put("time", param.get("time").get(0));
+			if(param.containsKey("cate"))
+				info.put("cate", param.get("cate").get(0));
+			if(param.containsKey("portion"))	
+				info.put("portion", param.get("portion").get(0));
+			if(param.containsKey("time"))
+				info.put("time", param.get("time").get(0));
 		
 		// list에서 뽑아서, #으로 구분자 넣어서 items 칼럼에 스트링으로 집어넣기.
 		List items = param.get("item");
@@ -71,7 +74,10 @@ public class RecipeInputController {
 		boolean detailRst = false;
 		boolean finalRst = false;
 			try {
-				infoRst = recipeService.inputInfo(info,iphoto);
+				// 데이터 입력 안하고 등록시 터지는거 막기위해... 
+				if(id != null && info.get("title") != null && info.get("info") != null && info.get("cate") != null && 
+						info.get("portion") != null && info.get("time") != null)	
+					infoRst = recipeService.inputInfo(info,iphoto);
 				if(infoRst) {
 					// recipe_detail에 집어넣기 - 아래서 rst 가 true 인 경우.. detail 맵 만들어서 전달.	
 					Map<String,Object> detail = new HashMap<>();
@@ -79,7 +85,9 @@ public class RecipeInputController {
 					detail.put("step", param.get("step"));
 					detail.put("recipe", param.get("recipe"));
 					
-					detailRst = recipeService.inputDetail(id,detail,dphoto);
+					// 데이터 입력 안하고 등록시 터지는거 막기위해... 
+					if(detail.get("step") != null && detail.get("recipe") !=null)
+						detailRst = recipeService.inputDetail(id,detail,dphoto);
 					System.out.println("detail insert 결과 : " + detailRst);
 					if(detailRst)
 						finalRst = recipeService.inputFinal(id,recipeService.getInfoNo(rename),fphoto);
@@ -88,8 +96,10 @@ public class RecipeInputController {
 				e.printStackTrace();
 			}	
 			
-			
-			model.addAttribute("body", "/WEB-INF/view/recipeList.jsp");
+			if(infoRst && detailRst)
+				model.addAttribute("body", "/WEB-INF/view/recipeList.jsp");
+			else
+				model.addAttribute("body","/WEB-INF/view/inputError.jsp");
 			return "index";
 	}
 			

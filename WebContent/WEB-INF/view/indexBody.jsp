@@ -41,9 +41,12 @@
 						<button class="w3-button w3-white w3-border w3-round-large">more</button></a></th>
 					</tr>
 					<tr>	
+						<c:set var="c" value="0"/>
 						<c:forEach var="j" begin="0" end="${fn:length(all) }" varStatus="vs">
 							<c:if test="${i.cateChk == all[j].CATE }"> 
-								<c:if test="${fn:length(cateChk)*4 >= vs.count }">
+								<c:set var="c" value="${c+1 }"/>
+								<c:choose>
+									<c:when test="${c <5 }">
 								<td>
 									<div>
 										<table>
@@ -62,8 +65,9 @@
 										
 									</div>
 								</td>
-								</c:if>
-								</c:if>
+								</c:when>
+								</c:choose>
+							</c:if>
 						</c:forEach>			
 					</tr>
 				</table>
