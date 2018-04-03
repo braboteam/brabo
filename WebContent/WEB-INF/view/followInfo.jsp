@@ -22,6 +22,25 @@
 body, h1, h2, h3, h4, h5, h6 {
 	font-family: "Raleway", sans-serif
 }
+
+.thumb {
+	width: 150px;
+	height: 150px;
+	overflow: hidden;
+}
+
+.img {
+	width: auto;
+	height: 100%;
+}
+
+.ment {
+	text-align: center;
+}
+
+.grayMent {
+	color: gray;
+}
 </style>
 <!-- 사이드바 메뉴 -->
 <nav class="w3-sidebar w3-collapse w3-white w3-animate-left"
@@ -32,9 +51,7 @@ body, h1, h2, h3, h4, h5, h6 {
 			class="w3-hide-large w3-right w3-jumbo w3-padding w3-hover-grey"
 			title="close menu"> <i class="fa fa-remove"></i>
 		</a> <img src="${member.PROFILE }" style="width: 45%;" class="w3-round"><br>
-		<font color="blue"><b>팔로워 ${member.COUNT }</b></font><br /> <br /> <span
-			class="glyphicon glyphicon-remove-sign"></span>노접속<span
-			class="glyphicon glyphicon-ok-sign"></span>접속
+		<font color="blue"><b>팔로워 ${member.COUNT }</b></font><br /> <br />
 		<h4>
 			<b> ${member.NICK} ( ${member.ID } )</b>
 		</h4>
@@ -105,27 +122,71 @@ body, h1, h2, h3, h4, h5, h6 {
 		<header id="portfolio">
 			<span class="w3-button w3-hide-large w3-xxlarge w3-hover-text-grey"
 				onclick="w3_open()"><i class="fa fa-bars"></i></span>
-			<div class="w3-container">
-				<h1>
-					<b>Recipe</b>
-				</h1>
-				<div class="w3-section w3-bottombar w3-padding-16">
-					<span class="w3-margin-right">Filter:</span>
-					<button class="w3-button w3-black">ALL</button>
-					<button class="w3-button w3-white">
-						<i class="fa fa-diamond w3-margin-right"></i>Design
-					</button>
-					<button class="w3-button w3-white w3-hide-small">
-						<i class="fa fa-photo w3-margin-right"></i>Photos
-					</button>
-					<button class="w3-button w3-white w3-hide-small">
-						<i class="fa fa-map-pin w3-margin-right"></i>Art
-					</button>
-				</div>
+			<h1>
+				<b>Recipe</b>
+			</h1>
+			<div class="w3-section w3-bottombar w3-padding-16">
+				<span class="w3-margin-right">Filter:</span>
+				<button class="w3-button w3-black">ALL</button>
+				<button class="w3-button w3-white">
+					<i class="fa fa-diamond w3-margin-right"></i>Design
+				</button>
+				<button class="w3-button w3-white w3-hide-small">
+					<i class="fa fa-photo w3-margin-right"></i>Photos
+				</button>
+				<button class="w3-button w3-white w3-hide-small">
+					<i class="fa fa-map-pin w3-margin-right"></i>Art
+				</button>
 			</div>
 		</header>
+		<div>
+			<hr />
+			<div class="content" align="center">
+				<table>
+					<tr>
+						<c:forEach var="i" items="${board }" varStatus="vs">
+							<c:choose>
+								<c:when test="${vs.count % 4 ==0 }">
+					</tr>
+					<tr>
+						</c:when>
+						<c:otherwise>
+
+						</c:otherwise>
+						</c:choose>
+						<td>
+							<table style="border-spacing: 10px;">
+								<tr>
+									<td class="thumb"><a
+										href="${pageContext.request.contextPath }/recipe/list/${i.NO}"
+										class="link"> <img
+											src="${pageContext.request.contextPath }/iphoto/${i.ID}/${i.IPHOTO}"
+											class="img">
+									</a></td>
+								</tr>
+								<tr>
+									<td>
+										<table style="width: 100%">
+											<tr>
+												<td class="ment"><b>${i.TITLE }</b></td>
+											</tr>
+											<tr>
+												<td class="ment grayMent"><small>by ${i.ID }</small></td>
+											</tr>
+										</table>
+									</td>
+								</tr>
+							</table>
+						</td>
+						</c:forEach>
+					</tr>
+				</table>
+			</div>
+			<hr />
+		</div>
 	</div>
 </div>
+
 
 <script>
 	// Script to open and close sidebar

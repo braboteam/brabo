@@ -1,6 +1,7 @@
 package controller.follow;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
@@ -24,7 +25,10 @@ public class FollowInfoController {
 	@RequestMapping("followinfo")
 	public String followInfoHandle(Model model, @RequestParam String id, HttpSession session) {
 		Map map = followService.memberInfo((String) session.getAttribute("logon"), id);
+		List<Map<String,Object>> list = followService.getRecipe(id);
+		
 		model.addAttribute("member", map);
+		model.addAttribute("board", list);
 		model.addAttribute("body", "/WEB-INF/view/followInfo.jsp");
 		return "index";
 	}
@@ -54,4 +58,7 @@ public class FollowInfoController {
 			return "false";
 		}
 	}
+	
+	
+	
 }

@@ -207,7 +207,7 @@ body, h1, h2, h3, h4, h5, h6 {
 			style="text-decoration: none;"><i
 			class="fa fa-user fa-fw w3-margin-right"></i><b>My Info</b></a>
 		<!-- 내 게시물 -->
-		<a href="${pageContext.request.contextPath }/"
+		<a href="${pageContext.request.contextPath }/myrecipe"
 			class="w3-bar-item w3-button w3-padding"
 			style="text-decoration: none;"><i
 			class="fa fa-th-large fa-fw w3-margin-right"></i><b>My Recipe <c:choose>
@@ -219,7 +219,7 @@ body, h1, h2, h3, h4, h5, h6 {
 			</c:otherwise>
 				</c:choose></b></a>
 		<!-- 스크랩게시물 링크 -->
-		<a href="${pageContext.request.contextPath }/"
+		<a href="${pageContext.request.contextPath }/myscrap"
 			class="w3-bar-item w3-button w3-padding"
 			style="text-decoration: none;"><i
 			class="fa fa-th-large fa-fw w3-margin-right"></i><b>스크랩한 게시물 <c:choose>
