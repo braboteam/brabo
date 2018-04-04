@@ -13,6 +13,7 @@
 }
 .link {
 	text-decoration: none;
+	color:black;
 }
 #th {
 	text-align: center;
@@ -22,9 +23,14 @@
 
 }
 </style>
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
 	<div align="center" style="margin-top:50px; ">
 		<div style="width:800px;">
@@ -56,19 +62,23 @@
 				</table>
 			</div>
 		</div>
-	
-		<div id="pagination" style="margin-top:20px">
-			<c:if test="${page != 1 }">
-				<a href="${pageContext.request.contextPath }/admin/recipeAuth?p=${page-1}">&laquo;</a>
-			</c:if>
-			<c:forEach var="i" begin="1" end="${totalCnt }">
-				<a href="${pageContext.request.contextPath }/admin/recipeAuth?p=${i}">${i }</a>
-			</c:forEach>
-			<c:if test="${page != totalCnt }">
-						<a href="${pageContext.request.contextPath }/admin/recipeAuth?p=${page+1}">&raquo;</a>
-					</c:if>	
+		
+		<div>
+			<div align="center">
+				<ul class="pagination">
+					<c:if test="${page != 1 }">
+						<li><a href="${pageContext.request.contextPath }/admin/recipeAuth?p=${page-1}">prev</a></li>
+					</c:if>
+					<c:forEach var="i" begin="1" end="${totalCnt }">
+						<li><a href="${pageContext.request.contextPath }/admin/recipeAuth?p=${i}">${i }</a></li>
+					</c:forEach>
+					<c:if test="${page != totalCnt }">
+	 					<li><a href="${pageContext.request.contextPath }/admin/recipeAuth?p=${page+1}">next</a></li>
+	 				</c:if>
+	 			</ul>	
+ 			</div>
 		</div>
-
+	
 	</div>
 	
 	<script>
@@ -76,7 +86,9 @@
 		// 레시피 권한 변경 ajax
 		$(".auth").click(function(){
 			var no = $(this).parent().parent().children().first().children().first().html();
+			var auth = $(this).parent().prev().children().first().html();
 			console.log(no);
+			console.log(auth);
 			var c = window.confirm("이 레시피의 권한을 변경하시겠습니까?");
 			if(c == true) {
 				$.post("${pageContext.request.contextPath}/admin/recipeAuth",{

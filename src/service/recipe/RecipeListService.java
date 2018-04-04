@@ -61,12 +61,13 @@ public class RecipeListService {
 		
 		return rInfo;
 	}
-
+	
+	// 텍스트 검색으로 카테고리+제목에서 검색하기
 	public List<Map<String, Object>> getAllInfoByCateAndTitle(String c) {
 		Map<String,String> map = new HashMap<>();
 			map.put("right", "right");
 			map.put("cate", "%"+c+"%");
-			//map.put("title", "%"+c+"%");
+			map.put("title", "%"+c+"%");
 		List<Map<String,Object>> rInfo = template.selectList("recipe_info.selectInfo",map);	
 		
 		return rInfo;

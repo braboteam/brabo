@@ -80,9 +80,9 @@
 				</button>
 				<div class="w3-dropdown-content w3-card-4 w3-bar-block">
 					<a href="${pageContext.request.contextPath }/mypage"
-						class="w3-bar-item w3-button" style="text-decoration: none;">MyPage</a>
+						class="w3-bar-item w3-button" style="text-decoration:none;">MyPage</a>
 					<a href="${pageContext.request.contextPath }/logout"
-						class="w3-bar-item w3-button" style="text-decoration: none;">logout</a>
+						class="w3-bar-item w3-button" style="text-decoration:none;">logout</a>
 				</div>
 			</div>
 

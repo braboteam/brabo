@@ -5,6 +5,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -67,15 +69,22 @@ public class RecipeAuthController {
 	// 관리자 페이지에서 레시피 승인 변경 처리 받기..
 	@RequestMapping(path="/recipeAuth",method=RequestMethod.POST,produces="application/json;charset=utf-8")
 	@ResponseBody
-	public String recipeAuthHandle(@RequestParam String no) {
+	public String recipeAuthHandle(@RequestParam String no,HttpServletResponse resp,HttpSession session) {
 		boolean rst = rAuthService.authReciep(no);
-		// recipe_info 테이블에서 해당 no의 right가 1인 경우 , 
-		// 작성자에게 쿠키로 레시피가 승인되었음을 알려주는 코드작성.
-		
-		
-		Map map = new HashMap<>();	
+		Map<String,Boolean> map = new HashMap<>();
 			map.put("rst", rst);
-		
+		// 변경된 레시피 권한 값이 0 인지 1인지 확인하는 과정
+		if(rst) {
+			boolean chk = rAuthService.checkRight(no);
+			System.out.println("chkAuth "+ chk);
+			if(chk) {
+				// 해당 작성자에게만 알릴 수 있도록 쿠키 설정 - key: recipeAuth, value: 작성자의 id로 넣어서,
+				// 작성자가 쿠키value 뽑았을 때 자기 id랑 같으면 메시지 출력, 다르면 쿠키 삭제.
+				Cookie auth = new Cookie("recipeAuth", rAuthService.getWriter(no));
+					auth.setPath("/");
+				resp.addCookie(auth);	
+			}
+		}
 		return gson.toJson(map);
 	}
 	

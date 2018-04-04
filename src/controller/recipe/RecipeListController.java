@@ -33,29 +33,40 @@ public class RecipeListController {
 					// 아무 조건없이 모든 데이터 가져오기
 					rInfo = rListService.getAllInfo();
 				}	
-				else {
-					// 텍스트 검색으로 데이터 가져오기 - title과 cate에서 검색한다.
-					rInfo = rListService.getAllInfoByCateAndTitle(c);
-				}
 			}
 			else {
-				if(c.equals("not")) {
+				if(c.equals("not") && (s.equals("cate") || s.equals("cnt"))) {
 					// 평점순으로 데이터 가져오기
 					rInfo = rListService.getAllInfoByRate(s);
-				} else {
-					// 평점 및 텍스트 검색으로 데이터 가져오기
-					rInfo = rListService.getAllInfoByRate(c);
-				}
+				} 
 			}	
 		}	
-		else {
+		else if(s.equals("cate")){
 			if(r.equals("ignore")) {
 				// 카테고리로 데이터 가져오기
 				rInfo = rListService.getAllInfoByCate(s);
-			} else {
-				// 카테고리 및 평점순으로 데이터 가져오기
-				rInfo = rListService.getAllInfoByRate(s);
 			}
+			if(c.equals("not")) {
+				// 레시피페이지 처음 접근하거나,
+				// show all 눌렀을 때 작동.
+				rInfo = rListService.getAllInfo();
+			}	
+			if(!c.equals("not")) {
+				// 카테고리에서 텍스트로 검색.
+				rInfo = rListService.getAllInfoByCate(c);
+			}
+		} else if(s.equals("cnt")) {
+			if(!c.equals("not")) {
+				// 카테고리+제목에서 텍스트로 검색.
+				rInfo = rListService.getAllInfoByCateAndTitle(c);
+			}
+			if(c.equals("not")) {
+				// select tag에서 카테고리+제목인 상태에서 show all 눌렀을 때 작동
+				rInfo = rListService.getAllInfo();
+			}
+		} else {
+			// 인덱스 페이지에서 더보기 눌러서 넘어올때 작동.
+			rInfo = rListService.getAllInfoByCate(s);
 		}
 			
 		

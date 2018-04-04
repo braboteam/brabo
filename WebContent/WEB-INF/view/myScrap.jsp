@@ -161,7 +161,6 @@ body, h1, h2, h3, h4, h5, h6 {
 
 		<!-- 게시글 -->
 		<div>
-			<hr/>
 			<div class="content" align="center">
 				<table id="table">
 					<tr>
@@ -197,7 +196,6 @@ body, h1, h2, h3, h4, h5, h6 {
 					</tr>
 				</table>
 			</div>
-			<hr/>
 		</div>
 	</div>
 </div>

@@ -50,7 +50,14 @@ div.header {
 	font-size: 12px;
 }
 </style>
-<title>로그인</title>
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
 <body>
 	<!-- 세션 에러 체크  -->
@@ -83,9 +90,8 @@ div.header {
 						type="password" style="width: 80%;" name="pass" required /><br />
 
 				</p>
-				<button class="button button4" type="submit">로그인</button>
+					<button class="button button4" type="submit">로그인</button>
 			</form>
 			<p></p>
 		</div>
 	</div>
-	<p></p>

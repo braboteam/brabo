@@ -104,6 +104,7 @@ body {
 
 .link {
 	text-decoration:none;
+	color:gray;
 }
 
 .no {
@@ -233,8 +234,14 @@ img {vertical-align: middle;}
 
 </style>
 
-	<script
-		src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 	<div align="center">
 		<div class="w3-container">
 		
@@ -398,7 +405,7 @@ img {vertical-align: middle;}
 					</c:forEach>
 				</table>
 				<c:if test="${fn:length(reply) > 3 }">
-					<p><button class="w3-button w3-white w3-border w3-round-large" id="showMore">more</button></p>
+					<p style="margin-top:10px;"><button class="w3-button w3-white w3-border w3-round-large" id="showMore">more</button></p>
 					<script>
 						$("#showMore").click(function(){
 							$(".more").toggle();
@@ -424,9 +431,9 @@ img {vertical-align: middle;}
 										rows="5" cols="50" style="resize: none;"  id="re"
 										placeholder="요리의 후기나 궁금하신 점을 댓글로 남겨주세요!"></textarea>
 								</td>
-								<td>
+								<td style="vertical-align:top;">
 									<button class="w3-button w3-white w3-border w3-round-large" id="rbt"
-										type="button" style="width: 117px; height:117px">등록</button> 
+										type="button" style="width: 115px; height:113px; margin-top:5px;">등록</button> 
 								</td>
 							</tr>
 						</table>
@@ -491,7 +498,7 @@ img {vertical-align: middle;}
 					}				
 				}
 				if(obj.length > 5) {
-					out += "<p><button class=\"w3-button w3-white w3-border w3-round-large\" id=\"showMore\">more</button></p>";
+					out += "<p style=\"margin-top:10px\"><button class=\"w3-button w3-white w3-border w3-round-large\" id=\"showMore\">more</button></p>";
 				}					
 				$("#replyShow").html(out);
 				$("#showMore").click(function(){

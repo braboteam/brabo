@@ -85,6 +85,7 @@ h1 {
 
 .link {
 	text-decoration: none;
+	color:black;
 }
 
 .gination a {
@@ -103,7 +104,12 @@ h1 {
 .nick {
 	color:gray;
 }
+
+#pageTable {
+	border-spacing: 5px;
+	border-collapse: separate;
 }
+
 </style>
 
 <div class="w3-container"   >
@@ -122,12 +128,8 @@ h1 {
 							<button class="btn" id="rateBt" type="submit" name="r" value="rate">Show rated</button>
 						</td>
 						<td>		
-							<a href="${pageContext.request.contextPath }/recipe/input">
-							<button class="btn" id="rateBt" type="button" >Register recipe</button></a>
-						</td>
-						<td>	
-							<input class="w3-input w3-border"  name="c" type="text" 
-								style="height:100%;width:300px;" placeholder="Search..">
+							<a href="${pageContext.request.contextPath }/recipe/input" class="link">
+							<button class="btn" id="rateBt" type="button">Register recipe</button></a>
 						</td>
 				 </table>
 			</div>
@@ -159,21 +161,39 @@ h1 {
 	
 				<!-- END GRID -->
 			</div>
-			<div class="w3-center">
-				<div class="w3-bar">
-				 <c:if test="${page != 1 }">
-					<a href="${pageContext.request.contextPath }/recipe/list?p=${page-1}">&laquo;</a>
+			<div>
+				<div align="center">
+				<ul class="pagination">
+				<c:if test="${page != 1 }">
+					<li><a href="${pageContext.request.contextPath }/recipe/list?p=${page-1}">prev</a></li>
 				</c:if>
 				<c:forEach var="i" begin="1" end="${totalCnt }">
-					<a href="${pageContext.request.contextPath }/recipe/list?p=${i}">${i }</a>
+					<li><a href="${pageContext.request.contextPath }/recipe/list?p=${i}">${i }</a></li>
 				</c:forEach>
 				<c:if test="${page != totalCnt }">
-  					<a href="${pageContext.request.contextPath }/recipe/list?p=${page+1}">&raquo;</a>
-  				</c:if>	
-				</div>
-		
+  					<li><a href="${pageContext.request.contextPath }/recipe/list?p=${page+1}">next</a></li>
+  				</c:if>
+  				</ul>	
+				<p>
+					<table id="pageTable">
+						<tr>
+							<td>
+								<select class="w2-select w2-border" name="s" style="height:33px">
+									<option value="cate">카테고리</option>
+									<option value="cnt">카테고리+제목</option>
+								</select>
+							</td>
+							<td>
+								<input class="w3-input w3-border w3-round"  name="c" type="text" 
+									style="height:100%;width:300px;" placeholder="Search..">
+							</td>	
+						</tr>
+					</table>
+					
+				<p>	
+  				</div>
+			</div>	
 			<!-- END MAIN -->
-		</div>
 		</div>
 	</form>
 </div>	
