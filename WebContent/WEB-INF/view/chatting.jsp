@@ -7,6 +7,27 @@
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<!-- 대화창 위 스타일 -->
+<style>
+.chip {
+	display: inline-block;
+	padding: 0 25px;
+	height: 50px;
+	font-size: 16px;
+	line-height: 50px;
+	border-radius: 25px;
+	background-color: #f1f1f1;
+}
+
+.chip img {
+	float: left;
+	margin: 0 10px 0 -25px;
+	height: 50px;
+	width: 50px;
+	border-radius: 50%;
+}
+</style>
+
 <!-- 대화창 스타일  -->
 <style>
 .container {
@@ -142,6 +163,7 @@ footer {
 			<br />
 			<ul class="nav nav-pills nav-stacked">
 				<li class="active select" onclick="selectBar(this)"><a
+					href="javascript:openChat();"
 					style="text-align: center; text-decoration: none;"> <span
 						class="glyphicon glyphicon-comment"></span> Open Chat
 				</a></li>
@@ -172,44 +194,151 @@ footer {
 		</div>
 		<!-- 사이드바 끝 -->
 		<!-- 대화창 -->
-		<div class="col-sm-9"
-			style="overflow: scroll; height: 30%; width: 60%;">
-			<h2>Chat Messages</h2>
-
-			<div class="container" style="width: 80%;">
-				<img src="${member[0].PROFILE }" alt="Avatar" style="width: 100%;">
-				<b>아이디</b>
-				<p>Hello. How are you today?</p>
+		<div class="chip" id="head">
+			<img src="/Desert.jpg" alt="Person" width="96" height="96"> <b
+				style="color: green;">Open Chat</b><small><font color="red">
+					( ※ 오픈채팅의 내용은 삭제될 수 있습니다. ) </font></small>
+		</div>
+		<br />
+		<!-- 색필터 -->
+		<div class="w3-section w3-bottombar w3-padding-16" style="width: 86%;">
+			<span class="w3-margin-right">Filter:</span>
+			<button class="w3-button w3-black c_button" onclick="color(this);"
+				id="default">DEFAULT</button>
+			<button class="w3-button w3-white c_button" onclick="color(this);"
+				id="green">
+				<i class="fa fa-diamond w3-margin-right"></i>PINK
+			</button>
+			<button class="w3-button w3-white w3-hide-small c_button"
+				onclick="color(this);" id="blue">
+				<i class="fa fa-photo w3-margin-right"></i>BLUE
+			</button>
+			<button class="w3-button w3-white w3-hide-small c_button"
+				onclick="color(this);" id="yellow">
+				<i class="fa fa-map-pin w3-margin-right"></i>YELLOW
+			</button>
+		</div>
+		<!-- 색필터끝 -->
+		<br />
+		<!-- 대화창 -->
+		<div class="col-sm-9" style="overflow: auto; height: 40%; width: 61%;"
+			id="chatlist">
+			<!-- 내글 형식 -->
+			<div class="container" style="width: 30%;">
+				<img src="${member[0].PROFILE }" alt="Avatar" style="width: 80%;">
+				<p>
+					<b>안녕 오늘어떄?</b>
+				</p>
 				<span class="time-right">11:00</span>
 			</div>
-
-			<div class="container darker" style="width: 80%;">
-				<img src="/Desert.jpg" alt="Avatar" class="right"
-					style="width: 100%;">
-				<p>Hey! I'm fine. Thanks for asking!</p>
-				<span class="time-left">11:01</span>
-			</div>
-
-			<div class="container" style="width: 80%;">
-				<img src="/w3images/bandmember.jpg" alt="Avatar"
-					style="width: 100%;">
-				<p>Sweet! So, what do you wanna do today?</p>
-				<span class="time-right">11:02</span>
-			</div>
-			<c:forEach var="i" step="1" begin="1" end="100">
-				<div class="container darker" style="width: 80%;">
-					<img src="/w3images/avatar_g2.jpg" alt="Avatar"
+			<!-- 상대방글 형식 -->
+			<div align="right">
+				<div class="container darker" style="width: 30%;" align="right">
+					<img src="/Desert.jpg" alt="Avatar" class="right"
 						style="width: 100%;">
-					<p>Nah, I dunno. Play soccer.. or learn more coding perhaps?</p>
-					<span class="time-left">11:05</span>
+					<p>
+						<b>여어~ 난 좋아 물어봐줘서 고마워!</b>
+					</p>
+					<span class="time-left">11:01</span>
 				</div>
-			</c:forEach>
+			</div>
 		</div>
+		<!-- 대화창끝 -->
+		<!-- 입력폼 -->
+		<div class="input-group" style="width: 61%;">
+			<span class="input-group-addon">SendMessage</span> <input id="msg"
+				type="text" class="form-control" name="msg"
+				onchange="sendMsg(this);" placeholder="Additional Info">
+		</div>
+		<!-- 입력폼끝 -->
 	</div>
 </div>
 <script>
+	var flag = "0";
+
+	openChat();
+
 	function selectBar(bar) {
 		$(".select").removeClass("active");
 		$(bar).addClass("active");
+	}
+
+	// 오픈채팅방활성화
+	// "msg","date","PROFILE","PASS","NICK","JOINDATE","RIGHT","ID","EMAIL"
+	function openChat() {
+		if (flag == "0") {
+			$
+					.get(
+							"${pageContext.request.contextPath}/openchat",
+							{
+
+							},
+							function(rst) {
+								$("#head")
+										.html(
+												"<img src='/Desert.jpg' alt='Person' width='96' height='96'>"
+														+ " <b style='color: green;'>Open Chat</b><small><font color='red'>"
+														+ " ( ※ 오픈채팅의 내용은 삭제될 수 있습니다. ) </font></small>");
+								var msg = "";
+								for (var i = 0; i < rst.length; i++) {
+									if ("${logon}" == rst[i].ID) { // 내글
+										msg += "<div class='container' style='width: 30%;'>"
+												+ " <img src='"
+												+ rst[i].PROFILE
+												+ "' alt='Avatar' style='width: 80%;'>"
+												+ " <p><b>"
+												+ rst[i].msg
+												+ "</b></p>	<span class='time-right'>"
+												+ rst[i].date + "</span></div>";
+									} else { // 상대방글
+										msg += "<div align='right'><div class='container darker' style='width: 30%;' align='right' >"
+												+ " <img src='"
+												+ rst[i].PROFILE
+												+ "' alt='Avatar' class='right' style='width: 100%;'>"
+												+ " <p><b>"
+												+ rst[i].msg
+												+ "</b></p>"
+												+ "<span class='time-left'>"
+												+ rst[i].date
+												+ "</span></div></div>";
+									}
+								}
+								$("#chatlist").html(msg);
+							});
+		}
+	}
+
+	// 메시지보내기
+	function sendMsg(msg) {
+		if (flag == "0") {
+			$.get("${pageContext.request.contextPath}/sendopenchat", {
+				"msg" : $(msg).val(),
+			}, function(rst) {
+				if (rst) {
+					openChat();
+				} else {
+					window.alert("메시지전송에 실패하였습니다.");
+				}
+			});
+		}
+		$(msg).val("");
+	}
+
+	// 채팅창 배경필터
+	function color(b) {
+		$(".c_button").removeClass("w3-black");
+		$(".c_button").addClass("w3-white");
+		$(b).removeClass("w3-white");
+		$(b).addClass("w3-black");
+		if ($(b).attr("id") == "default") {
+			$("#chatlist").css("background-color", "white");
+		} else if ($(b).attr("id") == "green") {
+			$("#chatlist").css("background-color", "#FFA7A7");
+		} else if ($(b).attr("id") == "blue") {
+			$("#chatlist").css("background-color", "#6799FF");
+		} else if ($(b).attr("id") == "yellow") {
+			$("#chatlist").css("background-color", "#FAED7D");
+		}
+		//#D1B2FF  #FAED7D #86E57F
 	}
 </script>

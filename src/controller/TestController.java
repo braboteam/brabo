@@ -1,5 +1,6 @@
 package controller;
 
+import java.util.Date;
 import java.util.Map;
 
 import org.springframework.stereotype.Controller;
@@ -13,6 +14,7 @@ public class TestController {
 
 	@RequestMapping(method = RequestMethod.GET)
 	public String a() {
+		System.out.println(new Date(System.currentTimeMillis()).toString());
 		return "test";
 	}
 

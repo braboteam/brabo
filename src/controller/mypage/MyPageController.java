@@ -56,31 +56,28 @@ public class MyPageController {
 			return "redirect:mypage";
 		}
 	}
-	
+
 	@RequestMapping("/myrecipe")
-	public String myRecipeHandle(HttpSession session,Model model) {
-		Map map = mypageService.MyInfo((String)session.getAttribute("logon"));
-		
-		List<Map<String,Object>> list = mypageService.MyRecipe((String)session.getAttribute("logon"));
-		
+	public String myRecipeHandle(HttpSession session, Model model) {
+		Map map = mypageService.MyInfo((String) session.getAttribute("logon"));
+		List<Map<String, Object>> list = mypageService.MyRecipe((String) session.getAttribute("logon"));
+
 		model.addAttribute("member", map);
 		model.addAttribute("body", "/WEB-INF/view/myRecipe.jsp");
-		model.addAttribute("board",list);
-		return "index";
-	}
-	
-	@RequestMapping("/myscrap")
-	public String myScrapHandle(HttpSession session,Model model) {
-		Map map = mypageService.MyInfo((String)session.getAttribute("logon"));
-		List<Map<String,Object>> list = mypageService.MyScrap((String)session.getAttribute("logon"));
-		
-		model.addAttribute("member",map);
-		model.addAttribute("body","/WEB-INF/view/myScrap.jsp");
 		model.addAttribute("board", list);
-		
 		return "index";
 	}
-	
-	
-	
+
+	@RequestMapping("/myscrap")
+	public String myScrapHandle(HttpSession session, Model model) {
+		Map map = mypageService.MyInfo((String) session.getAttribute("logon"));
+		List<Map<String, Object>> list = mypageService.MyScrap((String) session.getAttribute("logon"));
+
+		model.addAttribute("member", map);
+		model.addAttribute("body", "/WEB-INF/view/myScrap.jsp");
+		model.addAttribute("board", list);
+
+		return "index";
+	}
+
 }

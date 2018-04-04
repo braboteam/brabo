@@ -53,6 +53,13 @@ div.header {
 <title>로그인</title>
 </head>
 <body>
+	<!-- 세션 에러 체크  -->
+	<c:if test="${param.sessionError != null}">
+		<script>
+			window.alert("${param.sessionError}");
+		</script>
+	</c:if>
+
 	<c:if test="${err1 != null }">
 		<script>
 			window.alert("${err1}");
