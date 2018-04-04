@@ -44,8 +44,26 @@ public class RecipeAuthService {
 		int size = 0;
 		if(list != null)
 			size = list.size();
-		
 		return size;
+	}
+	
+	// 권한 변경된 레시피의 right 값이 0인지 1인지 확인하는 과정
+	public boolean checkRight(String no) {
+		Map m = new HashMap<>();
+			m.put("no", no);
+		Map map = template.selectOne("recipe_info.selectInfo",m);
+		String r = 	String.valueOf(map.get("RIGHT"));
+		
+		return r.equals("1");
+	}
+	
+	// 해당 레시피의 작성자 가져오기
+	public String getWriter(String no) {
+		Map m = new HashMap<>();
+			m.put("no", no);
+		Map map = template.selectOne("recipe_info.selectInfo", m);
+		
+		return (String)map.get("ID");
 	}
 	
 	

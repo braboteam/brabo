@@ -5,9 +5,14 @@
 <%@ taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles"%>
 
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <style>
 .indexTable {
 	background-color: white;
@@ -36,6 +41,8 @@
 .grayMent {
 	color: gray;
 }
+
+
 
 
 </style>
@@ -70,8 +77,8 @@
 				
 				<table>
 					<tr>
-						<th>${i.cateChk }</th>
-						<th></th><th></th>
+						<th class="th">${i.cateChk }</th>
+						<th></th><th></th><th></th>
 						<th><a href="${pageContext.request.contextPath }/recipe/list?s=${i.cateChk}">
 						<button class="w3-button w3-white w3-border w3-round-large">more</button></a></th>
 					</tr>

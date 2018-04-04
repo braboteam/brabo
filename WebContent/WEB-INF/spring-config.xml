@@ -40,11 +40,11 @@
 
 
 	<!-- datasource 및 sqlSessionTempalte 등록 -->
-	<bean class="org.springframework.jdbc.datasource.DriverManagerDataSource"
+	<bean class="com.mchange.v2.c3p0.ComboPooledDataSource"
 		id="ds">
-		<property name="driverClassName" value="oracle.jdbc.driver.OracleDriver" />
-		<property name="url" value="jdbc:oracle:thin:@13.124.70.102:1521:xe" />
-		<property name="username" value="brabo" />
+		<property name="driverClass" value="oracle.jdbc.driver.OracleDriver" />
+		<property name="jdbcUrl" value="jdbc:oracle:thin:@13.124.70.102:1521:xe" />
+		<property name="user" value="brabo" />
 		<property name="password" value="oracle" />
 	</bean>
 	<bean class="org.mybatis.spring.SqlSessionFactoryBean" id="fac">
@@ -93,6 +93,7 @@
 				class="org.springframework.web.socket.server.support.HttpSessionHandshakeInterceptor"></bean>
 		</websocket:handshake-interceptors>
 	</websocket:handlers>
-
+	
+	
 
 </beans>

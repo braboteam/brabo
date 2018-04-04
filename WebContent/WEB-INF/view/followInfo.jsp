@@ -161,7 +161,6 @@ body, h1, h2, h3, h4, h5, h6 {
 			</div>
 		</header>
 		<div>
-			<hr />
 			<div class="content" align="center">
 			
 				<table id="table">
@@ -198,7 +197,6 @@ body, h1, h2, h3, h4, h5, h6 {
 					</tr>
 				</table>
 			</div>
-			<hr />
 		</div>
 	</div>
 </div>

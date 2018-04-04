@@ -3,6 +3,8 @@
 
 <%@ taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
+
 	<!-- 상단메뉴 -->
 	<div class="w3-bar w3-theme-d2 w3-left-align">
 		<a
@@ -69,7 +71,17 @@
 		<!-- <a href="#"
 			class="w3-bar-item w3-button w3-hide-small w3-right w3-hover-teal"
 			title="Search"><i class="fa fa-search"> 내정보</i></a> -->
+			
+		<c:if test="${cookie.recipeAuth !=null}">
+			<c:if test="${cookie.recipeAuth.value eq logon}">
+				<script>
+					window.alert("등록하신 레시피가 승인처리 되었습니다.");
+					document.cookie = "recipeAuth=null; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+				</script>
+			</c:if>
+		</c:if>	
 	</div>
+	
 	<!--  -->
 	<script>
 		var ws = new WebSocket("ws:/${pageContext.request.serverName}/socket");
@@ -95,4 +107,6 @@
 		ws.onclose = function() {
 			console.log("연결해제");
 		}
+
+		
 	</script>
