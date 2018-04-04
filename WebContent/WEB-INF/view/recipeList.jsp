@@ -3,12 +3,14 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 
-<script
-		src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
 
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <style>
 * {
 	box-sizing: border-box;
@@ -109,7 +111,7 @@ h1 {
 	<form  class="example"	action="${pageContext.request.contextPath }/recipe/list" method="get"> 
 		<div class="main">
 		
-			<div id="myBtnContainer">
+			<div id="myBtnContainer" style="margin-top:5px;">
 				<table>
 					<tr>
 						<td>
@@ -136,11 +138,11 @@ h1 {
 					<div class="column">
 						<div class="content">
 	
-							<div class="w3-card">
+							<div class="w3-card w3-round-large">
 								<div>
 								<a href="${pageContext.request.contextPath }/recipe/list/${i.NO}"
 									class="link"> <img src="${pageContext.request.contextPath }/iphoto/${i.ID}/${i.IPHOTO}"
-									style="width:100%;height:300px;"></a>
+									style="width:100%;height:300px;" class="w3-round-large"></a>
 								</div>	
 								<div class="container">
 									<div style="margin-left:10px;">

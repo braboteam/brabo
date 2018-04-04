@@ -42,16 +42,15 @@ public class RecipeAuthController {
 			list = rAuthService.getAllRecipe();
 			
 			// 페이징 출력 위한 작업..
-			int row = 13;
+			int row = 15;
 			int totalCnt = rAuthService.getAllList();
 			if(totalCnt % row == 0)
 				totalCnt = totalCnt/row;
 			else
 				totalCnt = totalCnt/row + 1;
 			
-			int t = row;
-			int begin = (p-1)*t;
-			int end = p*t;
+			int begin = (p-1)*row;
+			int end = p*row;
 			if(end > list.size()) 
 				end = list.size();
 			
@@ -65,10 +64,15 @@ public class RecipeAuthController {
 		return "index";
 	}
 	
+	// 관리자 페이지에서 레시피 승인 변경 처리 받기..
 	@RequestMapping(path="/recipeAuth",method=RequestMethod.POST,produces="application/json;charset=utf-8")
 	@ResponseBody
 	public String recipeAuthHandle(@RequestParam String no) {
 		boolean rst = rAuthService.authReciep(no);
+		// recipe_info 테이블에서 해당 no의 right가 1인 경우 , 
+		// 작성자에게 쿠키로 레시피가 승인되었음을 알려주는 코드작성.
+		
+		
 		Map map = new HashMap<>();	
 			map.put("rst", rst);
 		
