@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.google.gson.Gson;
 
 import service.chatting.ChattingService;
+import service.socket.SocketService;
 
 @Controller
 public class OpenChattingController {
@@ -23,12 +24,15 @@ public class OpenChattingController {
 	@Autowired
 	ChattingService chattingService;
 
+	@Autowired
+	SocketService socketService;
+
 	// 채팅창이동
 	@RequestMapping("/chatting")
 	public String ChattingHandle(Model model, HttpSession session) {
 		if (session.getAttribute("logon") != null) {
 			model.addAttribute("body", "/WEB-INF/view/chatting.jsp");
-			model.addAttribute("member", chattingService.OnlineUserList((String) session.getAttribute("logon")));
+			model.addAttribute("member", chattingService.OnlineUserList((String) session.getAttribute("logon"), null));
 			return "index";
 		} else {
 			model.addAttribute("sessionError", "로그인 후 이용하시기 바랍니다.");
@@ -49,6 +53,22 @@ public class OpenChattingController {
 	@ResponseBody
 	public String sendOpenChatHandle(@RequestParam String msg, HttpSession session) throws IOException {
 		boolean b = chattingService.sendOpenChat((String) session.getAttribute("logon"), msg);
+		return new Gson().toJson(b);
+	}
+
+	// 접속중인 유저검색
+	@RequestMapping(path = "/onlinesearch", method = RequestMethod.GET, produces = "application/json;charset=utf-8")
+	@ResponseBody
+	public String OnlineUserSearchHandle(HttpSession session, @RequestParam String keyword) {
+		return new Gson().toJson(chattingService.OnlineUserList((String) session.getAttribute("logon"), keyword));
+	}
+
+	// 유저 로그인시, 소켓이 저장되는 타이밍이 맞지 않아 소켓저장 후 모든 유저들에게 메시지 전달
+	@RequestMapping(path = "/onlinealert", method = RequestMethod.GET, produces = "application/json;charset=utf-8")
+	@ResponseBody
+	public String OnlineAlertHandle(@RequestParam String onid) throws IOException {
+		// 접속중인 사용자들에게 로그인 알림
+		boolean b = socketService.allSendMsg(onid);
 		return new Gson().toJson(b);
 	}
 }

@@ -46,9 +46,12 @@ public class ChattingService {
 	}
 
 	// 접속유저 리스트 반환
-	public List<Map> OnlineUserList(String id) {
+	public List<Map> OnlineUserList(String id, String keyword) {
 		Map m = new HashMap<>();
 		m.put("user", socketService.socketList());
+		if (keyword != null) {
+			m.put("keyword", "%" + keyword + "%");
+		}
 		List<Map> list = template.selectList("member.selectSocketUser", m); // 현재 접속유저 정보가져오기
 		//
 		if (id != null) {
@@ -109,7 +112,9 @@ public class ChattingService {
 		FindIterable<Document> finds = collection.find(Document.parse("{ $or : [{ $and : [ { \"ID\" : { $eq : \"" + id
 				+ "\" } },{ \"FRIEND\" : { $eq : \"" + friend + "\" } } ] },  { $and : [ { \"ID\" : { $eq : \"" + friend
 				+ "\" } }, { \"FRIEND\" : { $eq : \"" + id + "\" } } ] }] }"));
-
+		// 상대방 정보 0번인덱스에 미리 저장 ( 대화기록이 없을 시 상대방 정보 불러올 수 없는 오류 방지 )
+		list.add(template.selectOne("member.checkId", friend));
+		// 몽고내용과 DB멤버 내용을 옮겨담기
 		for (Document doc : finds) {
 			Map map = template.selectOne("member.checkId", doc.getString("ID"));
 			map.put("FRIEND", doc.getString("FRIEND"));

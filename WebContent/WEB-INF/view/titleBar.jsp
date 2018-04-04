@@ -80,9 +80,9 @@
 				</button>
 				<div class="w3-dropdown-content w3-card-4 w3-bar-block">
 					<a href="${pageContext.request.contextPath }/mypage"
-						class="w3-bar-item w3-button" style="text-decoration:none;">MyPage</a>
+						class="w3-bar-item w3-button" style="text-decoration: none;">MyPage</a>
 					<a href="${pageContext.request.contextPath }/logout"
-						class="w3-bar-item w3-button" style="text-decoration:none;">logout</a>
+						class="w3-bar-item w3-button" style="text-decoration: none;">logout</a>
 				</div>
 			</div>
 
@@ -103,7 +103,7 @@
 </div>
 <!--  -->
 <script>
-	var flag;
+	var flag = "1";
 	var ws = new WebSocket("ws:/${pageContext.request.serverName}/socket");
 
 	//연결이 됬을때
@@ -120,6 +120,21 @@
 		}
 		if (msg.openmsg != null && flag == 0) { // 오픈채팅 메시지가 오고, 오픈채팅방에 있을때만
 			openChat();
+		}
+		if (msg.openmsg != null && flag != "1") {
+			console.log("로긴아웃알림");
+			searchUser($("#onlineSearchBar").val());
+
+			// 유저 카운트 가져오기
+			$.get("${pageContext.request.contextPath}/onlinesearch", {
+				"keyword" : null
+			}, function(rst) {
+				if (rst) {
+					$("#onlineCount").html(rst.length + 1);
+				} else {
+					console.log("로긴아웃 카운트 실패");
+				}
+			});
 		}
 		if (msg.id != null) {
 			if (msg.id == flag) {
