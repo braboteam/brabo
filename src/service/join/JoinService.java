@@ -1,4 +1,5 @@
 package service.join;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
@@ -19,21 +20,25 @@ public class JoinService {
 
 	@Autowired
 	SqlSessionTemplate template;
-	
-	public boolean addNewJoin(Map<String, String> param, MultipartFile profile)throws IllegalStateException, IOException {
+
+	public boolean addNewJoin(Map<String, String> param, MultipartFile profile)
+			throws IllegalStateException, IOException {
 		File savedir = new File(ctx.getRealPath("/photo"), param.get("id"));
 		savedir.mkdirs();
-		int cnt=0;
+		int cnt = 0;
 		String fileName = String.valueOf(System.currentTimeMillis());
-		profile.transferTo(new File(savedir,fileName));
+		profile.transferTo(new File(savedir, fileName));
 		Map map = new HashMap<>();
-			map.put("id", param.get("id"));
-			map.put("nick", param.get("nick"));
-			map.put("pass", param.get("pass"));
-			map.put("email", param.get("email"));
-			map.put("profile", "/photo/"+param.get("id")+"/"+fileName);
-			map.put("right", 0);
+		map.put("id", param.get("id"));
+		map.put("nick", param.get("nick"));
+		map.put("pass", param.get("pass"));
+		map.put("email", param.get("email"));
+		map.put("right", 0);
+		if (profile.isEmpty()) {
+			map.put("profile", null); 
+		} else {
+			map.put("profile", "/photo/" + param.get("id") + "/" + fileName);
+		}
 		return template.insert("member.addNewjoin", map) == 1;
 	}
-
 }

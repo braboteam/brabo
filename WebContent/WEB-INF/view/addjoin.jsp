@@ -76,14 +76,8 @@ div.header {
 }
 </style>
 <title>회원정보 등록</title>
-<!-- Latest compiled and minified CSS -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-
-<!-- jQuery library -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-
-<!-- Latest compiled JavaScript -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 </head>
 <body>
 	<c:if test="${err2 != null }">
@@ -203,7 +197,7 @@ div.header {
 
 														$('#checkMsg')
 																.html(
-																		'<span style="color:green"><small>ID 사용이 가능합니다.</small></span>');
+																		'<span style="color:green"><small>ID 사용이 가능한 문자입니다.</small></span>');
 													} else {
 														$('#checkMsg')
 																.html(
@@ -237,7 +231,7 @@ div.header {
 
 														$('#nickMsg')
 																.html(
-																		'<span style="color:green"><small>닉네임 사용이 가능합니다.</small></span>');
+																		'<span style="color:green"><small>닉네임 사용이 가능한 문자입니다.</small></span>');
 													} else {
 														$('#nickMsg')
 																.html(
@@ -271,7 +265,7 @@ div.header {
 
 														$('#emailMsg')
 																.html(
-																		'<span style="color:green"><small>email 사용이 가능합니다.</small></span>');
+																		'<span style="color:green"><small>email 사용이 가능한 형식입니다.</small></span>');
 
 													} else {
 														$('#emailMsg')
@@ -283,15 +277,15 @@ div.header {
 						});
 		$('#uio').click(function() {
 			if (check != 1) {
-				window.alert("사용할 수 없는ID 입니다.");
+				window.alert("중복ID버튼을 누루십시오.");
 			} else if ($('#id').val() == "") {
 				window.alert("ID를 입력바랍니다");
 			} else if ($('#nick').val() == "") {
 				window.alert("닉네임을 입력바랍니다");
-			} else if ($('#email').val() == "") {
-				window.alert("email을 입력바랍니다");
 			} else if ($('#pass').val() == "") {
 				window.alert("비밀번호를 입력바랍니다");
+			} else if ($('#email').val() == "") {
+				window.alert("email을 입력바랍니다");
 			} else {
 				document.getElementById('frm').submit();
 			}
