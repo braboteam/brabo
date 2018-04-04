@@ -94,7 +94,7 @@ div.header {
 	<p></p>
 	<div class="card">
 		<div class="header">
-			<form class="w3-container  w3-light-white"
+			<form class="w3-container  w3-light-white" id="frm"
 				action="<%=request.getContextPath()%>join" autocomplete="off"
 				method="post" enctype="multipart/form-data">
 				<h3>회원정보 등록</h3>
@@ -117,7 +117,7 @@ div.header {
 
 				<p>
 					비밀번호<br> <input class="w2-input w3-border w3-round"
-						type="password" style="width: 80%;" name="pass" required /><br />
+						type="password" style="width: 80%;" name="pass" id="pass" required /><br />
 				</p>
 
 				<p>
@@ -134,7 +134,7 @@ div.header {
 						class="w2-input w3-border w3-round" type="file"
 						style="width: 80%;" name="profile" />
 				</p>
-					<button class="button button4" type="button" onclick="submitCheck()">등록</button>
+				<button class="button button4" type="button" id="uio">등록</button>
 			</form>
 			<p></p>
 		</div>
@@ -203,11 +203,11 @@ div.header {
 
 														$('#checkMsg')
 																.html(
-																		'<span style="color:green"><small>ID 입력이 가능합니다.</small></span>');
+																		'<span style="color:green"><small>ID 사용이 가능합니다.</small></span>');
 													} else {
 														$('#checkMsg')
 																.html(
-																		'<span style="color:red"><small>ID 입력이 불가능합니다.</small></span>');
+																		'<span style="color:red"><small>ID 사용이 불가능합니다.</small></span>');
 													}
 												}
 
@@ -237,11 +237,11 @@ div.header {
 
 														$('#nickMsg')
 																.html(
-																		'<span style="color:green"><small>닉네임 입력이 가능합니다.</small></span>');
+																		'<span style="color:green"><small>닉네임 사용이 가능합니다.</small></span>');
 													} else {
 														$('#nickMsg')
 																.html(
-																		'<span style="color:red"><small>닉네임 입력이 불가능합니다.</small></span>');
+																		'<span style="color:red"><small>닉네임 사용이 불가능합니다.</small></span>');
 													}
 												}
 
@@ -271,21 +271,29 @@ div.header {
 
 														$('#emailMsg')
 																.html(
-																		'<span style="color:green"><small>email 입력이 가능합니다.</small></span>');
+																		'<span style="color:green"><small>email 사용이 가능합니다.</small></span>');
+
 													} else {
 														$('#emailMsg')
 																.html(
-																		'<span style="color:red"><small>email 입력이 불가능합니다.</small></span>');
+																		'<span style="color:red"><small>email 사용이 불가능합니다.</small></span>');
 													}
 												}
 											}); //end on
 						});
-		
-		function submitCheck(b){
-			if(check == 1){
-				submit;
-			}else{
-				window.alert("중복ID 입니다.");
+		$('#uio').click(function() {
+			if (check != 1) {
+				window.alert("사용할 수 없는ID 입니다.");
+			} else if ($('#id').val() == "") {
+				window.alert("ID를 입력바랍니다");
+			} else if ($('#nick').val() == "") {
+				window.alert("닉네임을 입력바랍니다");
+			} else if ($('#email').val() == "") {
+				window.alert("email을 입력바랍니다");
+			} else if ($('#pass').val() == "") {
+				window.alert("비밀번호를 입력바랍니다");
+			} else {
+				document.getElementById('frm').submit();
 			}
-		}
+		});
 	</script>
