@@ -18,7 +18,7 @@ import com.google.gson.Gson;
 import service.chatting.ChattingService;
 
 @Controller
-public class ChattingController {
+public class OpenChattingController {
 
 	@Autowired
 	ChattingService chattingService;

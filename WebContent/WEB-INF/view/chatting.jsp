@@ -159,18 +159,21 @@ footer {
 <div class="container-fluid">
 	<div class="row content">
 		<div class="col-sm-3 sidenav">
-			<h4>현재 접속 : ${member.size() }</h4>
+			<h4>
+				현재 접속 : <b>${member.size() }</b>
+			</h4>
 			<br />
 			<ul class="nav nav-pills nav-stacked">
 				<li class="active select" onclick="selectBar(this)"><a
 					href="javascript:openChat();"
-					style="text-align: center; text-decoration: none;"> <span
+					style="text-align: center; text-decoration: none;"
+					onclick="changeFlag('0')"> <span
 						class="glyphicon glyphicon-comment"></span> Open Chat
 				</a></li>
 				<c:forEach var="i" items="${member }">
 					<li class="select" onclick="selectBar(this)"><a
-						style="text-decoration: none;"><font color="black"><b><img
-									src="${i.PROFILE }"
+						style="text-decoration: none;" onclick="changeFlag('${i.ID}')"><font
+							color="black"><b><img src="${i.PROFILE }"
 									style="width: 30px; height: 30px; border-radius: 100%;">
 									${i.NICK} ( ${i.ID } ) <c:choose>
 										<c:when test="${i.FID != null }">
@@ -193,8 +196,8 @@ footer {
 			</div>
 		</div>
 		<!-- 사이드바 끝 -->
-		<!-- 대화창 -->
-		<div class="chip" id="head">
+		<!-- 대화창 헤더 -->
+		<div class="chip" id="head" style="background-color: silver;">
 			<img src="/Desert.jpg" alt="Person" width="96" height="96"> <b
 				style="color: green;">Open Chat</b><small><font color="red">
 					( ※ 오픈채팅의 내용은 삭제될 수 있습니다. ) </font></small>
@@ -221,7 +224,7 @@ footer {
 		<!-- 색필터끝 -->
 		<br />
 		<!-- 대화창 -->
-		<div class="col-sm-9" style="overflow: auto; height: 40%; width: 61%;"
+		<div class="col-sm-9" style="overflow: auto; height: 35%; width: 61%;"
 			id="chatlist">
 			<!-- 내글 형식 -->
 			<div class="container" style="width: 30%;">
@@ -254,10 +257,22 @@ footer {
 	</div>
 </div>
 <script>
-	var flag = "0";
+	flag = "0";
 
 	openChat();
 
+	// 현재 채팅 상대 변경
+	function changeFlag(f) {
+		flag = f;
+		if (flag != "0") {
+			oneChat();
+		} else {
+			openChat();
+		}
+		console.log("현재 flag :" + flag);
+	}
+
+	//사이바 선택
 	function selectBar(bar) {
 		$(".select").removeClass("active");
 		$(bar).addClass("active");
@@ -304,6 +319,7 @@ footer {
 									}
 								}
 								$("#chatlist").html(msg);
+								document.getElementById("chatlist").scrollTop = 100000000;
 							});
 		}
 	}
@@ -320,8 +336,76 @@ footer {
 					window.alert("메시지전송에 실패하였습니다.");
 				}
 			});
+		} else {
+			$.get("${pageContext.request.contextPath}/sendonechat", {
+				"friend" : flag,
+				"msg" : $(msg).val()
+			}, function(rst) {
+				if (rst) {
+					// 일대일 채팅목록 갱신
+					oneChat();
+				} else {
+					window.alert("메시지전송에 실패하였습니다.");
+				}
+			});
 		}
 		$(msg).val("");
+	}
+
+	// 일대일 채팅 활성화
+	// ID FRIEND MSG DATE
+	function oneChat() {
+		if (flag != "0") {
+			$
+					.get(
+							"${pageContext.request.contextPath}/onechat",
+							{
+								"friend" : flag
+							},
+							function(rst) {
+								for (var i = 0; i < rst.length; i++) {
+									if ("${logon}" != rst[i].ID) {
+										$("#head")
+												.html(
+														"<a href='${pageContext.request.contextPath}/followinfo?id="
+																+ rst[i].ID
+																+ "' style='text-decoration:none;'><img src='"+rst[i].PROFILE+"' alt='Person' width='96' height='96'>"
+																+ " <b style='color: green;'> "
+																+ rst[i].NICK
+																+ " ( "
+																+ rst[i].ID
+																+ " )</b></a>");
+										break;
+									}
+								}
+								var msg = "";
+								for (var i = 0; i < rst.length; i++) {
+									if ("${logon}" == rst[i].ID) { // 내글
+										msg += "<div class='container' style='width: 30%;'>"
+												+ " <img src='"
+												+ rst[i].PROFILE
+												+ "' alt='Avatar' style='width: 80%;'>"
+												+ " <p><b>"
+												+ rst[i].MSG
+												+ "</b></p>	<span class='time-right'>"
+												+ rst[i].DATE + "</span></div>";
+									} else { // 상대방글
+										msg += "<div align='right'><div class='container darker' style='width: 30%;' align='right' >"
+												+ " <img src='"
+												+ rst[i].PROFILE
+												+ "' alt='Avatar' class='right' style='width: 100%;'>"
+												+ " <p><b>"
+												+ rst[i].MSG
+												+ "</b></p>"
+												+ "<span class='time-left'>"
+												+ rst[i].DATE
+												+ "</span></div></div>";
+									}
+								}
+								$("#chatlist").html(msg);
+								document.getElementById("chatlist").scrollTop = 100000000;
+							});
+		}
 	}
 
 	// 채팅창 배경필터
