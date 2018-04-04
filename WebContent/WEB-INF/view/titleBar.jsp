@@ -100,6 +100,15 @@
 	<!-- <a href="#"
 			class="w3-bar-item w3-button w3-hide-small w3-right w3-hover-teal"
 			title="Search"><i class="fa fa-search"> 내정보</i></a> -->
+		
+	<c:if test="${sessionScope.logon != null }">	
+		<c:if test="${cookie.recipeAuth.value eq 'sessionScope.logon' }">
+			<script>
+				window.alert("등록하신 레시피가 승인처리 되었습니다.");
+				document.cookie = "recipeAuth="+null;
+			</script>		
+		</c:if>
+	</c:if>	
 </div>
 <!--  -->
 <script>

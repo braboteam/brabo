@@ -44,7 +44,6 @@
 
 
 
-
 </style>
 <c:if test="${param.success != null}">
 	<script>
@@ -70,7 +69,7 @@
 	</script>
 </c:if>
 <div align="center" style="margin-top: 40px;">
-	<div style="width:800px">
+	<div style="width:840px">
 		<hr/>
 		<c:forEach var="i" items="${cateChk }">
 			<div class="content">

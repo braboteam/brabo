@@ -34,12 +34,6 @@ public class RecipeListController {
 					rInfo = rListService.getAllInfo();
 				}	
 			}
-			else {
-				if(c.equals("not") && (s.equals("cate") || s.equals("cnt"))) {
-					// 평점순으로 데이터 가져오기
-					rInfo = rListService.getAllInfoByRate(s);
-				} 
-			}	
 		}	
 		else if(s.equals("cate")){
 			if(r.equals("ignore")) {
@@ -55,6 +49,10 @@ public class RecipeListController {
 				// 카테고리에서 텍스트로 검색.
 				rInfo = rListService.getAllInfoByCate(c);
 			}
+			if(r.equals("rate") && c.equals("not")) {
+				// 평점순으로 데이터 가져오기
+				rInfo = rListService.getAllInfoByRate(s);
+			}
 		} else if(s.equals("cnt")) {
 			if(!c.equals("not")) {
 				// 카테고리+제목에서 텍스트로 검색.
@@ -63,6 +61,10 @@ public class RecipeListController {
 			if(c.equals("not")) {
 				// select tag에서 카테고리+제목인 상태에서 show all 눌렀을 때 작동
 				rInfo = rListService.getAllInfo();
+			}
+			if(r.equals("rate") && c.equals("not")) {
+				// 평점순으로 데이터 가져오기
+				rInfo = rListService.getAllInfoByRate(s);
 			}
 		} else {
 			// 인덱스 페이지에서 더보기 눌러서 넘어올때 작동.

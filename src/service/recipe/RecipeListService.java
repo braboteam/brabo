@@ -50,12 +50,12 @@ public class RecipeListService {
 		return rInfo;
 	}
 	
-	
+	// 평점순으로 데이터 가져오기
 	public List<Map<String, Object>> getAllInfoByRate(String s) {
 		Map<String,String> map = new HashMap<>();
 			map.put("right", "right");
-		if(!s.equals("all"))
-			map.put("cate", "%"+s+"%");
+		//if(!s.equals("all"))
+			// map.put("cate", "%"+s+"%");
 		
 		List<Map<String,Object>> rInfo = template.selectList("recipe_info.selectByRateAndCate", map);
 		

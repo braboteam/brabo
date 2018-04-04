@@ -82,6 +82,7 @@ public class RecipeAuthController {
 				// 작성자가 쿠키value 뽑았을 때 자기 id랑 같으면 메시지 출력, 다르면 쿠키 삭제.
 				Cookie auth = new Cookie("recipeAuth", rAuthService.getWriter(no));
 					auth.setPath("/");
+					auth.setMaxAge(60*60*24);
 				resp.addCookie(auth);	
 			}
 		}

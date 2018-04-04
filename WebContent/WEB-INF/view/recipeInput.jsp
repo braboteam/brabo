@@ -6,6 +6,7 @@
 <title>W3.CSS</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <style>
 .info {
 	color: gray;
@@ -39,11 +40,9 @@
 
 </style>
 <body>
-	<script
-		src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
 <div align="center">
-	<form class="w3-container  w3-light-white"
+	<form class="w3-container"
 		action="${pageContext.request.contextPath }/recipe/input"
 		method="post" enctype="multipart/form-data">
 		<table style="margin-top:30px;">
