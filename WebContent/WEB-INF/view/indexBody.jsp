@@ -25,8 +25,8 @@
 
 .img {
 	HEAD height: 150px;
-	width: 100%;
-	height: auto%;
+	width: 180px;
+	height: 180px;
 }
 
 .ment {
@@ -36,6 +36,8 @@
 .grayMent {
 	color: gray;
 }
+
+
 </style>
 <c:if test="${param.success != null}">
 	<script>
@@ -69,7 +71,7 @@
 				<table>
 					<tr>
 						<th>${i.cateChk }</th>
-						<th></th><th></th><th></th>
+						<th></th><th></th>
 						<th><a href="${pageContext.request.contextPath }/recipe/list?s=${i.cateChk}">
 						<button class="w3-button w3-white w3-border w3-round-large">more</button></a></th>
 					</tr>

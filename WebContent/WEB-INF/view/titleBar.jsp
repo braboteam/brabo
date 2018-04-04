@@ -72,7 +72,7 @@
 	</div>
 	<!--  -->
 	<script>
-		var ws = new WebSocket("ws://${pageContext.request.serverName}/socket");
+		var ws = new WebSocket("ws:/${pageContext.request.serverName}/socket");
 
 		//연결이 됬을때
 		ws.onopen = function() {

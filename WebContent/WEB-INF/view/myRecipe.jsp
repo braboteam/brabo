@@ -29,8 +29,8 @@ body, h1, h2, h3, h4, h5, h6 {
 }
 
 .img {
-	width: auto;
-	height: 100%;
+	width: 150px;
+	height: 150px;
 }
 
 .ment {
@@ -40,6 +40,11 @@ body, h1, h2, h3, h4, h5, h6 {
 .grayMent {
 	color: gray;
 }	
+
+#table{
+	border-spacing: 10px;
+  	border-collapse: separate;
+}
 </style>
 <!-- 사이드바 메뉴 -->
 <nav class="w3-sidebar w3-collapse w3-white w3-animate-left"
@@ -156,22 +161,19 @@ body, h1, h2, h3, h4, h5, h6 {
 		<div>
 			<hr/>
 			<div class="content" align="center">
-				<table cellspacing="10px">
+				<div style="width:800px;">
+				<table id="table">
 					<tr>
 						<c:forEach var="i" items="${board }" varStatus="vs">
-							<c:if test="${vs.count % 4 ==0 }">
-								</tr><tr>
-							</c:if>
-					
 							<td >
-								<table >
+								<table>
 									<tr>
 										<td class="thumb"><a
 											href="${pageContext.request.contextPath }/recipe/list/${i.NO}"
 											class="link"> <img
 												src="${pageContext.request.contextPath }/iphoto/${i.ID}/${i.IPHOTO}"
-												class="img">
-										</a></td>
+												class="img"></a>
+										</td>
 									</tr>
 									<tr>
 										<td>
@@ -187,11 +189,15 @@ body, h1, h2, h3, h4, h5, h6 {
 									</tr>
 								</table>
 							</td>
+							<c:if test="${vs.count % 4 ==0 }">
+								</tr><tr>
+							</c:if>
 						</c:forEach>
 					</tr>
 				</table>
 			</div>
 			<hr/>
+			</div>
 		</div>
 	</div>
 </div>

@@ -27,12 +27,11 @@ body, h1, h2, h3, h4, h5, h6 {
 .thumb {
 	width: 150x;
 	height: 150px;
-	overflow: hidden;
 }
 
 .img {
-	width: auto;
-	height: 100%;
+	width: 150px;
+	height: 150px;
 }
 
 .ment {
@@ -41,6 +40,11 @@ body, h1, h2, h3, h4, h5, h6 {
 
 .grayMent {
 	color: gray;
+}
+
+#table{
+	border-spacing: 10px;
+  	border-collapse: separate;
 }
 
 </style>
@@ -159,18 +163,9 @@ body, h1, h2, h3, h4, h5, h6 {
 		<div>
 			<hr/>
 			<div class="content" align="center">
-				<table >
+				<table id="table">
 					<tr>
 						<c:forEach var="i" items="${board }" varStatus="vs">
-							<c:choose>
-								<c:when test="${vs.count % 4 ==0 }">
-									</tr>
-									<tr>
-								</c:when>
-								<c:otherwise>
-								
-								</c:otherwise>
-							</c:choose>
 							<td >
 								<table style="border-spacing:10px;">
 									<tr>
@@ -195,6 +190,9 @@ body, h1, h2, h3, h4, h5, h6 {
 									</tr>
 								</table>
 							</td>
+							<c:if test="${vs.count % 4 ==0 }">
+								</tr><tr>
+							</c:if>
 						</c:forEach>
 					</tr>
 				</table>

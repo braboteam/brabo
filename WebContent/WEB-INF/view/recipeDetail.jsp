@@ -12,6 +12,7 @@
 <style>
 body {
 	background-color:white;
+	font-family: "Raleway", sans-serif;
 }
 
 .c {
@@ -396,8 +397,8 @@ img {vertical-align: middle;}
 						</c:choose>
 					</c:forEach>
 				</table>
-				<c:if test="${fn:length(reply) >=3 }">
-					<p><button class="btn default" id="showMore">more</button></p>
+				<c:if test="${fn:length(reply) > 3 }">
+					<p><button class="w3-button w3-white w3-border w3-round-large" id="showMore">more</button></p>
 					<script>
 						$("#showMore").click(function(){
 							$(".more").toggle();
@@ -489,8 +490,8 @@ img {vertical-align: middle;}
 						out += "</table></td></tr></table>";
 					}				
 				}
-				if(obj.length >3) {
-					out += "<p><button class=\"btn default\" id=\"showMore\">more</button></p>";
+				if(obj.length > 5) {
+					out += "<p><button class=\"w3-button w3-white w3-border w3-round-large\" id=\"showMore\">more</button></p>";
 				}					
 				$("#replyShow").html(out);
 				$("#showMore").click(function(){
@@ -510,6 +511,7 @@ img {vertical-align: middle;}
 				} else {
 					if(obj.rst == "yy") {
 						window.alert("스크랩 되었습니다.");
+						location.href = "${pageContext.request.contextPath}/recipe/list/"+${info.NO};
 					} else if(obj.rst == "double") {
 						window.alert("이미 스크랩 된 레시피입니다.");
 					}

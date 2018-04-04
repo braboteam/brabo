@@ -16,7 +16,7 @@
 
 body {
 	background-color: white;
-	font-family: gothic;
+	font-family: "Raleway", sans-serif;
 }
 
 /* Center website */
