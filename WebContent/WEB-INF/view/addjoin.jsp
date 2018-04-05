@@ -86,6 +86,9 @@ div.header {
 		</script>
 	</c:if>
 	<p></p>
+	<p></p>
+	<p></p>
+	<p></p>
 	<div class="card">
 		<div class="header">
 			<form class="w3-container  w3-light-white" id="frm"
@@ -133,6 +136,9 @@ div.header {
 			<p></p>
 		</div>
 	</div>
+	<p></p>
+	<p></p>
+	<p></p>
 	<p></p>
 	<script type="text/javascript">
 		var check = 0;
