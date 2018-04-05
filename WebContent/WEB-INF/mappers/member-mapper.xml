@@ -5,7 +5,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="member">
 	<insert id="addNewjoin" parameterType="hashmap">
 		insert into member
-		values(#{id}, #{nick}, #{pass}, #{email}, #{profile}, sysdate,
+		values(#{id}, #{nick}, #{pass}, #{email}, #{profile, jdbcType=VARCHAR}, sysdate,
 		#{right})
 	</insert>
 	<select id="getByIdAndPassword" parameterType="hashmap"
