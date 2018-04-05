@@ -36,7 +36,6 @@
 
 	<!-- 바닥 -->
 	<tiles:insertAttribute name="bottom"></tiles:insertAttribute>
-
 	<!-- 스크립트 -->
 	<script>
 		// Script for side navigation

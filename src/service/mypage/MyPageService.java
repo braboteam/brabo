@@ -46,8 +46,10 @@ public class MyPageService {
 		if (!img.isEmpty()) {
 			// 기존파일제거
 			Map m = template.selectOne("member.checkId", param.get("id"));
-			File f = new File(ctx.getRealPath((String) m.get("PROFILE")));
-			f.delete();
+			if (m.get("PROFILE") != null) {
+				File f = new File(ctx.getRealPath((String) m.get("PROFILE")));
+				f.delete();
+			}
 			// 파일추가
 			img.transferTo(new File(savedir, fileName));
 			map.put("profile", "/photo/" + param.get("id") + "/" + fileName);
@@ -57,21 +59,21 @@ public class MyPageService {
 	}
 
 	public List<Map<String, Object>> MyRecipe(String id) {
-		Map<String,String> map = new HashMap<>();
-			map.put("right", "right");
-			map.put("id", id);
+		Map<String, String> map = new HashMap<>();
+		map.put("right", "right");
+		map.put("id", id);
 
 		List<Map<String, Object>> list = template.selectList("recipe_info.selectInfo", map);
 		return list;
 	}
 
 	public List<Map<String, Object>> MyScrap(String id) {
-		List<Map<String,Object>> list = template.selectList("scrap.getInfoNo", id);
-		List<Map<String,Object>> scrap = new ArrayList();
-		for(Map m : list ) {
+		List<Map<String, Object>> list = template.selectList("scrap.getInfoNo", id);
+		List<Map<String, Object>> scrap = new ArrayList();
+		for (Map m : list) {
 			scrap.addAll(template.selectList("scrap.selectMyScrap", m.get("RECIPE_NO")));
 		}
-			
+
 		return scrap;
 	}
 }
