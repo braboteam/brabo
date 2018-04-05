@@ -17,6 +17,88 @@
 <!-- Latest compiled JavaScript -->
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<!--  -->
+<style>
+/*  */
+body {
+	font-family: Arial;
+}
+
+* {
+	box-sizing: border-box;
+}
+
+form.example input[type=text] {
+	padding: 10px;
+	font-size: 17px;
+	border: 1px solid grey;
+	float: left;
+	width: 80%;
+	background: #f1f1f1;
+}
+
+form.example button {
+	float: left;
+	width: 20%;
+	padding: 10px;
+	background: #2196F3;
+	color: white;
+	font-size: 17px;
+	border: 1px solid grey;
+	border-left: none;
+	cursor: pointer;
+}
+
+form.example button:hover {
+	background: #0b7dda;
+}
+
+form.example::after {
+	content: "";
+	clear: both;
+	display: table;
+}
+/*  */
+body, html {
+	height: 100%;
+	margin: 0;
+}
+
+.hero-image {
+	background-image: url("/Desert.jpg");
+	height: 300px;
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: cover;
+	position: relative;
+}
+
+.hero-text {
+	text-align: center;
+	position: relative;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	color: white;
+}
+
+.hero-text button {
+	border: none;
+	outline: 0;
+	display: inline-block;
+	padding: 10px 25px;
+	color: black;
+	background-color: #ddd;
+	text-align: center;
+	cursor: pointer;
+}
+
+.hero-text button:hover {
+	background-color: #555;
+	color: white;
+}
+</style>
+<!--  -->
 <style>
 .indexTable {
 	background-color: white;
@@ -80,11 +162,14 @@
 		window.alert("${param.join}");
 	</script>
 </c:if>
-
+<div class="hero-image">
+	<div class="hero-text">
+		<h1 style="font-size: 50px">Foods & Co</h1>
+		<p>누구나 집에서 쉽게 요리를</p>
+	</div>
+</div>
 <div align="center" style="margin-top: 40px;">
 	<div style="width: 840px">
-		<h4 style="text-align: left">누구나 집에서 쉽게 요리를</h4>
-		<hr />
 		<div style="width: 800px">
 			<hr />
 			<c:forEach var="i" items="${cateChk }">
