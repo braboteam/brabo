@@ -83,7 +83,7 @@ body, h1, h2, h3, h4, h5, h6 {
 			</c:choose></b></a>
 	<!-- 스크랩게시물 링크 -->
 	<a href="${pageContext.request.contextPath }/myscrap"
-		class="w3-bar-item w3-button w3-padding"
+		class="w3-bar-item w3-button w3-padding w3-text-teal"
 		style="text-decoration: none;"><i
 		class="fa fa-th-large fa-fw w3-margin-right"></i><b>스크랩한 게시물 <c:choose>
 				<c:when test="${member.SCRAP_COUNT == null }">
@@ -95,8 +95,8 @@ body, h1, h2, h3, h4, h5, h6 {
 			</c:choose>
 	</b></a>
 	<!-- 내 톡 -->
-	<a href="${pageContext.request.contextPath }/"
-		class="w3-bar-item w3-button w3-padding w3-text-teal"
+	<a href="${pageContext.request.contextPath }/mycooktalk"
+		class="w3-bar-item w3-button w3-padding"
 		style="text-decoration: none;"><i
 		class="fa fa-th-large fa-fw w3-margin-right"></i><b>My CookTalk <c:choose>
 				<c:when test="${member.BOARD_COUNT == null }">
@@ -137,7 +137,7 @@ body, h1, h2, h3, h4, h5, h6 {
 			onclick="w3_open()"><i class="fa fa-bars"></i></span>
 		<div class="w3-container">
 			<h1>
-				<b>My CookTalk</b>
+				<b>My Scrap</b>
 			</h1>
 			<div class="w3-section w3-bottombar w3-padding-16">
 				<span class="w3-margin-right">Filter:</span>
