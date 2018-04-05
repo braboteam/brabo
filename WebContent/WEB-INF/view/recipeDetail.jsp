@@ -115,6 +115,11 @@ body {
 	margin-top:30px;
 }
 
+#reInputTable{
+	border-spacing: 5px;
+	border-collapse: separate;
+}
+
 /*슬라이드 쇼 스타일 설정 */
 * {box-sizing: border-box}
 body {font-family: Verdana, sans-serif; margin:0}
@@ -255,7 +260,7 @@ img {vertical-align: middle;}
 					<a href="${pageContext.request.contextPath }/followinfo?id=${info.ID}" class="link">
 					<img src="${pageContext.request.contextPath}${profile.PROFILE}" class="avatar"></a>
 			
-					<p>by ${profile.NICK }</p>
+					<p style="margin-top:5px;">by ${profile.NICK } (${profile.ID })</p>
 					</div>
 					<p class="info infoMent">
 						❝ <br/>
@@ -424,7 +429,7 @@ img {vertical-align: middle;}
 		 						</c:forEach>
 	 						</p>
  						</div>
- 						<table>
+ 						<table id="reInputTable">
  							<tr>
 	 							<td>
 									<textarea class="w3-textarea w3-border w3-round-large" name="content"
@@ -433,7 +438,7 @@ img {vertical-align: middle;}
 								</td>
 								<td style="vertical-align:top;">
 									<button class="w3-button w3-white w3-border w3-round-large" id="rbt"
-										type="button" style="width: 115px; height:113px; margin-top:5px;">등록</button> 
+										type="button" style="width: 115px; height:100px; margin-top:5px;">등록</button> 
 								</td>
 							</tr>
 						</table>
@@ -457,8 +462,9 @@ img {vertical-align: middle;}
 				"rate":rate
 			},function(obj){
 				if(obj.rst == "yy") {
-					window.alert("성공");
+					window.alert("댓글이 등록되었습니다.");
 					replyGet();
+					// location.href= "${pageContext.request.contextPath}/recipe/list/"+${info.NO};
 				} else {
 					if(obj.rst == "login") {
 						window.alert("로그인 후 사용해주세요.");
@@ -518,7 +524,7 @@ img {vertical-align: middle;}
 				} else {
 					if(obj.rst == "yy") {
 						window.alert("스크랩 되었습니다.");
-						location.href = "${pageContext.request.contextPath}/recipe/list/"+${info.NO};
+						// location.href = "${pageContext.request.contextPath}/recipe/list/"+${info.NO};
 					} else if(obj.rst == "double") {
 						window.alert("이미 스크랩 된 레시피입니다.");
 					}

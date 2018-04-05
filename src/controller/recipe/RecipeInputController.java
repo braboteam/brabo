@@ -27,11 +27,18 @@ public class RecipeInputController {
 
 	// 레시피 등록폼 접근
 	@RequestMapping(path="/input",method=RequestMethod.GET)
-	public String inputGetHandle(Model model) {
+	public String inputGetHandle(Model model,HttpSession session) {
 		System.out.println("recipe 등록폼 접근");
+		String id = (String)session.getAttribute("logon");
 		
-		model.addAttribute("body","/WEB-INF/view/recipeInput.jsp");
-		return"index";
+		if(id != null) {
+			model.addAttribute("body","/WEB-INF/view/recipeInput.jsp");
+			return"index";
+		}
+		else {
+			model.addAttribute("sessionError", "로그인 후 이용하시기 바랍니다.");
+			return "redirect:/login";
+		}
 	}
 	
 	// 레시피 등록

@@ -57,7 +57,7 @@ public class RecipeAuthService {
 		return r.equals("1");
 	}
 	
-	// 해당 레시피의 작성자 가져오기
+	// 승인된 레시피의 해당 레시피의 작성자 가져오기
 	public String getWriter(String no) {
 		Map m = new HashMap<>();
 			m.put("no", no);
@@ -65,6 +65,7 @@ public class RecipeAuthService {
 		
 		return (String)map.get("ID");
 	}
+	
 	
 	
 	

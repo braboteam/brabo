@@ -5,7 +5,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
@@ -69,7 +71,7 @@ public class RecipeAuthController {
 	// 관리자 페이지에서 레시피 승인 변경 처리 받기..
 	@RequestMapping(path="/recipeAuth",method=RequestMethod.POST,produces="application/json;charset=utf-8")
 	@ResponseBody
-	public String recipeAuthHandle(@RequestParam String no,HttpServletResponse resp,HttpSession session) {
+	public String recipeAuthHandle(@RequestParam String no,HttpServletResponse resp,HttpSession session,HttpServletRequest req) {
 		boolean rst = rAuthService.authReciep(no);
 		Map<String,Boolean> map = new HashMap<>();
 			map.put("rst", rst);
@@ -78,12 +80,13 @@ public class RecipeAuthController {
 			boolean chk = rAuthService.checkRight(no);
 			System.out.println("chkAuth "+ chk);
 			if(chk) {
-				// 해당 작성자에게만 알릴 수 있도록 쿠키 설정 - key: recipeAuth, value: 작성자의 id로 넣어서,
-				// 작성자가 쿠키value 뽑았을 때 자기 id랑 같으면 메시지 출력, 다르면 쿠키 삭제.
-				Cookie auth = new Cookie("recipeAuth", rAuthService.getWriter(no));
-					auth.setPath("/");
-					auth.setMaxAge(60*60*24);
-				resp.addCookie(auth);	
+				// 맵을 만들어서 key: 작성자, value: 해당 게시물 no 
+				// 이 맵을 application에 저장한 뒤, 해당 작성자가 로그인 할 시 체크해서 
+				// 자기 이름으로 된 맵의 키값이 있으면 쿠키를 전송하게끔 한다.
+				ServletContext ctx =	 req.getServletContext();
+				Map<String,String> m = (Map<String, String>) ctx.getAttribute("recipeAuth");
+					m.put(rAuthService.getWriter(no), no);
+					ctx.setAttribute("recipeAuth", m);
 			}
 		}
 		return gson.toJson(map);
