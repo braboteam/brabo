@@ -102,7 +102,9 @@ public class ChattingService {
 		Map m = new HashMap<>();
 		m.put("id", id);
 		m.put("msg", msg);
-		((WebSocketSession) socketService.map.get(friend)).sendMessage(new TextMessage(new Gson().toJson(m)));
+		if ((WebSocketSession) socketService.map.get(friend) != null) {
+			((WebSocketSession) socketService.map.get(friend)).sendMessage(new TextMessage(new Gson().toJson(m)));
+		}
 		return true;
 	}
 

@@ -41,9 +41,11 @@ public class SocketService {
 	// 같은 아이디 세션에 메시지보내기
 	public boolean sessionOutSendMsg(String id) throws IOException {
 		Map msgMap = new HashMap<>();
-		msgMap.put("sessionOut", "다른 브라우저에서 현재 계정이 접속되어 로그아웃됩니다.\n접속 ip : "
-				+ ((WebSocketSession) map.get(id)).getRemoteAddress().getAddress().getHostAddress() + "");
-		((WebSocketSession) map.get(id)).sendMessage(new TextMessage(new Gson().toJson(msgMap)));
+		if ((WebSocketSession) map.get(id) != null) {
+			msgMap.put("sessionOut", "다른 브라우저에서 현재 계정이 접속되어 로그아웃됩니다.\n접속 ip : "
+					+ ((WebSocketSession) map.get(id)).getRemoteAddress().getAddress().getHostAddress() + "");
+			((WebSocketSession) map.get(id)).sendMessage(new TextMessage(new Gson().toJson(msgMap)));
+		}
 		return true;
 	}
 
@@ -52,10 +54,11 @@ public class SocketService {
 		Map msgMap = new HashMap<>();
 		msgMap.put("openmsg", msg);
 		for (String id : map.keySet()) {
-			((WebSocketSession) map.get(id)).sendMessage(new TextMessage(new Gson().toJson(msgMap)));
+			if ((WebSocketSession) map.get(id) != null) {
+				((WebSocketSession) map.get(id)).sendMessage(new TextMessage(new Gson().toJson(msgMap)));
+			}
 		}
 		return true;
 	}
-	
 
 }

@@ -41,7 +41,6 @@ public class MyPageController {
 		model.addAttribute("body", "/WEB-INF/view/myCooktalk.jsp");
 		model.addAttribute("board", boardService.selectBoard2((String) session.getAttribute("logon"),
 				(String) session.getAttribute("logon")));
-
 		return "index";
 	}
 
