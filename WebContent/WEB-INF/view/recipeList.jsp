@@ -133,6 +133,9 @@ h1 {
 						</td>
 				 </table>
 			</div>
+			
+			<h5>	총 <b style="color:#088A68">${fn:length(topPrint) }</b>개의 레시피가 있습니다.</h5>
+			
 			<!-- Portfolio Gallery Grid -->
 			<div class="row">
 	

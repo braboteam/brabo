@@ -47,17 +47,20 @@
 		method="post" enctype="multipart/form-data">
 		<table style="margin-top:30px;">
 			<tr>
-				<td><h4>Recipe</h4></td>
+				<td><h4>레시피 등록</h4></td>
 			</tr>
 			<tr>
-				<td><p>나만의 레시피를 공유하세요.</p></td>
+				<td>
+					<p>나만의 레시피를 공유하세요.</p>
+					<small class="info">(*)표시와 대표사진은 필수로 입력해주세요.</small>
+				</td>
 			</tr>
 
 
 			<tr id="titleTr">
 				<td class="td1">
 					<p>
-						<label><b>제목</b></label>
+						<label><b>제목(*)</b></label>
 					</p>
 					<div>
 						<input class="w3-input w3-border w3-round-large" name="title"
@@ -76,7 +79,7 @@
 			<tr>
 				<td class="td1">
 					<p>
-						<label><b>요리 소개</b></label>
+						<label><b>요리 소개(*)</b></label>
 					</p>
 					<div>
 						<textarea class="w3-textarea w3-border w3-round-large" name="info"
@@ -89,7 +92,7 @@
 			<tr>
 				<td class="td1">
 					<p>
-						<b>요리 정보</b>
+						<b>요리 정보(*)</b>
 					</p>
 					<div>
 						종류 <select class="w2-select w2-border" name="cate">
@@ -132,7 +135,7 @@
 						</select>
 					</div>
 					<p>
-						<label><b>재료</b></label><br /> <small class="info">재료가
+						<label><b>재료(*)</b></label><br /> <small class="info">재료가
 							남거나 부족하지 않도록, 정확한 계량정보를 적어주세요.</small>
 					</p> <input class="w2-input w3-border w3-round-large" name="item"
 					type="text" placeholder="밀가루"> <input
@@ -147,7 +150,7 @@
 			<tr>
 				<td class="td1">
 					<p>
-						<b>요리순서</b><br /> <small class="info"> 요리의 맛이 좌우될 수 있는
+						<b>요리순서(*)</b><br /> <small class="info"> 요리의 맛이 좌우될 수 있는
 							중요한 부분은 빠짐없이 적어주세요.<br /> 예) 10분간 익혀주세요 ▷ 10분간 약한불로 익혀주세요.
 						</small>
 					</p>

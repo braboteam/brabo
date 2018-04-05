@@ -93,6 +93,7 @@ public class RecipeListController {
 		model.addAttribute("page", p);
 		model.addAttribute("totalCnt",totalCnt);
 		model.addAttribute("list",rInfo.subList(begin, end));
+		model.addAttribute("topPrint", rInfo);
 		model.addAttribute("body", "/WEB-INF/view/recipeList.jsp");
 		
 		return "index";

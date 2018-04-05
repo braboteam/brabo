@@ -398,8 +398,8 @@ img {vertical-align: middle;}
 								<td class="reTd1"><img src="${pageContext.request.contextPath }${i.PROFILE}" class="avatar"></td>
 								<td class="reTd1 reTd2">
 									<table>
-										<tr><td><b>${i.NICK }</b> <small class="info">수정  
-										<a href="${pageContext.request.contextPath }/recipe/replyDel?rno=${i.NO}" class="link">삭제</a>
+										<tr><td><b>${i.NICK }</b> <small class="info">수정
+										&nbsp;<a href="${pageContext.request.contextPath }/recipe/replyDel?rno=${i.NO}" class="link">삭제</a>
 										&nbsp;<fmt:formatDate pattern="yyyy-MM-dd HH:mm" value="${i.REDATE }"/></small></td></tr>
 										<tr><td>${i.CONTENT } </td></tr>
 									</table>
@@ -512,6 +512,7 @@ img {vertical-align: middle;}
 				});
 			});
 		};
+		
 		
 		// 레시피 스크랩 ajax
 		$("#scrap").click(function(){
