@@ -385,8 +385,9 @@ img {vertical-align: middle;}
 								<td class="reTd1"><img src="${pageContext.request.contextPath }${i.PROFILE}" class="avatar"></td>
 								<td class="reTd1 reTd2">
 									<table>
-										<tr><td><b>${i.NICK }</b> <small class="info">수정  
-											<a href="${pageContext.request.contextPath }/recipe/replyDel?rno=${i.NO}" class="link">삭제</a>
+										<tr><td><b>${i.NICK }</b> <small class="info">수정
+											<span style="display:none;">${i.NO }</span>
+											<a href="#" class="link">삭제</a>
 											&nbsp;<fmt:formatDate pattern="yyyy-MM-dd HH:mm" value="${i.REDATE }"/></small></td></tr>
 										<tr><td>${i.CONTENT } </td></tr>
 									</table>
@@ -399,7 +400,9 @@ img {vertical-align: middle;}
 								<td class="reTd1 reTd2">
 									<table>
 										<tr><td><b>${i.NICK }</b> <small class="info">수정
-										&nbsp;<a href="${pageContext.request.contextPath }/recipe/replyDel?rno=${i.NO}" class="link">삭제</a>
+										&nbsp;
+										<span style="display:none;">${i.NO }</span>
+											<a href="#" class="link">삭제</a>
 										&nbsp;<fmt:formatDate pattern="yyyy-MM-dd HH:mm" value="${i.REDATE }"/></small></td></tr>
 										<tr><td>${i.CONTENT } </td></tr>
 									</table>
@@ -478,6 +481,26 @@ img {vertical-align: middle;}
 			$("#re").html("");
 		});
 	
+		// 댓글 삭제 ajax
+		$(".link").click(function(){
+			var c = window.confirm("댓글을 삭제하시겠습니까?");	
+			if(c == true) {
+				var rno = $(this).prev().html();
+				console.log(rno);
+				$.get("${pageContext.request.contextPath}/recipe/replyDel",{
+					"rno":rno
+				},function(obj){
+					if(obj.rst == true) {	
+						window.alert("댓글이 삭제되었습니다.");
+						replyGet();
+					} else {
+						window.alert("댓글 삭제과정에서 오류가 발생했습니다.");		
+					}
+				});
+			}
+		});
+		
+		
 		// 댓글 갱신 ajax - 3개 초과 시, 더보기 출력 
 		function replyGet() {
 			var ino = ${info.NO}
@@ -489,7 +512,7 @@ img {vertical-align: middle;}
 					if(i < 3) {
 						out += "<table class=\"reTable\"><tr><td class=\"reTd1\"><img src=\"${pageContext.request.contextPath }"+obj[i].PROFILE+"\" class=\"avatar\"></td>";
 						out += "<td class=\"reTd1 reTd2\"><table><tr><td><b>"+obj[i].NICK+"</b>  <small class=\"info\">수정  ";
-						out += "<a href=\"${pageContext.request.contextPath }/recipe/replyDel?rno="+obj[i].NO+"\" class=\"link\">삭제</a>";
+						out += "<span style=\"display:none;\">"+obj[i].NO+"</span><a href=\"#\" class=\"link\">삭제</a>";
 						out += ""+obj[i].REDATE+"</small></td></tr>";
 						out += "<tr><td>"+obj[i].CONTENT+"</td></tr>";
 						out += "</table></td></tr></table>";	
@@ -497,7 +520,7 @@ img {vertical-align: middle;}
 						out += "<table class=\"reTable\"><tr style=\"display:none;\" class=\"more\">";
 						out += "<td class=\"reTd1\"><img src=\"${pageContext.request.contextPath }"+obj[i].PROFILE+"\" class=\"avatar\"></td>";
 						out += "<td class=\"reTd1 reTd2\"><table><tr><td><b>"+obj[i].NICK+"</b>  <small class=\"info\">수정 ";  
-						out += "	<a href=\"${pageContext.request.contextPath }/recipe/replyDel?rno="+obj[i].NO+"\" class=\"link\">삭제</a>";
+						out += "	<span style=\"display:none;\">"+obj[i].NO+"</span><a href=\"#\" class=\"link\">삭제</a>";
 						out += ""+obj[i].REDATE+"</small></td></tr>";
 						out += "<tr><td>"+obj[i].CONTENT+"</td></tr>";
 						out += "</table></td></tr></table>";
@@ -510,9 +533,25 @@ img {vertical-align: middle;}
 				$("#showMore").click(function(){
 					$(".more").toggle();
 				});
+				$(".link").click(function(){
+					var c = window.confirm("댓글을 삭제하시겠습니까?");	
+					if(c == true) {
+						var rno = $(this).prev().html();
+						console.log(rno);
+						$.get("${pageContext.request.contextPath}/recipe/replyDel",{
+							"rno":rno
+						},function(obj){
+							if(obj.rst == true) {	
+								window.alert("댓글이 삭제되었습니다.");
+								replyGet();
+							} else {
+								window.alert("댓글 삭제과정에서 오류가 발생했습니다.");		
+							}
+						});
+					}
+				});
 			});
 		};
-		
 		
 		// 레시피 스크랩 ajax
 		$("#scrap").click(function(){

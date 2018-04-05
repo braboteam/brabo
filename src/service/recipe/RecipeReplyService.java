@@ -63,6 +63,13 @@ public class RecipeReplyService {
 		
 		return template.delete("recipe_reply.deleteOne", no) == 1;
 	}
+
+
+	public Object chkId(String no) {
+		Map map = template.selectOne("recipe_reply.selectOne",no);
+			
+		return map.get("WRITER");
+	}
 	
 	
 	

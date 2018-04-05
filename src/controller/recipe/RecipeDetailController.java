@@ -23,7 +23,7 @@ public class RecipeDetailController {
 	
 	
 	@RequestMapping(path="/list/{no}",method=RequestMethod.GET)
-	public String detailGethandle(@PathVariable String no,HttpSession session,Model model ) {
+	public String detailGethandle(@PathVariable String no,Model model ) {
 		
 		System.out.println("recipeDetail 페이지 접근");
 		Map info = rDetailService.getInfo(no);

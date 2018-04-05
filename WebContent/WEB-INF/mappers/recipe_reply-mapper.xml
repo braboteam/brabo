@@ -16,6 +16,10 @@
 		select ino from recipe_reply where no=#{no}
 	</select>
 	
+	<select id="selectOne" resultType="hashmap">
+		select * from recipe_reply where no=#{no}
+	</select>
+	
 	<delete id="deleteOne">
 		delete from recipe_reply where no=#{no}
 	</delete>

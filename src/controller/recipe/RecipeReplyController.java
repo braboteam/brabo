@@ -40,14 +40,18 @@ public class RecipeReplyController {
 		Map<String,String> map = new HashMap<>();
 			
 		if(id == null) {
+			// 로그인 안한 경우 로그인 요청 
 			map.put("rst", "login");
 		} else {
 			if(param.get("rate") == null) {
+				// 평점 입력 안한 경우 평점 입력 요청 
 				map.put("rst", "rate");
 			} else if(param.get("content").equals("")) {
+				// 내용 입력 안한 경우 내용입력 요청 
 				map.put("rst", "content");
 			} else {
 				rReplyService.inputReply(id,param);
+				// 댓글 입력 성공
 				map.put("rst", "yy");
 			}
 		}
@@ -73,39 +77,22 @@ public class RecipeReplyController {
 	}
 	
 	//댓글 삭제 처리용 컨트롤러 
-	@RequestMapping("/replyDel")
-	public String replyDelHandle(@RequestParam String rno,Model model) {
+	@RequestMapping(path="/replyDel",produces="application/json;charset=utf-8")
+	@ResponseBody
+	public String replyDelHandle(@RequestParam String rno,Model model,HttpSession session) {
+		String id = (String)session.getAttribute("logon");
+		boolean rst = false;
 		
-		// rno로 recipe_info 의 pk 값 탐색.
-		String no = rReplyService.getNo(rno);
-		// 댓글 삭제
-		boolean rst = rReplyService.delReply(rno);
+		if(id!=null) {
+			// 작성자와 지우려는 사람이 동일인인지 체크 - true일때 지운다. 
+			if(id.equals(rReplyService.chkId(rno)))
+				rst = rReplyService.delReply(rno);
+		}
+			
+		Map<String,Boolean> map = new HashMap<>();
+			map.put("rst", rst);
 		
-		// 이 아래부터 댓글 삭제 후 리턴 시, 페이지 출력 위한 데이터 셋팅 작업들
-		Map info = rDetailService.getInfo(no);
-		List<Map> detail = rDetailService.getDetail(no);
-		
-		String id = (String)info.get("ID");
-		Map profile = rDetailService.getProfile(id);
-		
-		String items = (String)info.get("ITEMS");
-		String[] itemAr = items.split("#");
-			info.put("ITEMS", itemAr);
-		
-		// 요리 완성된 사진들 담아주기
-		List<Map> fphoto = rDetailService.getFinal(no);	
-		// 댓글 출력 위한 작업.
-		List<Map<String,Object>> reply = rReplyService.getReply(no);	
-		
-		model.addAttribute("profile", profile);
-		model.addAttribute("info", info);
-		model.addAttribute("detail", detail);
-		model.addAttribute("fphoto", fphoto);
-		model.addAttribute("reply",reply);
-		model.addAttribute("rate",rReplyService.getAvg(no));
-		model.addAttribute("body", "/WEB-INF/view/recipeDetail.jsp");
-		
-		return "index";
+		return gson.toJson(map);
 	}
 	
 	
