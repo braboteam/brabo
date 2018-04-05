@@ -97,8 +97,16 @@ input[type=submit] {
 					<c:otherwise>
 						<a href="${pageContext.request.contextPath }/mypage">
 					</c:otherwise>
-				</c:choose> <img src="${board[0].PROFILE }"
-				style="border-radius: 100%; width: 120px; height: 120px;"></a></td>
+				</c:choose> <c:choose>
+					<c:when test="${board[0].PROFILE != null}">
+						<img src="${board[0].PROFILE }"
+							style="border-radius: 100%; width: 120px; height: 120px;">
+					</c:when>
+					<c:otherwise>
+						<img src="/default_profile.jpg"
+							style="border-radius: 100%; width: 120px; height: 120px;">
+					</c:otherwise>
+				</c:choose> </a></td>
 			<!-- 아이디 -->
 			<td style="width: 45%;"><c:choose>
 					<c:when test="${logon != board[0].ID }">
@@ -207,10 +215,17 @@ input[type=submit] {
 				<c:forEach var="i" items="${comments }">
 					<li><table style="width: 100%;" border="0">
 							<tr>
-								<td rowspan="2" style="width: 10%;"><img
-									src="${i.PROFILE }"
-									style="border-radius: 100%; width: 50px; height: 50px;"
-									onclick="info('${i.ID}');">&nbsp;</td>
+								<td rowspan="2" style="width: 10%;"><c:choose>
+										<c:when test="${i.PROFILE != null}">
+											<img src="${i.PROFILE }"
+												style="border-radius: 100%; width: 50px; height: 50px;"
+												onclick="info('${i.ID}');">
+										</c:when>
+										<c:otherwise>
+											<img src="/default_profile.jpg"
+												style="border-radius: 100%; width: 50px; height: 50px;">
+										</c:otherwise>
+									</c:choose> &nbsp;</td>
 								<td onclick="info('${i.ID}');"><font color="orangered"
 									size="4px">${i.ID } ( ${i.NICK} )</font> &nbsp; <font
 									color="silver">${i.COMMENTS_DATE }</font></td>
@@ -250,6 +265,7 @@ input[type=submit] {
 <br />
 
 <script>
+	// 좋아요 
 	function like(pk, b) {
 		if (b == 't') {
 			$
@@ -297,6 +313,7 @@ input[type=submit] {
 		}
 	}
 
+	// 글삭제
 	function deleteBoard(pk) {
 		if (window.confirm("해당 게시글을 삭제하시겠습니까?")) {
 			$
@@ -315,6 +332,8 @@ input[type=submit] {
 							});
 		}
 	}
+
+	// 인포창 넘어가기
 	function info(id) {
 		if (id != "${logon}") {
 			location.href = "${pageContext.request.contextPath}/followinfo?id="
@@ -324,6 +343,7 @@ input[type=submit] {
 		}
 	}
 
+	// 댓글삭제
 	function deleteReply(comment) {
 		if (window.confirm("해당 댓글을 삭제하시겠습니까?")) {
 			$.get("${pageContext.request.contextPath}/deletecomments", {

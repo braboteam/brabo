@@ -157,13 +157,14 @@ footer {
 <!-- 헤더 끝 -->
 <!-- 사이드바 -->
 <div class="container-fluid">
+	<!-- 접속유저목록  -->
 	<div class="row content">
 		<div class="col-sm-3 sidenav">
 			<h4>
-				현재 접속 : <b>${member.size() }</b>
+				현재 접속 : <b id="onlineCount">${member.size() + 1}</b>
 			</h4>
 			<br />
-			<ul class="nav nav-pills nav-stacked">
+			<ul class="nav nav-pills nav-stacked" id="onlineUserList">
 				<li class="active select" onclick="selectBar(this)"><a
 					href="javascript:openChat();"
 					style="text-align: center; text-decoration: none;"
@@ -173,9 +174,16 @@ footer {
 				<c:forEach var="i" items="${member }">
 					<li class="select" onclick="selectBar(this)"><a
 						style="text-decoration: none;" onclick="changeFlag('${i.ID}')"><font
-							color="black"><b><img src="${i.PROFILE }"
-									style="width: 30px; height: 30px; border-radius: 100%;">
-									${i.NICK} ( ${i.ID } ) <c:choose>
+							color="black"><b> <c:choose>
+										<c:when test="${i.PROFILE != null}">
+											<img src="${i.PROFILE }"
+												style="width: 30px; height: 30px; border-radius: 100%;">
+										</c:when>
+										<c:otherwise>
+											<img src="/default_profile.jpg"
+												style="width: 30px; height: 30px; border-radius: 100%;">
+										</c:otherwise>
+									</c:choose> ${i.NICK} ( ${i.ID } ) <c:choose>
 										<c:when test="${i.FID != null }">
 											<font color="green"> follow </font>
 										</c:when>
@@ -186,8 +194,10 @@ footer {
 				</c:forEach>
 			</ul>
 			<br>
+			<!-- 검색바 -->
 			<div class="input-group">
-				<input type="text" class="form-control" placeholder="Search Blog..">
+				<input type="text" class="form-control" placeholder="Search User.."
+					onkeyup="searchUser($(this).val());" id="onlineSearchBar">
 				<span class="input-group-btn">
 					<button class="btn btn-default" type="button">
 						<span class="glyphicon glyphicon-search"></span>
@@ -291,17 +301,25 @@ footer {
 							function(rst) {
 								$("#head")
 										.html(
-												"<img src='/Desert.jpg' alt='Person' width='96' height='96'>"
+												"<img src='/all.jpg' alt='Person' width='96' height='96'>"
 														+ " <b style='color: green;'>Open Chat</b><small><font color='red'>"
 														+ " ( ※ 오픈채팅의 내용은 삭제될 수 있습니다. ) </font></small>");
 								var msg = "";
 								for (var i = 0; i < rst.length; i++) {
+									if (rst[i].PROFILE == null) {
+										rst[i].PROFILE = "/default_profile.jpg";
+									}
 									if ("${logon}" == rst[i].ID) { // 내글
 										msg += "<div class='container' style='width: 30%;'>"
 												+ " <img src='"
 												+ rst[i].PROFILE
 												+ "' alt='Avatar' style='width: 80%;'>"
-												+ " <p><b>"
+												+ " <p><font color='orange'>"
+												+ rst[i].NICK
+												+ " ( "
+												+ rst[i].ID
+												+ " ) "
+												+ "</font><br/><b>"
 												+ rst[i].msg
 												+ "</b></p>	<span class='time-right'>"
 												+ rst[i].date + "</span></div>";
@@ -310,7 +328,12 @@ footer {
 												+ " <img src='"
 												+ rst[i].PROFILE
 												+ "' alt='Avatar' class='right' style='width: 100%;'>"
-												+ " <p><b>"
+												+ " <p><font color='pistacho'>"
+												+ rst[i].NICK
+												+ " ( "
+												+ rst[i].ID
+												+ " ) "
+												+ "</font><br/><b>"
 												+ rst[i].msg
 												+ "</b></p>"
 												+ "<span class='time-left'>"
@@ -363,23 +386,23 @@ footer {
 								"friend" : flag
 							},
 							function(rst) {
-								for (var i = 0; i < rst.length; i++) {
-									if ("${logon}" != rst[i].ID) {
-										$("#head")
-												.html(
-														"<a href='${pageContext.request.contextPath}/followinfo?id="
-																+ rst[i].ID
-																+ "' style='text-decoration:none;'><img src='"+rst[i].PROFILE+"' alt='Person' width='96' height='96'>"
-																+ " <b style='color: green;'> "
-																+ rst[i].NICK
-																+ " ( "
-																+ rst[i].ID
-																+ " )</b></a>");
-										break;
-									}
+								if (rst[0].PROFILE == null) {
+									rst[0].PROFILE = "/default_profile.jpg";
 								}
-								var msg = "";
-								for (var i = 0; i < rst.length; i++) {
+								$("#head")
+										.html(
+												"<a href='${pageContext.request.contextPath}/followinfo?id="
+														+ rst[0].ID
+														+ "' style='text-decoration:none;'><img src='"+rst[0].PROFILE+"' alt='Person' width='96' height='96'>"
+														+ " <b style='color: green;'> "
+														+ rst[0].NICK + " ( "
+														+ rst[0].ID
+														+ " )</b></a>");
+								msg = "";
+								for (var i = 1; i < rst.length; i++) {
+									if (rst[i].PROFILE == null) {
+										rst[i].PROFILE = "/default_profile.jpg";
+									}
 									if ("${logon}" == rst[i].ID) { // 내글
 										msg += "<div class='container' style='width: 30%;'>"
 												+ " <img src='"
@@ -424,5 +447,57 @@ footer {
 			$("#chatlist").css("background-color", "#FAED7D");
 		}
 		//#D1B2FF  #FAED7D #86E57F
+	}
+
+	// 접속중 유저검색
+	function searchUser(name) {
+		console.log("searchUser()!");
+		$
+				.get(
+						"${pageContext.request.contextPath}/onlinesearch",
+						{
+							"keyword" : name
+						},
+						function(obj) {
+							var list = "";
+							// 오픈채팅부분 
+							var select = "";
+							if (flag == "0") {
+								select = "active";
+							}
+							list += "<li class='"
+									+ select
+									+ " select' onclick='selectBar(this)'>"
+									+ " <a href='javascript:openChat();'	style='text-align: center; text-decoration: none;' onclick='changeFlag(\"0\")'>"
+									+ " <span class='glyphicon glyphicon-comment'></span> Open Chat </a></li>";
+							// 유저리스트 수정
+							for (var i = 0; i < obj.length; i++) {
+								if (obj[i].PROFILE == null) {
+									obj[i].PROFILE = "/default_profile.jpg";
+								}
+								if (flag == obj[i].ID) {
+									list += "<li class='select active' onclick='selectBar(this)'>";
+								} else {
+									list += "<li class='select' onclick='selectBar(this)'>";
+								}
+								list += " <a style='text-decoration: none;' onclick='changeFlag(\""
+										+ obj[i].ID
+										+ "\")'>"
+										+ " <font color='black'><b><img src='"
+										+ obj[i].PROFILE
+										+ "' style='width: 30px; height: 30px; border-radius: 100%;'> "
+										+ obj[i].NICK
+										+ " ( "
+										+ obj[i].ID
+										+ " ) ";
+								if (obj[i].FID != null) {
+									list += "<font color='green'> follow </font>";
+								} else {
+									list += "<font color='red'> not follow </font>";
+								}
+								list += "<span class='glyphicon glyphicon-comment w3-right'></span></b></font></a></li>";
+							}
+							$("#onlineUserList").html(list);
+						});
 	}
 </script>

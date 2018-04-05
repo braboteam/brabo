@@ -192,8 +192,17 @@ body, h1, h2, h3, h4, h5, h6 {
 		<a href="#" onclick="w3_close()"
 			class="w3-hide-large w3-right w3-jumbo w3-padding w3-hover-grey"
 			title="close menu"> <i class="fa fa-remove"></i>
-		</a> <img src="${member.PROFILE }" style="width: 45%;" class="w3-round"><br>
-		<font color="blue"><b>팔로워 ${member.COUNT }</b></font><br /> <br />
+		</a>
+		<c:choose>
+			<c:when test="${member.PROFILE != null}">
+				<img src="${member.PROFILE }" style="width: 45%;" class="w3-round">
+			</c:when>
+			<c:otherwise>
+				<img src="/default_profile.jpg" style="width: 45%;" class="w3-round">
+			</c:otherwise>
+		</c:choose>
+		<br> <font color="blue"><b>팔로워 ${member.COUNT }</b></font><br />
+		<br />
 		<h4>
 			<b> ${member.NICK} ( ${member.ID } )</b>
 		</h4>
@@ -283,8 +292,19 @@ body, h1, h2, h3, h4, h5, h6 {
 							<h1>회원정보수정</h1>
 							<!-- 프로필 -->
 							<div class="container" style="width: 60%; align-content: left;">
-								<img src="${member.PROFILE }" alt="Avatar" class="image"
-									style="width: 100%; height: 50%; border-radius: 5%;" id="image">
+								<c:choose>
+									<c:when test="${member.PROFILE != null}">
+										<img src="${member.PROFILE }" alt="Avatar" class="image"
+											style="width: 100%; height: 50%; border-radius: 5%;"
+											id="image">
+									</c:when>
+									<c:otherwise>
+										<img src="/default_profile.jpg" alt="Avatar" class="image"
+											style="width: 100%; height: 50%; border-radius: 5%;"
+											id="image">
+									</c:otherwise>
+								</c:choose>
+
 								<div class="overlay"
 									style="width: 100%; height: 100%; border-radius: 5%;"
 									onclick="$('#img').trigger('click');">

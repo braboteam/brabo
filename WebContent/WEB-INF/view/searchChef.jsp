@@ -129,8 +129,16 @@ body, html {
 							<c:otherwise>
 								<a href="${pageContext.request.contextPath }/mypage">
 							</c:otherwise>
-						</c:choose> <!--  --> <img src="${i.PROFILE }"
-						style="width: 100px; height: 100px; border-radius: 100%;"></a>
+						</c:choose> <!--  --> <c:choose>
+							<c:when test="${i.PROFILE != null}">
+								<img src="${i.PROFILE }"
+									style="width: 100px; height: 100px; border-radius: 100%;">
+							</c:when>
+							<c:otherwise>
+								<img src="/default_profile.jpg"
+									style="width: 100px; height: 100px; border-radius: 100%;">
+							</c:otherwise>
+						</c:choose> </a>
 					</td>
 					<td style="width: 30%;"><p>
 							<c:choose>
@@ -191,6 +199,7 @@ body, html {
 		}
 	}
 
+	// 검색
 	function search(k) {
 		$
 				.get(
@@ -203,6 +212,9 @@ body, html {
 							$("#content").html("");
 							// 반복시작
 							for (var i = 0; i < obj.length; i++) {
+								if (obj[i].PROFILE == null) {
+									obj[i].PROFILE = "/default_profile.jpg";
+								}
 								var href = "";
 								if ("${logon}" != obj[i].ID) {
 									href = "${pageContext.request.contextPath }/followinfo?id="

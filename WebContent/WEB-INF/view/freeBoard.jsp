@@ -93,8 +93,16 @@ body, html {
 							<c:otherwise>
 								<a href="${pageContext.request.contextPath }/mypage">
 							</c:otherwise>
-						</c:choose> <img src="${i.PROFILE }"
-						style="border-radius: 100%; width: 120px; height: 120px;"></a></td>
+						</c:choose> <c:choose>
+							<c:when test="${i.PROFILE != null}">
+								<img src="${i.PROFILE }"
+									style="border-radius: 100%; width: 120px; height: 120px;">
+							</c:when>
+							<c:otherwise>
+								<img src="/default_profile.jpg"
+									style="border-radius: 100%; width: 120px; height: 120px;">
+							</c:otherwise>
+						</c:choose> </a></td>
 					<!-- 아이디 -->
 					<td style="width: 45%;"><c:choose>
 							<c:when test="${logon != i.ID }">

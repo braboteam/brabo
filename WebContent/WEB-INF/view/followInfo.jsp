@@ -41,11 +41,10 @@ body, h1, h2, h3, h4, h5, h6 {
 	color: gray;
 }
 
-#table{
+#table {
 	border-spacing: 10px;
 	border-collapse: separate;
 }
-
 </style>
 <!-- 사이드바 메뉴 -->
 <nav class="w3-sidebar w3-collapse w3-white w3-animate-left"
@@ -55,8 +54,17 @@ body, h1, h2, h3, h4, h5, h6 {
 		<a href="#" onclick="w3_close()"
 			class="w3-hide-large w3-right w3-jumbo w3-padding w3-hover-grey"
 			title="close menu"> <i class="fa fa-remove"></i>
-		</a> <img src="${member.PROFILE }" style="width: 45%;" class="w3-round"><br>
-		<font color="blue"><b>팔로워 ${member.COUNT }</b></font> <br /> <br />
+		</a>
+		<c:choose>
+			<c:when test="${member.PROFILE != null}">
+				<img src="${member.PROFILE }" style="width: 45%;" class="w3-round">
+			</c:when>
+			<c:otherwise>
+				<img src="/default_profile.jpg" style="width: 45%;" class="w3-round">
+			</c:otherwise>
+		</c:choose>
+		<br> <font color="blue"><b>팔로워 ${member.COUNT }</b></font> <br />
+		<br />
 		<h4>
 			<b> ${member.NICK} ( ${member.ID } )</b>
 		</h4>
@@ -162,36 +170,37 @@ body, h1, h2, h3, h4, h5, h6 {
 		</header>
 		<div>
 			<div class="content" align="center">
-			
+
 				<table id="table">
 					<tr>
 						<c:forEach var="i" items="${board }" varStatus="vs">
-						<td>
-							<table style="border-spacing: 10px;">
-								<tr>
-									<td class="thumb"><a
-										href="${pageContext.request.contextPath }/recipe/list/${i.NO}"
-										class="link"> <img
-											src="${pageContext.request.contextPath }/iphoto/${i.ID}/${i.IPHOTO}"
-											class="img">
-									</a></td>
-								</tr>
-								<tr>
-									<td>
-										<table style="width: 100%">
-											<tr>
-												<td class="ment"><b>${i.TITLE }</b></td>
-											</tr>
-											<tr>
-												<td class="ment grayMent"><small>by ${i.ID }</small></td>
-											</tr>
-										</table>
-									</td>
-								</tr>
-							</table>
-						</td>
-						<c:if test="${vs.count % 4 ==0 }">
-							</tr><tr>
+							<td>
+								<table style="border-spacing: 10px;">
+									<tr>
+										<td class="thumb"><a
+											href="${pageContext.request.contextPath }/recipe/list/${i.NO}"
+											class="link"> <img
+												src="${pageContext.request.contextPath }/iphoto/${i.ID}/${i.IPHOTO}"
+												class="img">
+										</a></td>
+									</tr>
+									<tr>
+										<td>
+											<table style="width: 100%">
+												<tr>
+													<td class="ment"><b>${i.TITLE }</b></td>
+												</tr>
+												<tr>
+													<td class="ment grayMent"><small>by ${i.ID }</small></td>
+												</tr>
+											</table>
+										</td>
+									</tr>
+								</table>
+							</td>
+							<c:if test="${vs.count % 4 ==0 }">
+					</tr>
+					<tr>
 						</c:if>
 						</c:forEach>
 					</tr>

@@ -15,6 +15,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.socket.WebSocketSession;
 
 import service.admin.RecipeAuthService;
 import service.loginout.LoginoutService;
@@ -81,9 +82,11 @@ public class LoginoutController {
 	}
 
 	@RequestMapping(path = "/logout", method = RequestMethod.GET)
-	public String logoutPostHandle(HttpSession session, Model model) {
+	public String logoutPostHandle(HttpSession session, Model model) throws IOException {
 		application.removeAttribute((String) session.getAttribute("logon"));
 		socketService.removeSocket((String) session.getAttribute("logon"));
+		// 접속중인 사용자들에게 로그아웃 알림
+		socketService.allSendMsg((String) session.getAttribute("logon"));
 		session.removeAttribute("logon");
 		session.removeAttribute("memberRight");
 		model.addAttribute("body", "/WEB-INF/view/indexBody.jsp");

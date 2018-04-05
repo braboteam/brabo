@@ -66,13 +66,18 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 	<select id="selectSocketUser" resultType="hashmap">
 		select * from member
-		<if test="user != null">
-			where id in
-			<foreach collection="user" item="uid" open="(" close=")"
-				separator=",">
-				#{uid}
-			</foreach>
-		</if>
+		<where>
+			<if test="user != null">
+				id in
+				<foreach collection="user" item="uid" open="(" close=")"
+					separator=",">
+					#{uid}
+				</foreach>
+			</if>
+			<if test="keyword != null">
+				and ( id like #{keyword} or nick like #{keyword} )
+			</if>
+		</where>
 	</select>
 
 </mapper>
