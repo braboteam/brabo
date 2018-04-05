@@ -69,6 +69,8 @@ public class LoginoutController {
 					Cookie auth = new Cookie("recipeAuth", (String)rst.get("ID") );
 					auth.setPath("/");
 					resp.addCookie(auth);	
+					m.remove((String)rst.get("ID"));
+					ctx.setAttribute("recipeAuth", m);
 				}
 			return "redirect:/index";
 		} else {

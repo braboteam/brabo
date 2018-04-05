@@ -19,7 +19,7 @@
 			target="_blank">w3.css</a>
 	</p>
 
-	<div style="position: relative; bottom: 100px; z-index: 1;"
+	<div style="position: relative; bottom:100px; z-index: 1;"
 		class="w3-tooltip w3-right">
 		<span class="w3-text w3-padding w3-teal w3-hide-small">Go To
 			Top</span> <a class="w3-button w3-theme" href="#myPage"><span

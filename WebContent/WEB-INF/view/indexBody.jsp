@@ -70,10 +70,10 @@
 </c:if>
 <div align="center" style="margin-top: 40px;">
 	<div style="width:840px">
+		<h4 style="text-align:left">누구나 집에서 쉽게 요리를</h4>
 		<hr/>
 		<c:forEach var="i" items="${cateChk }">
 			<div class="content">
-				
 				<table>
 					<tr>
 						<th class="th">${i.cateChk }</th>
