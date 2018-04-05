@@ -27,7 +27,6 @@ public class JoinService {
 		savedir.mkdirs();
 		int cnt = 0;
 		String fileName = String.valueOf(System.currentTimeMillis());
-		profile.transferTo(new File(savedir, fileName));
 		Map map = new HashMap<>();
 		map.put("id", param.get("id"));
 		map.put("nick", param.get("nick"));
@@ -35,8 +34,9 @@ public class JoinService {
 		map.put("email", param.get("email"));
 		map.put("right", 0);
 		if (profile.isEmpty()) {
-			map.put("profile", null); 
+			map.put("profile", null);
 		} else {
+			profile.transferTo(new File(savedir, fileName));
 			map.put("profile", "/photo/" + param.get("id") + "/" + fileName);
 		}
 		return template.insert("member.addNewjoin", map) == 1;

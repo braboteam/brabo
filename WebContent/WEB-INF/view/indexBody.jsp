@@ -75,9 +75,9 @@
 	</script>
 </c:if>
 
-<c:if test="${join != null}">
+<c:if test="${param.join != null}">
 	<script>
-		window.alert("${join}");
+		window.alert("${param.join}");
 	</script>
 </c:if>
 
