@@ -20,7 +20,7 @@
 	height:160px;
 }
 .td1 {
-	width: 500px;
+	width: 520px;
 	vertical-align:bottom;
 }
 
@@ -256,9 +256,12 @@
 
 		// 요리순서 기입칸 삭제
 		$("#detailM").click(function() {
-			$("#detail" + i).remove();
-			i--;
+			if(i !=1) {
+				$("#detail" + i).remove();
+				i--;
+			}
 		});
+				
 
 		// 요리 사진추가
 		$("#pbt1").click(function() {
