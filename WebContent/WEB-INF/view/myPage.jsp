@@ -335,7 +335,7 @@ body, h1, h2, h3, h4, h5, h6 {
 
 							<div class="clearfix">
 								<button type="reset" class="cancelbtn">취소</button>
-								<button type="submit" class="signupbtn" onclick="test(this);">수정</button>
+								<button type="button" class="signupbtn" onclick="test(this);">수정</button>
 							</div>
 						</div>
 					</form>
@@ -353,7 +353,8 @@ body, h1, h2, h3, h4, h5, h6 {
 		} else if ($("#pass").val() == "" || $("#repass").val() == "") {
 			window.alert("패스워드를 입력해 주십시오.");
 		} else {
-			$("#button").click();
+			$(button).attr("type", "submit");
+			$(button).click();
 		}
 	}
 

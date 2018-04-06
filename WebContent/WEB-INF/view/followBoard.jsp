@@ -57,6 +57,22 @@ body, h1, h2, h3, h4, h5, h6 {
 		</c:choose>
 		<br /> <br />
 	</div>
+	<!-- 해당 유저 접속중체크 -->
+	<div>
+		&nbsp;&nbsp;
+		<c:choose>
+			<c:when test="${member.logon != null }">
+				<span class="glyphicon glyphicon-ok-sign" style="color: green;"></span>
+				<b style="color: green">온라인</b>
+			</c:when>
+			<c:otherwise>
+				<span class="glyphicon glyphicon-remove-sign" style="color: red;"></span>
+				<b style="color: red"> 오프라인 </b>
+			</c:otherwise>
+		</c:choose>
+	</div>
+	<br />
+	<!--  -->
 	<div class="w3-bar-block">
 		<a
 			href="${pageContext.request.contextPath }/followinfo?id=${member.ID}"
