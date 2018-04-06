@@ -172,7 +172,8 @@ input[type=submit] {
 		</tr>
 		<tr>
 			<!-- 내용 -->
-			<td colspan="2"><br /> ${board[0].COMMENTS }<br /> <br /></td>
+			<td colspan="2"><br /> <c:out value="${board[0].COMMENTS }" /><br />
+				<br /></td>
 		</tr>
 		<tr>
 			<!-- 이미지 -->

@@ -227,7 +227,7 @@ body, h1, h2, h3, h4, h5, h6 {
 						<td colspan="2"><a
 							href="${pageContext.request.contextPath }/boarddetail?pk=${i.BOARD_ID}"
 							style="text-decoration: none; color: black; font-size: 15px;"><br />
-								${i.COMMENTS }<br /> <br /></a></td>
+								<c:out value="${i.COMMENTS }" /><br /> <br /></a></td>
 					</tr>
 					<tr>
 						<!-- 이미지 -->
